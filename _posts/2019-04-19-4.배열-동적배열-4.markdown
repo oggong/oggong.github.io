@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex06_동적배열 [배열]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 동적 배열
  	출력<br/>
@@ -18,9 +20,11 @@ tags: Java
 
 
 </p>
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public static void main(String[] args) {
 
 	char[][] star = new char[4][];
@@ -47,6 +51,7 @@ public static void main(String[] args) {
 	}
 }
 }
+
 ~~~
 
 

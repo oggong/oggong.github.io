@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex10_do-while[제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 while(false){ <br/>
  명령문 <br/>
@@ -19,7 +21,7 @@ do{ <br/>
 
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 

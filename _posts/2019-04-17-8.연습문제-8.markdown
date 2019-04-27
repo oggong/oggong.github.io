@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex08_연습문제 [제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 	문제) 행과 열의 수를 입력받아 다음과 같이 출력하는 프로그램을 작성하시오.
 
@@ -21,7 +23,7 @@ tags: Java
 
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 
@@ -49,6 +51,7 @@ tags: Java
 ~~~
 
 ~~~
+
 2번 풀이
 
 	Scanner input = new Scanner(System.in);
@@ -70,6 +73,7 @@ tags: Java
 				}
 		}
 }
+
 ~~~
 
 
@@ -79,7 +83,7 @@ tags: Java
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59147860-e6b78080-8a3b-11e9-9740-29c1eb9a8dbf.JPG" width="70"><br/><br/><br/><br/><br/>
 
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 
 <p>

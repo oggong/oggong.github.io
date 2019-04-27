@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex07_shift [쉬프트 연산자]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 -shift : 모든 비트의 값을 이동하는 연산자<br>
   - >> : 오른쪽으로 이동<br>
@@ -15,9 +17,10 @@ tags: Java
   - >>> : 오른쪽으로 이동 하나 (무조건 부호에 0)
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public class Ex07_shift {
 
 	public static void main(String[] args) {
@@ -29,6 +32,7 @@ public class Ex07_shift {
 	}
 
 }
+
 ~~~
 
 <!-- - 결과

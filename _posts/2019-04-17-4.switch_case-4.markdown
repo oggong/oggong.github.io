@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex04_switch_주민번호 [제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 - switch 문 : 분기문<br>
   -switch(__ ){ <br>
@@ -21,7 +23,8 @@ tags: Java
   }
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
+
 ~~~
 
 public class Ex04_switch_주민번호 {

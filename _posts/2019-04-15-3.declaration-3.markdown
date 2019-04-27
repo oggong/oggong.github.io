@@ -9,6 +9,8 @@ tags: Java
 
 ## Ex03_Declaration
 
+<hr style="height: 1px; background: skyblue; "/>
+
 ~~~
 
 public class Ex03_Declaration {

@@ -7,13 +7,14 @@ tags: Java
 
 ---
 ## Ex02_Not [결과를 반대로 하는 연산자]
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 - not 연산자
   - 일반논리(true/false) : !
   - 이진논리(비트의 값: 0/1) : ~
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 public class Ex02_Not {

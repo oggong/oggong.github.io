@@ -9,6 +9,8 @@ tags: Java
 
 ## Ex02_Caution
 
+<hr style="height: 1px; background: skyblue; "/>
+
 ~~~
 
 public class Ex02_Caution {

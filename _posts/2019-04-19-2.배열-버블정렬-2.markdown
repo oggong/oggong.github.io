@@ -7,14 +7,18 @@ tags: Java
 
 ---
 ## Ex04_버블정렬[배열]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 버블 정렬
 
 </p>
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public static void main(String[] args) {
 
 		int[] arr = { 22, 15, 13, 7, 35, 25 };

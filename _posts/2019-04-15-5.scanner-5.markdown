@@ -9,7 +9,7 @@ tags: Java
 
 ## Ex05_Scaneer
 
-
+<hr style="height: 1px; background: skyblue; "/>
 
 <p>
 - import java.util 에서
@@ -17,7 +17,7 @@ tags: Java
 					// documentation 참조.
 					// import java.util.Scanner;
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 public class Ex05_Scanner {

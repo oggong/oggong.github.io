@@ -1,0 +1,220 @@
+---
+layout: post
+title:  "0426-[자바]-OOP-8.inherit"
+subtitle:   "0426-inherit"
+categories: devlog
+tags: Java
+
+---
+## inherit
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Ddal
+
+~~~
+
+package h_inherit;
+
+//***** 상속관계
+
+public class Ddal extends Umma {
+
+	public Ddal() {
+		System.out.println("자식 생성자");
+	}
+
+	public void gene() {
+		System.out.println("자식은 자식이다");
+	}
+
+	public void study() {
+		System.out.println("딸은 학생");
+	}
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### HasATest
+
+~~~
+
+package h_inherit;
+
+import java.awt.*; //frame
+
+public class HasATest {
+
+	public HasATest() {
+		// has - a
+		Frame f = new Frame("나의 첫 화면");
+		f.setSize(500, 400);
+		f.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		HasATest test = new HasATest();
+
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### isATest
+
+~~~
+
+package h_inherit;
+
+import java.awt.*;
+
+
+// 부모의 멤버를 마음대로 쓰고싶어서 ===== 상속
+
+public class isATest extends Frame {
+
+	isATest(){
+
+		setSize(400, 300);
+		setVisible(true);
+	}
+
+	public static void main(String[] args) {
+
+		isATest test = new isATest();
+
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Test
+
+~~~
+
+package h_inherit;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// 1. 클래스 생성과 메소드 호출 확인
+
+//		Umma u = new Umma();
+//		u.gene();
+//		u.job();
+//		u.study(); 부모 클래스에서는 자식 클래스 사용 못함
+
+		/*
+		 * Ddal d = new Ddal();
+		 * d.gene();
+		 * d.study();
+		 */
+//		d.job(); 자식 클래스에서는 부모 클래스에 접근 가능함  ====================focus ! *****
+
+		// 2. 부모 변수에 자식 객체 생성
+//		Ddal dd = new Umma(); ======= 조금 메모리를 잡아 놓고 넓게 잡으려 하는건 X
+//		Umma uu = new Umma(); // 많이 메모리를 잡고 조금 사용 가능
+//		uu.gene(); // ****
+//		uu.job();
+//		uu.study();   --- 이건 안됨!
+		//
+
+		//**** overriding
+		//		- 부모자식간의 메소드명이 동일
+		// 		- 인자동일/리턴형 동일
+		//		- 접근지정자는 같거나 크거나 (동일하게 쓰는 것을 권장 합니다!)
+		//		* 부모 변수에서 자식의 멤버 호출
+
+
+		// 3. 형변환 (casting) -- 상속 관계에서만 가능
+		//
+//		String a  =new String("헬로우");
+//		StringBuffer b = (StringBuffer)a;  --- 참조형은 형변환이 안되지만 /// 단 부모자식 관계 .. 즉, 상속 관계 에서만 가능
+
+
+//		Umma u = new Umma();
+//		Ddal d = (Ddal)u;
+//		Exception in thread "main" java.lang.ClassCastException: h_inherit.Umma cannot be cast to h_inherit.Ddal
+	//	at h_inherit.Test.main(Test.java:40)
+
+//		Ddal d = new Ddal();
+//		Umma u = (Umma)d;
+//		d.study(); // 부모 자식 간의 형변환 가능 하지만 메모리 고려 해야한다.
+
+		Umma uu = new Ddal();
+		uu.gene();
+		uu.job();
+		//study()
+
+		Ddal dd =(Ddal)uu;
+		dd.study();
+
+		//4. instanceof 연산자
+		Ddal d = new Ddal();
+		if (d instanceof Ddal) {
+			System.out.println("Ddal 객체임 ");
+		}
+
+		if (d instanceof Umma) {
+			System.out.println("Umma 객체임 ");
+		}
+		if (d instanceof Object) {
+			System.out.println("Object 객체임 "); // public class Umma 뒤에 안쓰여 있지만
+														// 자바의 모든 클래스는 Object 클래스를 받음
+														// public class Umma extends Object
+		}
+	}
+
+
+}
+
+/*
+	부모는 부모 클래스에 있는거만 사용이 가능하고
+	자식은 부모의 클래스에 있는 것과 자신의 클래스에 있는 것을 사용 할 수 있다.
+*/
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Umma
+
+~~~
+
+package h_inherit;
+
+public class Umma {
+
+	public Umma() {
+		System.out.println("부모 생성자");
+	}
+	public void gene() {
+		System.out.println("부모는 부모다");
+	}
+
+	public void job() {
+		System.out.println("엄마는 대장");
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
