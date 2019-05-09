@@ -15,7 +15,7 @@ tags: Java
 
 * /**	원래 도움말 주석  * /
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
  데이터 타입 (자료형)
  1. 기본형 (primitive type) <br>
@@ -29,7 +29,7 @@ tags: Java
   	ex) String --- 문자열 (참조형이라서 기본형이랑 다름) <br>
 		ex) String (예외) <br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 
 ~~~

@@ -1,0 +1,240 @@
+---
+layout: post
+title:  "1126-1-[React]-Youtube_Clone"
+subtitle:   "1126-Youtube_Clone"
+categories: devlog
+tags: react
+---
+
+## YOUTUBE_CLONE
+---
+
+#### 파일 구조
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69639868-b5417880-10a0-11ea-8a77-7f53c651e69e.png" width="280"/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+#### 파일 구조 2
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69646414-1c642a80-10ab-11ea-8939-87e0e2a23156.png" width="380"/><br/><br/><br/><br/><br/><br/>
+
+
+- App.js
+
+~~~
+
+import React from 'react';
+
+import { Grid } from '@material-ui/core';
+
+import youtube from './api/youtube';
+
+import { SearchBar, VideoDetail, VideoList } from './components/index';
+
+class App extends React.Component {
+
+    state = {
+        videos: [],
+        selectedVideo: null,
+    }
+
+    componentDidMount(){
+        this.handleSubmit('pdf generation with react and node')
+    }
+
+    onVideoSelect = (video) => {
+        this.setState({ selectedVideo: video });
+    }
+
+    handleSubmit = async (searchTerm) => { //refactoring
+        const response = await youtube.get('search', {
+            params: {
+                part: 'snippet',
+                maxResults: 5,
+                key: "", //google key
+                q: searchTerm
+            }
+        });
+        this.setState({ videos: response.data.items, selectedVideo: response.data.items[0] });
+        // console.log(response.data.items);
+    }
+
+    render() {
+        const { selectedVideo, videos } = this.state;
+
+        return (
+            <Grid justify="center" container spacing={10}>
+                <Grid item xs={12}>
+                    <Grid container spacing={10}>
+                        <Grid item xs={12}>
+                            {/* SEARCH BAR */}
+                            <SearchBar onFormSubmit={this.handleSubmit} />
+                        </Grid>
+                        <Grid item xs={8}>
+                            {/* VIDEO DETAILS */}
+                            <VideoDetail video={selectedVideo} />
+                        </Grid>
+                        <Grid item xs={4}>
+                            {/*VIDEO LIST */}
+                            <VideoList videos={videos} onVideoSelect={this.onVideoSelect} />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        )
+    }
+}
+
+export default App;
+
+~~~
+
+- components/index.js
+
+~~~
+
+export { default as SearchBar} from './SearchBar';
+export { default as VideoDetail} from './VideoDetail';
+export { default as VideoList} from './VideoList';
+
+~~~
+
+- components/SearchBar.js
+
+~~~
+
+import React from 'react';
+
+import { Paper, TextField } from '@material-ui/core';
+
+
+class SearchBar extends React.Component {
+
+    state = {
+        searchTerm: '',
+
+    }
+
+    handleChange = (event) => this.setState({ searchTerm: event.target.value });
+    // handleChange = (event) => {
+    //     console.log(event.target.value);
+    //     this.setState({ searchTerm: event.target.value }); }
+
+    handleSubmit = (event) => {
+        const { searchTerm } = this.state;
+        const { onFormSubmit } = this.props;
+
+        onFormSubmit(searchTerm);
+
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <Paper elevation={6} style={{ padding: '25px' }}>
+                <form onSubmit={this.handleSubmit}>
+                    <TextField fullWidth label="Search..." onChange={this.handleChange} />
+                </form>
+            </Paper>
+        )
+
+    }
+}
+export default SearchBar;
+
+~~~
+
+
+- components/VideoDetail.js
+
+~~~
+
+import React from 'react';
+
+import { Paper, Typography } from '@material-ui/core';
+
+const VideoDetail = ({ video }) => {
+
+    if (!video) return <div>Loading...</div>
+
+    console.log(video);
+
+    const videoSrc = `https://www.youtube.com/embed/${video.id.videoId}`
+
+    return (
+        <React.Fragment>
+            <Paper elevation={6} style={{ height: '70%' }}>
+                <iframe frameBorder="0" height="100%" width="100%" title="Video Player" src={videoSrc} />
+
+            </Paper>
+            <Paper elevation={6} style={{ padding: '15px' }}>
+                <Typography variant="h4">{video.snippet.title} - {video.snippet.channelTitle} </Typography>
+                <Typography variant="subtitle1">{video.snippet.channelTitle}</Typography>
+                <Typography variant="subtitle2">{video.snippet.description}</Typography>
+            </Paper>
+        </React.Fragment>
+
+    )
+}
+export default VideoDetail;
+
+~~~
+
+- components/VideoList.js
+
+~~~
+
+import React from 'react';
+import { Grid } from '@material-ui/core';
+
+import VideoItem from './VideoItem';
+
+const VideoList = ({ videos, onVideoSelect }) => {
+
+    const listOfVideos = videos.map((video, id) => <VideoItem onVideoSelect={onVideoSelect} key={id} video={video} />)
+
+    return (
+        <Grid container spacing={10}>
+            {listOfVideos}
+        </Grid>
+    );
+}
+export default VideoList;
+
+~~~
+
+- components/VideoItem.js
+
+~~~
+
+import React from 'react';
+
+import { Grid, Paper, Typography } from '@material-ui/core';
+
+const VideoItem = ({ video, onVideoSelect }) => {
+    return (
+        <Grid item xs={12}>
+            <Paper style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => onVideoSelect(video)}>
+                <img style={{ marginRight: '20px' }} alt="thumbnail" src={video.snippet.thumbnails.medium.url} />
+                <Typography variant="subtitle1"><b>{video.snippet.title}</b></Typography>
+            </Paper>
+
+        </Grid>
+    )
+}
+export default VideoItem;
+
+~~~
+
+- api/youtube.js
+
+~~~
+
+import axios from 'axios';
+
+export default axios.create({
+    baseURL: 'https://www.googleapis.com/youtube/v3',
+
+});
+
+~~~

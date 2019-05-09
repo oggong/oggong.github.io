@@ -1,7 +1,7 @@
 ---
 layout: tag-blog
-title: ML
-slug: ml
+title: Oracle
+slug: Oracle
 category: devlog
 menu: false
 order: 1

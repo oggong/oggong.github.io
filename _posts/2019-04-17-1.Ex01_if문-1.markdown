@@ -7,16 +7,20 @@ tags: Java
 
 ---
 ## Ex01_if_주민번호[제어문-if문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
+
 <p>
 - if문<br>
   - 1이거나 3이거나 9이면 남자를 출력
   - 2이거나 4이거나 8이면 여자를 출력 해주세요
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public class Ex01_if_주민번호 {
 
 	public static void main(String[] args) {

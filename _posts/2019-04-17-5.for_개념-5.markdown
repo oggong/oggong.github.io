@@ -7,15 +7,18 @@ tags: Java
 
 ---
 ## Ex05_for문 개념 [제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 - for(초기값;조건문;증가식) <br>
 	{반복할 문장들}<br>
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public class Ex05_for개념 {
 
 	public static void main(String[] args) {
@@ -24,6 +27,7 @@ public class Ex05_for개념 {
 		}
 	}
 	// Z~A 출력
+
 ~~~
 
 - 결과
@@ -33,6 +37,7 @@ public class Ex05_for개념 {
 ---
 
 ~~~
+
 for (char c = 'A'; c <= 'Z'; c++) {
 			System.out.print(c);
 	}
@@ -42,9 +47,10 @@ for (char c = 'A'; c <= 'Z'; c++) {
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58371643-ee602b00-7f4d-11e9-8024-e79b55c71f63.JPG" width="220"><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 int sum = 0, sum2 = 0;
 
   for (int i = 1; i <= 100; i += 2) {
@@ -54,13 +60,17 @@ int sum = 0, sum2 = 0;
   System.out.println("짝수의 합 :" + sum);
   System.out.println("홀수의 합 :" + sum2);
 }
+
 ~~~
+
 - 결과
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58371681-5747a300-7f4e-11e9-912d-6057cbb52daa.JPG" width="120"><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
+
 ~~~
+
 for (int i = 1; i <= 100; i++) {
 			if (i % 2 == 0) {
 				sum += i;
@@ -72,9 +82,11 @@ for (int i = 1; i <= 100; i++) {
 		System.out.println("짝수의 합 :" + sum);
 		System.out.println("홀수의 합 :" + sum2);
 	}
+
 ~~~
+
 - 결과
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58371722-c624fc00-7f4e-11e9-9cee-1a49a3bd239b.JPG" width="70"><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>

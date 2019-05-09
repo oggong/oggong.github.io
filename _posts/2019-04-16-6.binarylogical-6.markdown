@@ -7,13 +7,17 @@ tags: Java
 
 ---
 ## Ex06_BinaryLogical [바이너리 연산자]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
+
 <p>
 - 바이너리 연산자<br>
   - 이진논리 : (bit에 있는 1/0): "&", "|", "^"<br>
   - "^" exclusive or ---> 더러 사용되어짐
 </p>
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 public class Ex06_BinaryLogical {

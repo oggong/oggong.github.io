@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex06_for문 연습 [제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 -		문제 1)1~ N까지의 숫자를 다음처럼 출력하라<br>
 		1 2 3 4 5 <br>
@@ -15,9 +17,10 @@ tags: Java
 		11 12 13 14 15 <br>
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 for (int i = 1; i <= 15; i++) {
 
 			System.out.print(i + " ");
@@ -26,13 +29,15 @@ for (int i = 1; i <= 15; i++) {
 			System.out.println();
 			}
 		}
+
 ~~~
 
 - 결과
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58371852-4d26a400-7f50-11e9-815a-7adc92087d41.JPG" width="130"><br><br>
 
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 <p>
 - 문제3 ) 입력받은 문자열의 뒤집어서 출력하세요<br>
@@ -43,7 +48,7 @@ for (int i = 1; i <= 15; i++) {
 -	 CarpeDiem   meiDepraC <br>		
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 

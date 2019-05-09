@@ -1,0 +1,144 @@
+---
+layout: post
+title:  "0425-[자바]-OOP-5.static"
+subtitle:   "0425-static"
+categories: devlog
+tags: Java
+
+---
+## static
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### DBConnect
+
+~~~
+
+package e_static2;
+
+public class DBConnect {
+
+	static DBConnect db; // 변수 선언  6
+
+	private DBConnect() { //4
+		System.out.println("실제로 디비에 연결을 얻어옴");
+	}
+
+	public static DBConnect getInstance() { // 3. getInstance 실행
+		if(db == null) db = new DBConnect();
+		return db; //5
+
+	} // 한번 뜨게 됨!!
+	// 자원을 한번쓰고 다른 class 에 공유 하기 위해 static 으로 공유!!
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Test
+
+~~~
+
+
+package e_static2;
+
+public class Test { // main
+
+	public static void main(String[] args) {
+		UserA a = new UserA(); // 1. UserA 형태의 객체를 생성 - > UserA로
+		a.use(); //8
+
+		UserB b = new UserB();
+		b.use();
+
+		UserC c = new UserC();
+		c.use();
+	} //end of main
+
+}// end of class
+
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+
+#### UserA
+
+~~~
+
+package e_static2;
+
+public class UserA {
+	DBConnect con; // 2. DBConnect 자료 구조 con 변수명
+
+	public UserA() { // 실행
+//		con = new DBConnect();
+
+		con = DBConnect.getInstance(); // 3. getInstance() 메소드 의 결과 값을 받기 7
+	}
+
+	public void use() { // 9
+		System.out.println("디비 작업중");
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### UserB
+
+~~~
+
+package e_static2;
+
+public class UserB {
+
+	DBConnect con;
+
+	public UserB() {
+//		con = new DBConnect();
+		con = DBConnect.getInstance();
+	}
+
+	public void use() {
+		System.out.println("디비 작업중");
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### User C
+
+~~~
+
+package e_static2;
+
+public class UserC {
+
+	DBConnect con;
+
+	public UserC() {
+//		con = new DBConnect();
+		con = DBConnect.getInstance();
+
+	}
+
+	public void use() {
+		System.out.println("디비 작업중");
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>

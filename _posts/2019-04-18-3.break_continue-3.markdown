@@ -7,13 +7,15 @@ tags: Java
 
 ---
 ## Ex11_break_continue[제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
   break - 블럭을 벗어나는 명령<br/>
 	continue - 블럭의 끝으로 가라는 명령
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 
