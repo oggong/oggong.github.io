@@ -1,0 +1,339 @@
+---
+layout: post
+title:  "0420-1-[자바]-Method-1"
+subtitle:   "0420-Method1"
+categories: devlog
+tags: Java
+
+---
+## Method (1)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 흐름 (1)
+
+~~~
+
+public class Ex01_흐름 {
+
+	public static void main(String[] args) {  
+		System.out.println("main 시작");
+		method(); // 메소드는 부르지 않으면 제어권이 넘어가지 않는다.
+
+		System.out.println("main 끝");
+	}// end of main
+
+	//static 메소드에서는 static 만 접근 할 수 있음.
+
+	static void method() {
+		System.out.println("method 실행");
+	}// end of method
+}// end of class
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 흐름 (2)
+
+~~~
+
+public class Ex01_흐름2 {
+
+	public static void main(String[] args) {
+		System.out.println("main 시작");
+
+		Ex01_흐름2 ex = new Ex01_흐름2(); // void만 사용하려면 새롭게 선언 해줘야함!
+		ex.method(); // 메소드는 부르지 않으면 제어권이 넘어가지 않는다.
+
+		System.out.println("main 끝");
+	}// end of main
+
+	// static 메소드에서는 static 만 접근 할 수 있음.
+
+	void method() {
+		System.out.println("method 실행");
+	}// end of method
+}// end of class
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 인자와 반환 (1)
+
+~~~
+
+package e_method;
+
+// 앞으로 역할 부분을 나눠서 만들어줄것임!
+// main에 모두 넣지 않기
+
+public class Ex02_인자와반환 {
+
+	public static void main(String[] args) {
+		// 데이터 입력 받기
+		int a = 10;
+		double b = 20;
+
+		add(a, b); // 함수 호출  변수 a와 b 를 가져가겠다.
+	}// double로 하였을 때 에러 발생 이유 = add에서 double로 변경
+
+	static void add(int a, double b) { // main의 a 와 b 를 받아 오겠다. 인자 아규먼트 파라미터
+		// 입력받은 데이타의 합을 구해서 출력
+		int sum = (int)(a + b);// casting 해야 함.
+
+		System.out.println("합:" + sum);
+
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 인자와 반환 (2)
+
+~~~
+
+package e_method;
+
+// 앞으로 역할 부분을 나눠서 만들어줄것임!
+// main에 모두 넣지 않기
+// 자료형 만 맞으면 다 주고받을 수 있음
+
+
+public class Ex02_인자와반환2 {
+
+	public static void main(String[] args) {
+		int sum = add();
+		// 변수명 안맞춰도 상관 없지만 --- 맞춰야 보기에 좋음
+
+		System.out.println("합:" + sum);
+	}
+
+	static int add() { // int형 하나의 값을 반환 하기 위해 void x int로 변경 해줘야 함
+		int a = 10, b = 20;
+		int sum = a + b;
+		return sum; // 19 라인 실행 하지 않고 제어권 을 반환 !
+
+		// 제어권을 반환 하면서 데이터를 하나 가져갈 수 있음 ===== 원래 return : 흐름 반환
+		// return 값: 호출한 곳으로 딱 하나의 값을 반환
+
+	} // end of add
+
+}// end of class
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 인자와 반환 (3)
+
+~~~
+
+package e_method;
+
+public class Ex02_인자와반환3 {
+
+	public static void main(String[] args) {
+		int [] arr = add();
+
+		// 합을 계산
+
+		int sum = arr[0]+arr[1];
+
+		System.out.println("합:" + sum);
+	}
+
+	static int[] add() { // arr 의 자료형은 int[] 로 해주면 됨!
+		int a = 10, b = 20;
+		// 입력 받기
+		int[] arr = { a, b };
+		// a b 를 하나의 값으로 만들어서 보내주기 위해 배열 선언
+		return arr;
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 인자와 반환 (4)
+
+~~~
+
+package e_method;
+
+public class Ex02_인자와반환4 {
+
+	static int a, b; // 아예 class 에 변수를 선언 == 멤버 변수 == 전역 변수 == global 변수
+	// static 맞춰서 입력 해주기
+	static int sum;
+
+	public static void main(String[] args) {
+		a = 10;
+		b = 20;
+
+		add();
+		System.out.println("합: " + sum);
+	}
+
+	static void add() {
+		sum = a + b;
+
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 성적
+
+~~~
+
+package e_method;
+
+import java.util.Scanner;
+
+
+public class Ex03_성적 {
+
+	static int sum;
+	static int avg;
+
+	public static void main(String[] args) {
+		int[] arr = input();
+		calc(arr);
+		output();
+
+	}
+
+	static int[] input() {
+		// 국영수 점수를 입력 받기
+		Scanner input0 = new Scanner(System.in);
+		System.out.println("입력하세요");
+		int kor = input0.nextInt();
+
+		Scanner input1 = new Scanner(System.in);
+		int eng = input1.nextInt();
+
+		Scanner input2 = new Scanner(System.in);
+		int math = input2.nextInt();
+
+		int[] arr = { kor, eng, math };
+		return arr;
+	}
+
+	static void calc(int[]arr) {
+		// input() 에서 입력 받은 점수들의 합과 평균을 구하기
+		sum = 0;
+		avg = 0;
+		sum = arr[0] + arr[1] + arr[2];
+		avg = (arr[0] + arr[1] + arr[2]) / 3;
+
+	}
+
+	static void output() {
+		// calc() 구한 합과 평균을 출력
+		System.out.println("합: " + sum + " 평균:" + avg);
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+
+#### 연습 (1)
+
+~~~
+
+package e_method;
+
+import java.util.Scanner;
+
+/*(문제 1) 영문자를 입력하여 이 문자가 대문자이면 false을 반환 소문자이면 true을 반환하는 메소드를 작성하시오.
+함수명 : checkLower
+인자 : char
+리턴(반환) : boolean*/
+
+public class example1 {
+	static char ch; // 인자
+	static boolean result;
+
+	public static void main(String[] args) {
+		checkLower();
+		System.out.println();
+	}
+
+	static void checkLower() { // 함수
+		Scanner sc = new Scanner(System.in);
+		System.out.println("영문자를 입력하세요");
+		String str = sc.next();
+		ch = str.charAt(0);
+
+		if (ch >= 'a' && ch <= 'z') {
+			result = true;
+			System.out.println(result);
+		} else if (ch >= 'A' && ch <= 'Z') {
+			result = false;
+			System.out.println(result);
+		} else {
+			System.out.println("error");
+		}
+
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 연습 (2)
+
+~~~
+
+package e_method;
+
+import java.util.Scanner;
+
+/*(문제 2) 영문자를 입력하여 이 문자가 소문자이면 대문자로 변환하여 반환하고 대문자라면 그대로 반환하는 메소드를 작성하시오.
+함수명 : checkUpper
+인자 : char
+리턴(반환) : char
+*/
+
+public class example2 {
+
+	public static void main(String[] args) {
+		checkUpper();
+	}
+
+	static void checkUpper() {
+		Scanner input = new Scanner(System.in);
+		System.out.println("문자를 입력하세요");
+		char ch = input.next().charAt(0);
+		if (ch >= 'a' && ch <= 'z') {
+			System.out.println((char) (ch - ('a' - 'A')));
+		} else {
+			System.out.println(ch);
+		}
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>

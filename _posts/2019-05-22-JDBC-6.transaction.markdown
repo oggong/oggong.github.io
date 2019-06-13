@@ -1,0 +1,529 @@
+---
+layout: post
+title:  "0522-[JDBC]-6.transaction"
+subtitle:   "0522-transaction"
+categories: devlog
+tags: Oracle
+
+---
+## transaction
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### AccLogic
+
+~~~
+
+package jdbc.transection;
+
+import java.sql.*;
+
+import javax.xml.ws.handler.LogicalHandler;
+
+public class AccLogic {
+	// 연결 객체 생성시 필요한 변수 선언
+	String url;
+	String user;
+	String pass;
+
+	// ===============================================
+	// 드라이버를 드라이버매니저에 등록
+	public AccLogic() throws Exception {
+		/////////////////////////////////////////////////////////
+		// 1. 드라이버를 드라이버 매니저에 등록
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		url = "jdbc:oracle:thin:@192.168.0.170:1521:orcl";
+		user = "scott";
+		pass = "tiger";
+	}
+
+	// ====================================================
+	// 보내는 계좌번호와 받는 계좌번호와 계좌금액을 넘겨받아
+	// 보내는계좌에서 계좌금액을 빼고 받는계좌에서 계좌금액을 더한다
+	public int moveAccount(String sendAcc, String recvAcc, int amount) {
+		Connection con = null;
+		PreparedStatement st1 = null;
+		PreparedStatement st2 = null;
+
+		try {
+			///////////////////////////////////////////////////////////
+//			transection = all or none 전부다 실행 하거나 아니거나
+			// 정상적일때는 commit 비정상적일때는 무조권 rollback
+			// 1. Connection 객체 생성
+			con = DriverManager.getConnection(url, user, pass);
+
+			// @@ 2. Auto-commit을 해제
+			con.setAutoCommit(false);
+
+			// 3. 출금계좌에서 이체금액을 뺀다
+			String sql1 = "Update account SET amount=amount-? WHERE account_num =? ";
+			st1 = con.prepareStatement(sql1);
+
+			st1.setInt(1, amount);
+			st1.setString(2, sendAcc);
+
+			int re1 = st1.executeUpdate(); // executeUpdate 에 이미 commit이 들어있음
+			if (re1 != 1) {
+				con.rollback();
+				return -1;
+			}
+
+			// 4. 입금계좌에 이체금액을 더한다
+			String sql2 = "Update account SET amount=amount+? WHERE account_num =? ";
+			st2 = con.prepareStatement(sql2);
+
+			st2.setInt(1, amount);
+			st2.setString(2, recvAcc);
+
+			int re2 = st2.executeUpdate();
+
+			if (re2 != 1) {
+				con.rollback();
+				return -1;
+			}
+
+			// @@ 5. commit을 전송한다
+			con.commit();
+
+			// 6. 객체 닫기
+			st1.close();
+			st2.close();
+
+			con.close();
+			// - 만일 정상적인 경우는 0을 리턴하고 도중에 잘못되었으면 트랜잭션을 롤백시키고 -1을 리턴
+		} catch (SQLException ex) {
+			try{con.rollback();}catch(Exception e){}
+			return -1;
+		}
+
+		return 0;
+	}
+
+	// =======================================================
+	// 보내는계좌번호와 받는계좌번호를 넘겨받아
+	// 보내는계좌고객명과 보내는계좌의남은 금액을 얻어오고
+	// 받는계좌고객명을 얻어와서
+	// 얻은 정보를 ConfirmData객체에 넣고 리턴
+	public ConfirmData confirmAccount(String sendAcc, String recvAcc) throws Exception {
+
+		String sendCust = "", recvCust = "";
+		int gainMoney = 0;
+		ConfirmData resultData = null;
+
+		// 1. Connection 객체 생성
+		// 2. 테이블에서, 넘겨받은 sendAcc와 같은 account_num필드에서 customer, amount를 얻어온다
+		// 3. 테이블에서, 넘겨받은 recvAcc와 같은 account_num필드에서 customer를 얻어온다
+		// 4. 2와 3에서 얻은 값을 ConfirmData 객체에 저장
+		// 5. 4번의 객체를 리턴
+
+		return resultData;
+	}
+
+}
+
+//#################################################################
+//	테이블명 : account
+//	account_num		계좌번호		varchar2(20)
+//	customer		고객명			varchar2(20)
+//	amount			계좌금액		int
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### AccUI
+
+~~~
+
+package jdbc.transection;
+
+/******************************************************
+*  @ 트랙잭션 예제
+*/
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+public class AccUI implements ActionListener
+{
+	//===================================================
+	// 전역변수 선언
+	JFrame frame;
+	JButton b_moveMoney, b_cancel;
+	JTextField tf_sendAccNum, tf_recvAccNum, tf_moveMoney;
+
+	// 확인다이알로그에 필요한 변수 선언
+	JDialog confirmDia;
+	JLabel l_sendCust, l_recvCust, l_moveMoney, l_gainMoney;
+	JButton b_diaConfirm;
+
+	//===================================================
+	// 전역 변수의 객체 생성
+	public AccUI(){
+		frame		= new JFrame("예금 이체 프로그램");
+		b_moveMoney	= new JButton("예금이체실행");
+		b_cancel	= new JButton("이체취소");
+
+		tf_sendAccNum	= new JTextField(20);
+		tf_recvAccNum	= new JTextField(20);
+		tf_moveMoney	= new JTextField(20);
+
+		// 확인다이알로그에 필요한 변수 선언
+		confirmDia		= new JDialog( frame, "이체결과확인");
+		l_sendCust		= new JLabel();
+		l_recvCust		= new JLabel();
+		l_moveMoney		= new JLabel();
+		l_gainMoney		= new JLabel();
+		b_diaConfirm	= new JButton(" 정상처리되었습니다!!! ");
+
+	}
+
+	//===================================================
+	// 컴포넌트 붙이고 프레임 출력
+	public void setup(){
+		// 가운데 영역 ( 라벨과 텍스트필드 붙인 영역 )
+		JPanel p_center1 = new JPanel();
+		p_center1.setLayout( new FlowLayout(FlowLayout.RIGHT) );
+		p_center1.add( new JLabel("보내는분 계좌번호") );
+		p_center1.add( tf_sendAccNum );
+
+		JPanel p_center2 = new JPanel();
+		p_center2.setLayout( new FlowLayout(FlowLayout.RIGHT) );
+		p_center2.add( new JLabel("받는분 계좌번호") );
+		p_center2.add( tf_recvAccNum );
+
+		JPanel p_center3 = new JPanel();
+		p_center3.setLayout( new FlowLayout(FlowLayout.RIGHT) );
+		p_center3.add( new JLabel("이체 금액") );
+		p_center3.add( tf_moveMoney );
+
+		JPanel p_center = new JPanel();
+		p_center.setLayout( new GridLayout(3,1));
+		p_center.add( p_center1 );
+		p_center.add( p_center2 );
+		p_center.add( p_center3 );
+
+		// South 영역 ( 버튼 붙인 영역 )
+		JPanel p_south = new JPanel();
+		p_south.add( b_moveMoney );
+		p_south.add( b_cancel );
+
+		// 프레임에 붙이기
+		frame.getContentPane().setLayout( new BorderLayout(20,20));
+		frame.getContentPane().add("Center", p_center );
+		frame.getContentPane().add("South", p_south );
+
+		frame.pack();
+		frame.setVisible( true );
+
+		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+
+		//---------------------------------------------------
+		// 다이알로그 붙이기
+		//---------------------------------------------------
+		l_sendCust.setBorder( new BevelBorder( BevelBorder.RAISED ));
+		l_recvCust.setBorder( new BevelBorder( BevelBorder.RAISED ));
+		l_moveMoney.setBorder( new BevelBorder( BevelBorder.RAISED ));
+		l_gainMoney.setBorder( new BevelBorder( BevelBorder.RAISED ));
+
+		JPanel p_diaCenter = new JPanel();
+		p_diaCenter.setLayout( new GridLayout(4, 2, 20, 20));
+		p_diaCenter.add( new JLabel(" 보내는 고객 "));
+		p_diaCenter.add( l_sendCust );
+		p_diaCenter.add( new JLabel(" 받 는 고 객"));
+		p_diaCenter.add( l_recvCust );
+		p_diaCenter.add( new JLabel(" 이 체 금 액 "));
+		p_diaCenter.add( l_moveMoney );
+		p_diaCenter.add( new JLabel(" 계좌남은금액 "));
+		p_diaCenter.add( l_gainMoney );
+
+		JPanel p_diaSouth = new JPanel();
+		p_diaSouth.add( b_diaConfirm );
+
+		confirmDia.getContentPane().setLayout( new BorderLayout(20,20));
+		confirmDia.getContentPane().add("Center", p_diaCenter);
+		confirmDia.getContentPane().add("South", p_diaSouth );
+
+
+	}
+
+	// 이벤트처리 할 컴포넌트을 등록
+	public void eventProc(){
+		b_moveMoney.addActionListener( this );
+		b_cancel.addActionListener( this );
+	}
+
+	public void actionPerformed( ActionEvent ev ){
+		Object o = ev.getSource();
+
+		// "이체실행" 버튼이 눌렸을 때
+		if ( o == b_moveMoney )
+		{
+			try{
+			////////////////////////////////////////////////////////
+				// 1. 화면에서 입력값 얻어오기
+
+				String sendNum = tf_sendAccNum.getText();
+				String recvNum = tf_recvAccNum.getText();
+				int money = Integer.parseInt(tf_moveMoney.getText());
+
+				// 2. Business Logic 객체 생성 ( ex. AccLogic )
+				AccLogic logic = new AccLogic();
+
+				// 3. BL객체에서 계좌 이체하는 함수 호출 ( ex. moveAccount())
+				//		- 1번의 입력값을 인자로 넘김
+				//		- 호출 후 넘겨받는 리턴값으로는 0이면 정상처리이고
+				//			-1이면 잘못된 경우이므로 메세지박스 출력
+				int result = logic.moveAccount(sendNum, recvNum, money);
+
+				if(result == 0) {
+					JOptionPane.showMessageDialog(null, "이체 성공");
+				}else if (result == -1) {
+					JOptionPane.showMessageDialog(null, "이체 실패");
+					return;
+				}
+
+
+			/******************************************************
+			* 계좌 이체를 확인한 후에 결과를 다이알로그에 출력
+			1. BL객체에서 레코드 검색하는 함수호출 ( ex. confirmAccount() )
+			2. 1번의 결과로 받은 객체의 각각의 값을 다이알로그의 라벨에 출력
+			3. 다이알로그 화면 출력
+			*/
+
+
+			} catch(Exception ex){
+				System.out.println("이체처리시 : "+ ex.getMessage() );
+				JOptionPane.showMessageDialog(frame,"이체하는 도중 에러가 발생하였습니다!! 이를 워쩌");
+				return;
+			}
+
+		}
+
+		// "이체취소" 버튼이 눌렸을 때
+		else if ( o == b_cancel)
+		{
+			frame.setVisible( false );
+			frame.dispose();
+			System.exit(0);
+		}
+
+	}
+
+	//===================================================
+	// 프로그램 시작
+	public static void main(String[] args)
+	{
+
+		AccUI  acc = new AccUI();
+		acc.setup();
+		acc.eventProc();
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### ConfirmData
+
+~~~
+
+package jdbc.transection;
+
+public class  ConfirmData
+{
+	String sendCust;
+	String recvCust;
+	int gainMoney;
+
+	public ConfirmData() {
+
+	}
+
+	public void setSendCust( String sendCust ){
+		this.sendCust = sendCust;
+	}
+
+	public String getSendCust() {
+		return sendCust;
+	}
+
+	public void setRecvCust( String recvCust ){
+		this.recvCust = recvCust;
+	}
+
+	public String getRecvCust() {
+		return recvCust;
+	}
+
+	public void setGainMoney( int gainMoney ){
+		this.gainMoney = gainMoney;
+	}
+
+	public int getGainMoney() {
+		return gainMoney;
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### TranTest
+
+~~~
+
+package jdbc.transection;
+
+/*
+	데이타베이스에서 지원하는 트랜잭션의 특성을 알아보는 프로그램
+
+
+	- 기존에 아래와 같은 테이블 생성되어야 함
+
+   <$> 테이블 만들기 : account
+	ACCOUNT_NUM                 VARCHAR2(20)
+	CUSTOMER                    VARCHAR2(20)
+	AMOUNT                      NUMBER
+
+*/
+
+
+
+import java.sql.*;
+class TranTest
+{
+	public static void main(String[] args)
+	{
+		try{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		//--------------------------------------------------------------
+		// 현재 JDBC 드라이버가 지원하는 isolation level을 알아보는 예제
+
+			Connection con = DriverManager.getConnection(
+				"jdbc:oracle:thin:@127.0.0.1:1521:orcl","scott","tiger");
+
+			DatabaseMetaData meta = con.getMetaData();
+
+			if( meta.supportsTransactionIsolationLevel( con.TRANSACTION_NONE ) )
+				System.out.println("supports TRANSACTION_NONE");
+			if( meta.supportsTransactionIsolationLevel( con.TRANSACTION_READ_UNCOMMITTED ) )
+				System.out.println("supports TRANSACTION_READ_UNCOMMITTED");
+			if( meta.supportsTransactionIsolationLevel( con.TRANSACTION_READ_COMMITTED ) )
+				System.out.println("supports TRANSACTION_READ_COMMITTED");
+			if( meta.supportsTransactionIsolationLevel( con.TRANSACTION_REPEATABLE_READ ) )
+				System.out.println("supports TRANSACTION_REPEATABLE_READ");
+			if( meta.supportsTransactionIsolationLevel( con.TRANSACTION_SERIALIZABLE ) )
+				System.out.println("supports TRANSACTION_SERIALIZABLE");
+
+			int level = con.getTransactionIsolation();
+			System.out.println("current isolation level : " + level );
+
+
+
+		//--------------------------------------------------------------
+		// 트랜잭션 정책 중 dirty read의 지원 여부 검사
+		//	 : 한 트랜잭션이 데이터 행을 갱신하고 있는데 아직 커밋하지 않은 상태에서 다른 트랜잭션이
+		//	그 데이터 행을 읽으려고 하는 경우 커밋되지 않더라도 갱신된 데이터를 읽는 것
+		//  -> 결과는 변경전의 값이 출력된다 ( dirty read를 지원 안함 )
+		/*Connection con1 = DriverManager.getConnection(
+				"jdbc:oracle:thin:@127.0.0.1:1521:orcl","scott","tiger");
+		Connection con2 = DriverManager.getConnection(
+				"jdbc:oracle:thin:@127.0.0.1:1521:orcl","scott","tiger");
+		con1.setAutoCommit( false );
+		con2.setAutoCommit( false );
+		Statement stmt1 = con1.createStatement();
+		Statement stmt2 = con2.createStatement();
+		stmt1.executeUpdate("UPDATE account SET customer='이뿌니' WHERE account_num='111-11-1111'");
+		ResultSet rs2 = stmt2.executeQuery("SELECT customer FROM account WHERE account_num='111-11-1111'");
+		if( rs2.next() ){
+			System.out.println("변경: " + rs2.getString(1));
+		}
+		rs2.close();
+		stmt1.close();
+		stmt2.close();
+		con1.close();
+		con2.close();
+		*/
+
+		//--------------------------------------------------------------
+		// 트랜잭션 정책 중 repeatable read의 지원 여부 검사
+		//	: 하나의 트랜잭션이 어떤 조건으로 데이터 행을 가져와서 작업을 한 후
+		//	다른 트랜잭션이 그 조건에 맞는	행의 정보를 갱신하고 커밋까지 한 다음
+		//	이전의 트랜잭션이 다시 그 행을 읽었을 경우 갱신되지 않은 이전 데이타를
+		//	반복해서 읽는 경우
+		//	-> 결과는 변경된 데이타를 읽음 ( repeatable read를 지원하지않음 )
+		/*Connection con1 = DriverManager.getConnection(
+				"jdbc:oracle:thin:@127.0.0.1:1521:orcl","scott","tiger");
+		Connection con2 = DriverManager.getConnection(
+				"jdbc:oracle:thin:@127.0.0.1:1521:orcl","scott","tiger");
+		con1.setAutoCommit( false );
+		con2.setAutoCommit( false );
+		Statement stmt1 = con1.createStatement();
+		Statement stmt2 = con2.createStatement();
+
+		ResultSet rs1 = stmt1.executeQuery("SELECT customer FROM account WHERE account_num='111-11-1111'");
+		if( rs1.next() ){
+			System.out.println("변경전 : " + rs1.getString(1));
+		}
+
+		stmt2.executeUpdate("UPDATE account SET customer='깜찍이' WHERE account_num='111-11-1111'");
+		//@
+		con2.commit();
+
+		ResultSet rs2 = stmt1.executeQuery("SELECT customer FROM account WHERE account_num='111-11-1111'");
+		if( rs2.next() ){
+			System.out.println("변경후: " + rs2.getString(1));
+		}
+
+		rs1.close();
+		rs2.close();
+		stmt1.close();
+		stmt2.close();
+		con1.close();
+		con2.close();
+		*/
+
+		//--------------------------------------------------------------
+		// 트랜잭션 정책 중 phantom read의 지원 여부 검사
+		//	: 하나의 트랜잭션이 어떤 조건으로 데이터 행을 가져와서 작업을 한 후
+		//	다른 트랜잭션이 그 조건에 맞는 	또 다른 행을 하나 추가하고 커밋까지 한 다음
+		//	이전의 트랜잭션이 다시 그 조건으로 행을 가져올 경우 추가된 행까지 읽는 경우
+		//	-> 결과는 추가된 행까지 출력 ( phantom read를 지원함 )
+		/*Connection con1 = DriverManager.getConnection(
+				"jdbc:oracle:thin:@127.0.0.1:1521:orcl","scott","tiger");
+		Connection con2 = DriverManager.getConnection(
+				"jdbc:oracle:thin:@127.0.0.1:1521:orcl","scott","tiger");
+		con1.setAutoCommit( false );
+		con2.setAutoCommit( false );
+		Statement stmt1 = con1.createStatement();
+		Statement stmt2 = con2.createStatement();
+		stmt1.executeUpdate("INSERT INTO account VALUES('111-11-3333','김승민',20000)");
+		// @
+		con1.commit();
+		ResultSet rs2 = stmt2.executeQuery("SELECT account_num FROM account WHERE customer='김승민'");
+		while( rs2.next() ){
+			System.out.println("변경: " + rs2.getString(1));
+		}
+		rs2.close();
+		stmt1.close();
+		stmt2.close();
+		con1.close();
+		con2.close();
+		*/
+		} catch(Exception ex){
+			System.out.println("오류 : " + ex.getMessage() );
+		}
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

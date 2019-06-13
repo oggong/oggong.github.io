@@ -1,0 +1,133 @@
+---
+layout: post
+title:  "06-12-[jquery]-5.tabs"
+subtitle:   "0612-jQuery-tabs"
+categories: devlog
+tags: jquery
+
+---
+
+## tabs
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### scripts.js
+
+~~~
+
+
+/**
+ *
+ */
+
+window.onload = function() {
+
+	var price = new Array();
+	var content = new Array();
+
+	// #### 1. TD에 이벤트 발생
+	// ##### 2. 확인 버튼 클릭시 선택한 TD의 색을 다시 흰색으로
+	// ##### 3. 값 계산하여 총합 구하기 - 각각 TD 클릭시 배열에 저장하였다가 계산
+
+	// class 명으로 6개 한번에 받기
+	var td = document.getElementsByClassName('menu');
+
+	var btn = document.getElementById('btn');
+
+	var count = document.getElementById('count');
+
+	var select; // 메뉴 선택
+
+	var content = document.getElementById('content');
+
+	for (var i = 0; i < td.length; i++) {
+		td[i].onclick = function() {
+
+			select = this.getAttribute('price');
+			// alert(select);
+		}
+		btn.onclick = function() {
+			// alert(select);\
+			total.setAttribute('value', (select * count.value));
+
+			content.innerHTML += (select * count.value)+"원"+"<br/>";
+
+		}
+	}
+}
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### style.css
+
+~~~
+
+@CHARSET "UTF-8";
+
+td.menu {
+	width : 100px;
+	height : 100px;
+	text-align : center;
+}
+
+#content {
+	width : 350px;
+	height : 300px;
+	background-color : #AACC33;
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+
+#### menu.html
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메뉴판</title>
+<link type='text/css' rel='stylesheet' href='style.css'>
+<script type="text/javascript" src='script.js'>
+
+</script>
+
+</head>
+<body>
+
+	<table border='1'>
+		<tr>
+			<td id='menu1' class='menu' price='1000'>아메리카노<br />1000원</td>
+			<td id='menu2' class='menu' price='2000'>카페라떼<br />2000원</td>
+			<td id='menu3' class='menu' price='3000'>쥬스<br />3000원</td>
+		</tr>
+		<tr>
+			<td id='menu4' class='menu' price='2000'>과자<br />2000원</td>
+			<td id='menu5' class='menu' price='1000'>엿<br />1000원</td>
+			<td id='menu6' class='menu' price='1500'>땅콩<br />1500원</td>
+		</tr>
+		<tr>
+			<td colspan='3'>갯수 : <select id='count' value=''>
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
+					<option value='4'>4</option>
+			</select> <input type='button' value='확인' id='btn' />
+			총합 : <input type='text' id='total' value='' />원
+			</td>
+		</tr>
+	</table>
+	<div id='content'></div>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

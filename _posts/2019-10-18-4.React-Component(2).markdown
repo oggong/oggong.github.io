@@ -1,0 +1,223 @@
+---
+layout: post
+title:  "1019-[React]-4.React Component (2)"
+subtitle:   "1019-4.Component"
+categories: devlog
+tags: react
+---
+
+## React Component (2)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<font size="4"><strong> 6. propTypes를 통한 props 검증 </strong></font>
+
+> 컴포넌트에서 필수 props 를 지정하거나 props의 타입 지정할때 propTypes 를 사용 <br/>
+> propTypes 와 defaultProp을 설정하는 것 비슷 <br/>
+
+
+src/MyCoomponent.js
+
+~~~
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const MyComponent = ({ name, children }) => {
+     return (
+        <div>
+        안녕하세요, 제 이름은 { name } 입니다. <br />
+        children 값은 { children } 입니다.
+        </div>
+    );
+};
+
+    MyComponent.defaultProps = {
+        name: '기본 이름'
+    };
+
+    MyComponent.propTypes = {
+        name: PropTypes.string
+    };
+
+
+export default MyComponent;
+
+~~~
+
+src/App.js
+
+~~~
+
+import React from 'react';
+
+import MyComponent from './MyComponent';
+
+const App = () => {
+
+
+  return <MyComponent name="React">리액트3</MyComponent>;
+
+};
+
+export default App;
+
+
+
+~~~
+
+
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69915284-a2f47f80-1490-11ea-819e-e5f80f0629e7.JPG" width="250"><br/><br/><br/>
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+- isRequired를 사용하여 필수 propType 지정
+
+> propTypes 를 지정하지 않았을 때 경고 메시지 띄우기 <br/>
+> propTypes 를 지정할때 뒤에 isRequired를 붙여준다. <br/>
+> favoriteNumber라는 숫자를 필수 props로 지정
+
+~~~
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const MyComponent = ({ name, favoriteNumber, children }) => {
+     return (
+        <div>
+        안녕하세요, 제 이름은 { name } 입니다. <br />
+        children 값은 { children } 입니다. <br/>
+        제가 좋아하는 숫자는 {favoriteNumber} 입니다.
+        </div>
+    );
+};
+
+    MyComponent.defaultProps = {
+        name: '기본 이름'
+    };
+
+    MyComponent.propTypes = {
+        name: PropTypes.string,
+        favoriteNumber: PropTypes.number.isRequired
+    };
+
+
+export default MyComponent;
+
+
+~~~
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69915827-b4d92100-1496-11ea-9388-dcb37d20323b.JPG" width="250"><br/><br/><br/><br/><br/>
+
+
+- PropTypes 종류
+
+> - array: 배열 
+> - arrayOf(다른 PropType): 특정 PropType으로 이루어진 배열을 의미 
+>   - arrayOf(PropTypes.number)는 숫자로 이루어진 배열
+> - bool: true 혹은 false 값
+> - func: 함수
+> - number: 숫자
+> - object: 객체
+> - string: 문자열
+> - symbol: ES6의 Symbol
+> - node: 렌더링 할수 있는 모든 것
+>   - 숫자,문자열,혹은 JSX코드, children 도 node PropType
+> - instanceOf(클래스): 특정 클래스의 인스턴스(예: instanceOf(MyClass))
+> - oneOf(['dog','cat']): 주어진 배열 요소 중 값 하나
+> - oneOfType([React.PropTypes.string, Proptypes.number]): 주어진 배열 안의 종류 중 하나
+> - objectOf(React.PropTypes.number): 객체의 모든 키 값이 인자로 주어진 PropType인 객체
+> - shape({ name: PropTypes.string, num: PropTypes.number}): 주어진 스키마를 가진 객체
+> - any : 아무 종류
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+- 클래스형 컴포넌트에서 props 사용하기
+
+src/MyComponent.js
+
+~~~
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+class MyComponent extends Component {
+    render() {
+        const { name, favoriteNumber, children} = this.props; // 비구조화 할당
+        return (
+            <div>
+                안녕하세요, 제이름은 {name}입니다.<br/>
+                children 값은 {children} 입니다.<br/>
+                제가 좋아하는 숫자는 {favoriteNumber} 입니다.
+            </div>
+        );
+    }
+}
+
+MyComponent.defaultProps = {
+    name: '기본 이름'
+}
+
+MyComponent.propTypes = {
+    name: PropTypes.string,
+    favoriteNumber: PropTypes.number.isRequired
+};
+
+export default MyComponent;
+
+
+~~~
+
+~~~
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+class MyComponent extends Component {
+
+static defaultProps = {
+    name: '기본 이름'
+}
+
+static propTypes = {
+    name: PropTypes.string,
+    favoriteNumber: PropTypes.number.isRequired
+};
+
+    render() {
+        const { name, favoriteNumber, children} = this.props; // 비구조화 할당
+        return (
+            <div>
+                안녕하세요, 제이름은 {name}입니다.<br/>
+                children 값은 {children} 입니다.<br/>
+                제가 좋아하는 숫자는 {favoriteNumber} 입니다.
+            </div>
+        );
+    }
+}
+
+
+export default MyComponent;
+
+
+~~~
+
+
+> defaultProps 와 propsTypes는 필수 사항이 아니지만 큰 규모의 프로젝트를 진행 할때, <br/>
+> 해당 컴포넌트에 어떤 props가 필요한지 쉽게 알수 있어 개발 능률이 좋아 질 수 있다.
+
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>
+
+
+
+
+
+

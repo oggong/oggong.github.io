@@ -1,0 +1,276 @@
+---
+layout: post
+title:  "0529-[Web]-html5(3)"
+subtitle:   "0529-html5(3)"
+categories: devlog
+tags: web
+
+---
+
+## html5 (3)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### html5form
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>new form</title>
+</head>
+<body>
+<form id="myform" action="#">
+	<label for="email">email</label>
+	<input type="email" id="email" name="email">
+	<input type="submit">
+</form>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### iframe
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>07_iframe.html</title>
+</head>
+<body>
+
+<a href='http://www.daum.net' target='LeftFrm'>다음</a>
+<a href='http://www.nate.com' target='RightFrm'>네이트</a>
+<hr/><hr/>
+
+<iframe src='http://www.etnews.com' width='500' height='500' name='LeftFrm'></iframe>
+<iframe src='http://www.mk.co.kr' width='500' height='500' name='RightFrm'></iframe>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### iframe2
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>08_iframe.html</title>
+</head>
+<body>
+	<iframe src='08_sub.html' width='500' height='500' name='left'></iframe>
+	<iframe src='' width='500' height='500' name='right'></iframe>
+
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### sub
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>08_sub.html</title>
+</head>
+<body>
+
+	<div>
+		<a href='http://www.daum.net' target='left'>다음</a>
+		<a href='http://www.nate.com' target='right'>네이트</a>
+		<a href='http://www.naver.com' target='_top'>네이버</a>
+		<a href='http://www.korea.com' target='_blank'>코리아</a>		
+	</div>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### html5구조
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5 structure</title>
+<!--  --><link rel="stylesheet" href="99_html5구조.css" />
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>
+				<mark>HTML5</mark>문서의 주요 구조
+			</h1>
+			<h2>HTML5를 처음 공부하는 당신을 위해</h2>
+		</header>
+		<nav>
+			<ul>
+				<li>header</li>
+				<li>nav</li>
+				<li>section</li>
+				<li>article</li>
+				<li>footer</li>
+			</ul>
+		</nav>
+		<section>
+			<article>
+				<header>
+					<h2>header란?</h2>
+					<time>posted 2016-01-01</time>
+				</header>
+				<p>header란 head와 다르다.</p>
+				<p>주로 문서의 제목을 나타낼 때 사용된다.</p>
+				<footer>
+					<p>comments (0)</p>
+				</footer>
+			</article>
+			<article>
+				<header>
+					<h2>nav란?</h2>
+					<time>posted 2016-01-01</time>
+				</header>
+				<p>nav는 화면에서 메뉴를 주로 나타낸다.</p>
+				<p>일반적으로 ul > li 항목으로 표현한다.</p>
+				<footer>
+					<p>comments (0)</p>
+				</footer>
+			</article>
+		</section>
+		<aside>
+			<ul>
+				<li><header>&lt;head&gt;</header>
+					<p>단순히 문서의 정보 표시</p></li>
+				<li>javascript</li>
+			</ul>
+		</aside>
+		<footer>
+			<p>copyright &copy; 2014 ~</p>
+		</footer>
+	</div>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### html5구조.css
+
+~~~
+
+@CHARSET "UTF-8";
+
+* {
+	margin: 0px;
+	padding: 0px;
+	/* border:solid 1px black; */
+}
+
+h1 {
+	font: bold 20px verdana, sans-serif;
+}
+
+h2 {
+	font: bold 14px verdana, sans-serif;
+}
+
+body {
+	text-align: center;
+}
+
+#wrapper {
+	width: 960px;
+	margin: 15px auto;
+	text-align: left;
+}
+
+#wrapper>header {
+	background: #fffbb9;
+	border: solid 1px #999999;
+	padding: 20px;
+}
+
+nav {
+	background: #cccccc;
+	padding: 5px 15px;
+	text-align: right;
+}
+
+nav>ul>li {
+	display: inline-block;
+	list-style: none;
+	padding: 5px;
+	font: bold 14px verdana, sans-serif;
+}
+
+section {
+	float: left;
+	width: 660px;
+	margin: 20px;
+}
+
+aside {
+	float: left;
+	width: 220px;
+	margin: 20px 0px;
+	padding: 20px;
+	background: #cccccc;
+}
+
+article>footer {
+	text-align: right;
+}
+
+#wrapper>footer {
+	clear: both;
+	text-align: cneter;
+	padding: 20px;
+	border-top: 2px solid #999999;
+}
+
+article {
+	background: #fffbcc;
+	border: 1px solid #999999;
+	padding: 20px;
+	margin-bottom: 15px;
+}
+
+time {
+	color: #999999;
+}
+
+time:hover {
+	font-size: 20px;
+}
+
+article footer:active {
+	font-size: 20px;
+}
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

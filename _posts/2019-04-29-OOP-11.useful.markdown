@@ -1,0 +1,191 @@
+---
+layout: post
+title:  "0429-[자바]-OOP-11.useful"
+subtitle:   "0429-useful"
+categories: devlog
+tags: Java
+
+---
+## useful
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### CloneEx
+
+~~~
+
+package j_useful;
+
+import java.util.Arrays;
+
+public class CloneEx {
+
+	public static void main(String[] args) {
+
+		String[] array = { "안녕", "헬로우", "올라", "곤니찌와" };
+		// String [] copy = array; // 얇은 복사
+		String[] copy = array.clone(); // 깊은 복사
+		System.out.println(Arrays.toString(array));
+		System.out.println(Arrays.deepToString(copy));
+
+		copy[1] = "Hello";
+		copy[2] = "Hola";
+
+		System.out.println(Arrays.toString(array));
+		System.out.println(Arrays.toString(copy));
+
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Enum
+
+~~~
+
+package j_useful;
+
+
+
+enum Size {
+	SMALL, MEDIUM, LARGE
+}
+
+public class Enum {
+
+	public static void main(String[] args) {
+		Size size = Size.SMALL; // 추후에 화면에서 넘어오는 값
+
+		switch (size) {
+		case SMALL:
+			System.out.println("작은 거");
+			break;
+		case MEDIUM:
+			System.out.println("중간 거");
+			break;
+		case LARGE:
+			System.out.println("큰 거");
+			break;
+
+		}
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### EnumEx
+
+~~~
+
+package j_useful;
+
+public class EnumEx {
+
+	public static void main(String[] args) {
+
+		for (Names n : Names.values()) {
+			System.out.println(n);
+			System.out.println(n.job);
+			System.out.println(n.salary());
+		}
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### EqualEx
+
+~~~
+
+package j_useful;
+
+public class EqualsEX {
+
+	public static void main(String[] args) {
+		Student a = new Student("123123", "홍길동");
+		Student b = new Student("343445", "이바돔");
+
+		if (a.equals(b)) {
+			System.out.println("동일인");
+		} else {
+			System.out.println("다른학생");
+		}
+		System.out.println(a.toString());
+		System.out.println(b);
+
+	}
+
+}
+
+class Student {
+	String hakbun, name;
+
+	public Student() {
+	}
+
+	public Student(String hakbun, String name) {
+		this.hakbun = hakbun;
+		this.name = name;
+	}
+
+	public boolean equals(Object obj) {
+
+		Student other = (Student) obj;
+		if (hakbun.equals(other.hakbun))
+			return true;
+		else
+			return false;
+	}
+
+	public String toString() {
+		return "[" + hakbun + "]" + name;
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Names
+
+~~~
+
+package j_useful;
+
+public enum Names {
+
+	// 상수를 클래스처럼 취급
+	GILDONG("개발자") {
+		String salary() {
+			return "추가급여대상";
+		}
+	},
+	GILJA("디자이너"), GILJUN("팀장");
+
+	String job;
+
+	Names(String job) {
+		this.job = job;
+	}
+
+	String salary() {
+		return "고정급여";
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>

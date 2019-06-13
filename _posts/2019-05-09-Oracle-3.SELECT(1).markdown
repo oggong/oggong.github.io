@@ -1,0 +1,147 @@
+---
+layout: post
+title:  "0509-[Oracle]-3.SELECT"
+subtitle:   "0509-SELECT"
+categories: devlog
+tags: Oracle
+
+---
+## SELECT
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### SELECT
+
+~~~
+
+/*
+    SELECT 검색할 항목들
+    FROM 테이블명
+    WHERE 조건;
+*/
+-- 모든 사원의 사원명과 급여, 급여와 보너스를 더한 합계 출력
+SELECT ename || ' ' || sal AS enamejob, sal + NVL(comm,0) AS YEONBONG
+
+-- AS 생략 하기도 한다!
+FROM emp;
+
+--사원 테이블에서 부서번호 출력
+
+SELECT deptno FROM emp;
+-- all
+SELECT distinct deptno FROM emp;
+-- distinct 중복 제거
+
+
+-- 1- 20번 부서에서 근무하는 사원의 사원번호, 이름, 부서번호 출력
+
+SELECT empno,ename,deptno From emp WHERE deptno=20;
+
+
+
+-- 2- 입사일이 81/01/01에서 81/06/09인 사원의 사원번호, 이름, 입사일을 출력
+SELECT empno,ename,hiredate FROM emp WHERE HIREDATE>='81/01/01' AND HIREDATE<='81/06/09';
+
+SELECT empno,ename,hiredate
+FROM emp
+WHERE HIREDATE BETWEEN'81/01/01' AND '81/06/09';
+
+-- 3- 담당업무가 salesman, clerk인 사원들의 이름과 업무를 출력
+SELECT ename,job FROM emp WHERE job = 'salesman' or job = 'clerk';
+
+-- 4- 업무가 president이고 급여가 1500이상이거나 업무가 salesman인 사원의 정보를 출력
+
+SELECT * FROM emp WHERE (JOB ='PRESIDENT' AND SAL > 1500) OR (JOB='SALESMAN');
+
+
+
+/*
+
+SELECT 컬럼명
+FROM 테이블명
+WHERE 조건문
+ORDER BY 정렬 기준;
+
+*/
+-- 부서번호로 정렬
+SELECT *
+FROM emp
+ORDER BY deptno DESC;
+-- ORDER BY 에는 ASC 가 생략 되어잇음 오름차순
+-- 내림 차순으로 해주려면 DESC 써주면 가능
+
+-- 부서 번호 정렬된 월급이 높은 순으로 사원 테이블 출력
+SELECT *
+FROM emp
+ORDER BY deptno, sal DESC;
+
+-- 최근 입사순으로 사원명,급여,입사일자 출력
+SELECT ename,sal,hiredate
+FROM emp
+ORDER BY hiredate DESC;
+
+--커미션이 높은 순으로 정렬(단, 커미션이 없으면 제일 나중에 출력 되도록)
+
+SELECT *
+FROM emp
+ORDER BY NVL(comm,0) DESC;
+
+-- 6- 커미션(comm)이 없는 사원의 이름, 급여, 커미션을 출력
+SELECT ename,sal,NVL(comm,0) AS COMM
+FROM emp
+WHERE NVL(comm,0) = 0;
+-- 8- 이름 A로 시작하는 사원명 출력
+SELECT ename
+FROM emp
+WHERE ename LIKE 'A%';
+
+-- 9- 이름이 두번째 문자가 L인 사원명 출력
+SELECT ename
+FROM emp
+WHERE ename LIKE '_L%';
+
+-- 10- 이름에 L이 두 번 이상 포함된 사원명 출력
+SELECT ename
+FROM emp
+WHERE ename LIKE '%L%L%';
+
+-- 11- 커미션(COMM)이 NULL이 아닌 사원의 모든 정보를 출력
+SELECT *
+FROM emp
+WHERE comm != 0;
+
+
+-- 12- 보너스가 급여보다 10%가 많은 모든 사원에 대해 이름, 급여, 보너스를 출력
+SELECT ename,sal,comm
+FROM emp
+WHERE comm > (sal)*1.1 ;
+
+-- 13- 업무가 clerk이거나 analyst이고 급여가 1000, 3000, 5000이 아닌 모든 사원의 정보를 출력
+SELECT *
+FROM emp
+WHERE (job = 'CLERK' OR job = 'ANALYST') AND ( sal != 1000 AND sal != 3000 AND sal != 5000 );
+
+SELECT *
+FROM emp
+WHERE JOB in('CLERK','ANALYST') AND sal not in(1000,3000,5000);
+
+--1301 업무가 clerk 이거나 analyst 이고 급여가 1000,3000,5000 인 모든 사원의 정보를 출력
+SELECT *
+FROM EMP
+WHERE(JOB = 'CLERK' OR JOB = 'ANALYST') AND (sal =1000 or sal = 3000 or sal = 5000);
+
+SELECT *
+FROM EMP
+WHERE JOB in('CLERK','ANALYST')AND( sal != 1000 AND sal != 3000 AND sal != 5000 );
+
+-- 14- 부서가 30이거나 또는 관리자가 7782인 사원의 모든 정보를 출력
+SELECT *
+FROM emp
+WHERE (deptno = 30) or (MGR = 7782);
+
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

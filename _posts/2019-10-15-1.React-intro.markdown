@@ -1,22 +1,24 @@
 ---
 layout: post
-title:  "1015-1-[React]-1.React란"
+title:  "1015-[React]-1.React란"
 subtitle:   "1015-1.React 소개"
 categories: devlog
 tags: react
 
 ---
 ## React 소개
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69623441-40614500-1086-11ea-849f-197d95e53061.jpg" width="300"><br/><br/><br/><br/>
+<br/><br/>
 
 * 최근 몇년간 전 세계 개발자는 자바스크립트에 뜨겁게 열광하고 있다.
 * 과거에 자바스크립트는 웹 브라우저에서 간단한 연산을 하거나 시각적인 효과를 주는 단순한 스크립트 언어에 불과 했지만, 지금은 웹 어플리케이션에서 핵심 역할을 하고 있다.
 * 더 나아가 영역을 확장하고 있으며 서버사이드 및 모바일, 데스크톱 애플리케이션까지 활용 되고 있다.
 <br/>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69623869-f62c9380-1086-11ea-8c40-c687ded450d9.png" width="300"><br/><br/><br/><br/>
 
@@ -30,7 +32,7 @@ tags: react
 <p>
 재사용이 가능한 API로 수많은 기능들을 내장하고 있으며, 컴포넌트 하나에서 해당 컴포넌트의 생김새와 작동 방식을 정의 <br/></p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ##### 렌더링
 * 사용자 화면에 뷰를 보여주는것
@@ -59,7 +61,7 @@ render() {.....}
 </p>
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69625606-45c08e80-108a-11ea-88b9-05c7b03a2e11.jpg" width="300"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/>
 * 컴포넌트를 실제 페이지에 렌더링 할때 분리된 두가지 절차
  1. 먼저 문자열 형태의 HTML 코드를 생성
  2. 특정 DOM에 해당 내용을 주입하면 이벤트 적용
@@ -76,9 +78,17 @@ render() {.....}
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69624559-422c0800-1088-11ea-80ef-68a7b7b9ebb3.png" width="550">
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/>
+
 자바스크립트를 사용하여 두가지 뷰를 최소한의 연산으로 비교, 둘의 차이를 알아내 최소한의 연산으로 DOM을업데이트
 <br/>
 
 ##### Result
 <br/>
 방식 자체는 루트 노드부터 시작하여 전체 컴포넌트를 처음부터 다시 렌더링 하는 것처럼 보이지만. 사실 최적의 자원을 사용하여 이를 수행 하는 것
+
+<hr style="height: 1px; background: skyblue; "/>
+
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>

@@ -1,0 +1,818 @@
+---
+layout: post
+title:  "0520-[JDBC]-2.jdbcGui"
+subtitle:   "0520-jdbcGui"
+categories: devlog
+tags: Oracle
+
+---
+## jdbcGui
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### InfoModel
+
+~~~
+
+package jdbc.gui;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public interface infoModel {
+
+	public void modify(InfoVO vo) throws Exception;
+
+	public void delete(InfoVO vo) throws Exception;
+
+	public ArrayList<InfoVO> selectAllData() throws SQLException;
+
+	public InfoVO selectByTel(String tel) throws SQLException;
+
+	public InfoVO selectById(String id) throws SQLException;
+}
+
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### InfoModelImpl
+
+~~~
+
+package jdbc.gui;
+
+import java.sql.*;
+import java.util.ArrayList;
+
+public class InfoModelImpl {
+	// InfoModelImplement
+
+	String driver = "oracle.jdbc.OracleDriver";
+	String url = "jdbc:oracle:thin:@192.168.0.170:1521:orcl";
+	String user = "scott";
+	String pass = "tiger";
+	Connection con = null;
+	PreparedStatement st = null;
+
+	// 생성자 함수 생성
+//	public InfoModelImpl() throws Exception { // 예외를 던져 주기 --- 사용자 화면에 오류 화면 띄워주기
+	public InfoModelImpl() throws Exception {
+		// 1. 드라이버를 메모리에 로딩
+		Class.forName(driver);
+		// 2. 연결 객체 얻어오기
+//		Connection con = DriverManager.getConnection(url, user, pass);
+
+	} // end of InfoModelImpl()
+
+	public void insert(InfoVO vo) throws Exception {
+
+//
+//			3. sql 문장 만들기 (*****)
+		String sql = "INSERT INTO INFORMATION(name,id,tel,sex,age,home) VALUES(?,?,?,?,?,?)";
+
+//			4. sql 전송 객체 얻어오기
+//					- PreparedStatement : 미완성된 sql
+//					-- ? 지정 ****
+//
+		try {
+			Connection con = DriverManager.getConnection(url, user, pass);
+			st = con.prepareStatement(sql);
+
+			st.setString(1, vo.name);
+			st.setString(2, vo.id);
+			st.setString(3, vo.tel);
+			st.setString(4, vo.gender);
+			st.setInt(5, vo.age);
+			st.setString(6, vo.home);
+
+//			5. sql 전송
+//			[6. 결과 처리]
+			int result = st.executeUpdate();
+
+//			7. 닫기
+//		(연결 닫기 제일 중요함)
+			st.close();
+			con.close();
+			System.out.println("연결성공");
+		} catch (SQLException ex) {
+			System.out.println("전송실패" + ex.getMessage());
+		}
+
+	}// end of insert()
+
+	public void modify(InfoVO vo) throws Exception {
+
+		//
+//				3. sql 문장 만들기 (*****)
+		String sql = "UPDATE INFORMATION SET name=?,id=?," + "sex=?,age=?,home=? WHERE tel=?";
+
+//				4. sql 전송 객체 얻어오기
+//						- PreparedStatement : 미완성된 sql
+//						-- ? 지정 ****
+		//
+		try {
+			Connection con = DriverManager.getConnection(url, user, pass);
+			st = con.prepareStatement(sql);
+
+			st.setString(1, vo.name);
+			st.setString(2, vo.id);
+			st.setString(3, vo.gender);
+			st.setInt(4, vo.age);
+			st.setString(5, vo.home);
+			st.setString(6, vo.tel);
+
+//				5. sql 전송
+//				[6. 결과 처리]
+			int result = st.executeUpdate();
+
+//				7. 닫기
+//			(연결 닫기 제일 중요함)
+			st.close();
+			con.close();
+			System.out.println("연결성공");
+		} catch (SQLException ex) {
+			System.out.println("전송실패" + ex.getMessage());
+		}
+
+	}// end of modify()
+
+	public void delete(InfoVO vo) throws Exception {
+
+//				3. sql 문장 만들기 (*****)
+		String sql = "DELETE FROM INFORMATION WHERE tel=?";
+
+//				4. sql 전송 객체 얻어오기
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			st = con.prepareStatement(sql);
+
+			st.setString(1, vo.tel);
+
+//				5. sql 전송
+//				[6. 결과 처리]
+			int result = st.executeUpdate();
+
+			if (result != 0) {
+				con.commit();
+			} else {
+				con.rollback();
+			}
+
+//				7. 닫기
+//			(연결 닫기 제일 중요함)
+			st.close();
+			con.close();
+			System.out.println("연결성공");
+		} catch (SQLException ex) {
+			System.out.println("전송실패" + ex.getMessage());
+		}
+
+	}// end of modify()
+
+	public ArrayList<InfoVO> selectAllData() throws SQLException { // void 대신에 return 하려는 자료형으로 맞춰줘야 return 가능
+		// 2. 연결 객체 얻어오기
+
+		Connection con = null; // Connection 객체 와 변수선언 잘라주기
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+//		3. sql 문장 만들기 (*****)
+			String sql = "SELECT * FROM INFORMATION"; // SELECT * FROM 테이블명;
+
+//		4. sql 전송 객체 얻어오기
+			st = con.prepareStatement(sql);
+//		5. sql 전송
+
+			rs = st.executeQuery(); // sql 괄호 안에 쓰면 안됨
+
+//		6. 결과 처리
+			ArrayList<InfoVO> list = new ArrayList<InfoVO>();
+			while (rs.next()) { // 새로운 객체 생성을 반복 == 한사람에 대한 정보를 반복 저장 하지 않기 위해 배열 사용 해야 함.
+								// 한사람에 대한 정보를 입력한 후 InfoVO에 입력 --> InfoVO 에 입력된 것은 ArrayList로 순차적으로 저장
+
+				InfoVO vo = new InfoVO();
+				vo.setName(rs.getString("name"));
+				vo.setId(rs.getString("id"));
+				vo.setTel(rs.getString("tel"));
+				vo.setGender(rs.getString("sex"));
+				vo.setAge(rs.getInt("age"));
+				vo.setHome(rs.getString("home"));
+				list.add(vo);
+			} // 한사람에 대한 정보를 InfoVO 로 넣겠다 ---- 하나로 뭉쳐놔야 Connection 하기 용이해지기 때문에
+
+			// 나를 부른곳으로 return 해주겠다.
+			return list;
+
+		} finally {
+//					7. 닫기
+//					(연결 닫기 제일 중요함)
+
+			rs.close(); // resultset close
+			st.close(); // pst
+			con.close(); // connection 관리 중요하다!
+
+		}
+
+	} // end of selectAllData()
+
+	public InfoVO selectByTel(String tel) throws SQLException {
+
+		// 2. 연결 객체 얻어오기
+		InfoVO vo = new InfoVO();
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = DriverManager.getConnection(url, user, pass);
+//			3. sql 문장 만들기 (*****)
+			String sql = "SELECT * FROM INFORMATION WHERE tel=?";
+
+//			4. sql 전송 객체 얻어오기
+			st = con.prepareStatement(sql);
+			st.setString(1, tel);
+
+//			5. sql 전송
+			rs = st.executeQuery();
+
+//			6. 결과 처리
+			if (rs.next()) {
+				vo.setName(rs.getString("name"));
+				vo.setId(rs.getString("id"));
+				vo.setTel(rs.getString("tel"));
+				vo.setGender(rs.getString("sex"));
+				vo.setAge(rs.getInt("age"));
+				vo.setHome(rs.getString("home"));
+
+			}
+			return vo;
+		} finally {
+//			7. 닫기
+//			(연결 닫기 제일 중요함)
+			rs.close();
+			st.close();
+			con.close();
+		}
+	}
+
+	public InfoVO selectById(String id) throws SQLException {
+
+		// 2. 연결 객체 얻어오기
+		InfoVO vo = new InfoVO();
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = DriverManager.getConnection(url, user, pass);
+//			3. sql 문장 만들기 (*****)
+			String sql = "SELECT * FROM INFORMATION WHERE id=?";
+
+//			4. sql 전송 객체 얻어오기
+			st = con.prepareStatement(sql);
+			st.setString(1, id);
+
+//			5. sql 전송
+			rs = st.executeQuery();
+
+//			6. 결과 처리
+			if (rs.next()) {
+				vo.setName(rs.getString("name"));
+				vo.setId(rs.getString("id"));
+				vo.setTel(rs.getString("tel"));
+				vo.setGender(rs.getString("sex"));
+				vo.setAge(rs.getInt("age"));
+				vo.setHome(rs.getString("home"));
+
+			}
+			return vo;
+		} finally {
+//			7. 닫기
+//			(연결 닫기 제일 중요함)
+			rs.close();
+			st.close();
+			con.close();
+		}
+	}
+
+}// end of class // InfoModelImplement
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### InfoMysqlImpl
+
+~~~
+
+package jdbc.gui;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+//형식만 만들것임
+
+public class InfoMySQLImpl implements infoModel {
+
+	public InfoMySQLImpl() {
+		// mysql driver 로딩
+	}
+
+	public void insertData() {
+		//실제로 mysql
+	}
+
+	@Override
+	public void modify(InfoVO vo) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void delete(InfoVO vo) throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public ArrayList<InfoVO> selectAllData() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InfoVO selectByTel(String tel) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InfoVO selectById(String id) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+// 인터페이스 로 하였을때 mysql 과 orcle 이어도 상관없이 사용가능
+// 확장성 용이
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### InfoView
+
+~~~
+
+package jdbc.gui;
+
+/*
+ * Java GUI를 구성하는 application을 만든 후
+ * DataBase에 입력 / 수정 / 삭제 / 검색을 하는 프로그램을 작성하는 예제
+ *
+ * 또한 이 프로그램은 Java Swing으로 GUI를 구성하였음
+ *
+ *		테이블명 : temp
+ *		name	varchar(10)
+ *		id		char(14)
+ *		tel		varchar(13)
+ *		sex		varchar(10)
+ *		age		number
+ *		home	varchar(10)
+ *
+ */
+
+import java.awt.*;
+import java.awt.event.*;
+import java.nio.channels.SelectableChannel;
+import java.sql.SQLException;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.util.*;
+
+class InfoView implements ActionListener {
+
+	// -----------------------------------------
+	// 화면에 관련한 변수 선언
+	// -----------------------------------------
+	JFrame frame;
+	JTextField tf_name, tf_id, tf_tel, tf_age, tf_gender, tf_home;
+	JButton b_add, b_show, b_modify, b_delete, b_cancel, b_exit;
+	JTextArea ta;
+
+	// ########################################
+	// 1. business logic를 실행하는 클래스 변수 선언
+
+	InfoModelImpl db = null; // null 값을 줘도 되고 안줘도 된다. InfoModelImpl 을 변수로 선언
+//	InfoMySQLImpl db = null;
+
+	// -----------------------------------------
+	// 생성자 함수
+	// : 위의 멤버 변수에 선언된 클래스 객체 생성
+	// -----------------------------------------
+	public InfoView() {
+
+		frame = new JFrame("DBTest");
+
+		tf_name = new JTextField(15);
+		tf_id = new JTextField(15);
+		tf_tel = new JTextField(15);
+		tf_age = new JTextField(15);
+		tf_gender = new JTextField(15);
+		tf_home = new JTextField(15);
+
+		/*
+		 * 버튼 생성 ( 이미지 버튼 ) 1. Text과 ImageIcon를 갖는 버튼 생성 2. Text를 그림 아래 위치 3. Text를 가운데
+		 * 정렬 4. 버튼의 보더 지정 : 버튼의 모양이 위로 올라와 보이게 5. 버튼의 튤팁을 지정
+		 */
+		b_add = new JButton("Add", new ImageIcon("img/add.gif"));
+		b_add.setVerticalTextPosition(SwingConstants.BOTTOM);
+		b_add.setHorizontalTextPosition(SwingConstants.CENTER);
+		b_add.setBorder(new BevelBorder(BevelBorder.RAISED));
+		b_add.setToolTipText("추가");
+
+		b_show = new JButton("Show");
+		b_modify = new JButton("Modify");
+		b_delete = new JButton("Delete");
+		b_cancel = new JButton("Cancel");
+		b_exit = new JButton("Exit");
+		ta = new JTextArea(20, 50);
+
+		// #########################################
+		// 2. business logic 역할을 하는 클래스 객체 생성
+
+		try {
+			db = new InfoModelImpl();
+//			db = new InfoMySQLImpl();
+			ta.setText("디비 연결 성공");
+
+		} catch (Exception ex) {
+			ta.setText("현재 네트워크 오류가 발생하여 프로그램이 정상적이 않습니다. 양해부탁드립니다."); // 사용자 화면에 상태 확인
+			ex.printStackTrace();
+		} //
+
+	}
+
+	// --------------------------------------------------
+	// --------------------------------------------------
+	void setup() {
+
+		JPanel p_center = new JPanel();
+		JPanel p_west = new JPanel();
+		JPanel p_south = new JPanel();
+
+		// 화면출력만 하는 라벨 생성 및 붙이기
+		JLabel ll_name = new JLabel("Name", new ImageIcon("img/cute/1.gif"), JLabel.CENTER);
+		JLabel ll_id = new JLabel("ID", new ImageIcon("img/cute/2.gif"), SwingConstants.CENTER);
+		JLabel ll_tel = new JLabel("Tel", new ImageIcon("img/cute/3.gif"), SwingConstants.CENTER);
+		JLabel ll_sex = new JLabel("Sex", new ImageIcon("img/cute/4.gif"), SwingConstants.CENTER);
+		JLabel ll_age = new JLabel("Age", new ImageIcon("img/cute/5.gif"), SwingConstants.CENTER);
+		JLabel ll_home = new JLabel("Home", new ImageIcon("img/cute/6.gif"), SwingConstants.CENTER);
+
+		// west영역 붙이기
+		p_west.setLayout(new GridLayout(6, 2));
+		p_west.add(ll_name);
+		p_west.add(tf_name);
+		p_west.add(ll_id);
+		p_west.add(tf_id);
+		p_west.add(ll_tel);
+		p_west.add(tf_tel);
+		p_west.add(ll_sex);
+		p_west.add(tf_gender);
+		p_west.add(ll_age);
+		p_west.add(tf_age);
+		p_west.add(ll_home);
+		p_west.add(tf_home);
+
+		// center 영역
+		p_center.setLayout(new BorderLayout());
+		p_center.add("Center", ta);
+
+		// south 영역
+		p_south.setLayout(new GridLayout(1, 6));
+		p_south.add(b_add);
+		p_south.add(b_show);
+		p_south.add(b_modify);
+		p_south.add(b_delete);
+		p_south.add(b_cancel);
+		p_south.add(b_exit);
+
+		// 전체 영역 붙이기 및 화면 출력
+		frame.getContentPane().setLayout(new BorderLayout());
+		frame.getContentPane().add("West", p_west);
+		frame.getContentPane().add("Center", p_center);
+		frame.getContentPane().add("South", p_south);
+
+		frame.pack();
+		frame.setTitle("DBTest");
+		frame.setVisible(true);
+
+	}
+
+	// --------------------------------------------------
+	// 각 버튼을 이벤트에 등록
+	// --------------------------------------------------
+	public void eventProc() {
+
+		b_add.addActionListener(this);
+		b_show.addActionListener(this);
+		b_modify.addActionListener(this);
+		b_delete.addActionListener(this);
+		b_cancel.addActionListener(this);
+		b_exit.addActionListener(this);
+
+		tf_id.addActionListener(this);
+		tf_tel.addActionListener(this);
+	}
+
+	// -------------------------------------------------
+	// ActionListener에 등록한 컴포넌트에서 이벤트 발생시
+	// JVM에 의해 호출되는 메소드
+	// -------------------------------------------------
+	public void actionPerformed(ActionEvent ev) {
+
+		if (ev.getSource() == b_add) {
+			// ######################################################
+			// Add 버튼이 눌렸을 때
+			// 1. 각 텍스트필드에서 값을 얻어옴
+			// 3. Database 파일의 insert() 함수의 인자로 값을 넘겨줌
+//			JOptionPane.showMessageDialog(frame, "추가버튼 눌림");
+
+			// 입력 버튼을 눌렀을 때 가져오기
+			insertData();
+		}
+
+		else if (ev.getSource() == b_show) {
+			// ######################################################
+			// 전체 보기 버튼이 눌렸을 때
+			// 1. Database 파일의 selectAll() 호출하여 Vector로 리턴받음
+			// 2. 리턴받은 Vector에서 Record 객체를 하나씩 얻어온후
+			// 3. 그 Record 객체 안의 toString() 메소드 호출하여 TextArea에 출력
+			selectAlldata();
+
+//			JOptionPane.showMessageDialog(frame, "전체보기버튼 눌림");
+		}
+
+		else if (ev.getSource() == b_modify) {
+			// ######################################################
+			// Modify 버튼이 눌렸을 때
+			// 1. 각 텍스트필드에서 값을 얻어옴
+			// 3. Database 파일의 modify() 함수의 인자로 값을 넘겨줌
+
+			modifyData();
+
+//			JOptionPane.showMessageDialog(frame, "수정버튼 눌림");
+
+		}
+
+		else if (ev.getSource() == b_delete) {
+			// ######################################################
+			// 삭제버튼 눌렸을 때
+			// 1. 주민번호 텍스트 필드의 입력값 얻어옴
+			// 2. Database의 delete() 함수의 인자로 넘겨줌
+			deleteData();
+
+//			JOptionPane.showMessageDialog(frame, "삭제버튼 눌림");
+
+			// 전화번호 텍스트필드에서 엔터 쳤을때
+		} else if (ev.getSource() == tf_tel) {
+			selectByTel();
+		} else if (ev.getSource() == tf_id) {
+			selectById();
+		}
+	}
+
+	void selectByTel() { // 입력값을 tel 에 저장 하고 InfoVO vo 에 담아 화면에 띄우기
+		String tel = tf_tel.getText();
+		try {
+			InfoVO vo = db.selectByTel(tel);
+
+			tf_name.setText(vo.getName()); // 이름 값을 얻어와서 화면에 출력
+			tf_id.setText(vo.getId());
+			tf_tel.setText(vo.getTel());
+			tf_gender.setText(vo.getGender());
+			tf_age.setText(String.valueOf(vo.getAge()));
+			tf_home.setText(vo.getHome());
+		} catch (Exception ex) {
+			ta.setText("검색실패:" + ex.getMessage());
+		}
+	}
+
+	void selectById() { // 입력값을 id 에 저장 하고 InfoVO vo 에 담아 화면에 띄우기
+		String id = tf_id.getText();
+		try {
+			InfoVO vo = db.selectById(id);
+
+			tf_name.setText(vo.getName()); // 이름 값을 얻어와서 화면에 출력
+			tf_id.setText(vo.getId());
+			tf_tel.setText(vo.getTel());
+			tf_gender.setText(vo.getGender());
+			tf_age.setText(String.valueOf(vo.getAge()));
+			tf_home.setText(vo.getHome());
+		} catch (Exception ex) {
+			ta.setText("검색실패:" + ex.getMessage());
+		}
+	}
+
+	// 1. Database 파일의 selectAllData() 호출하여ArrayList로 리턴받음
+	// 2. 리턴받은 ArrayList에서 InfoVO 객체를 하나씩 얻어온후
+	// 3. 그 InfoVO 객체 안의 toString() 메소드 호출하여 TextArea에 출력
+
+	public void selectAlldata() {
+		try {
+			ArrayList<InfoVO> list = db.selectAllData(); // db.안에 있는 selectAllData
+
+			ta.setText("===============검색결과\n\n");
+			// for 문 사용으로 list의 데이터 뽑아오기
+
+			for (InfoVO vo : list) {
+				ta.append(vo.toString());
+			}
+		} catch (SQLException ex) {
+			ta.setText("데이터 검색 실패 :" + ex.getMessage());
+
+		}
+	}// end of selectAlldata()
+		// 1. 각 텍스트필드에서 값을 얻어옴
+		// 3. Database 파일의 insert() 함수의 인자로 값을 넘겨줌
+
+	// Modify 버튼이 눌렸을 때
+	// 1. 각 텍스트필드에서 값을 얻어옴
+	// 3. Database 파일의 modify() 함수의 인자로 값을 넘겨줌
+	public void modifyData() {
+		InfoVO vo = new InfoVO();
+
+		vo.name = tf_name.getText();
+		vo.id = tf_id.getText();
+		vo.tel = tf_tel.getText();
+		vo.gender = tf_gender.getText();
+		vo.age = Integer.parseInt(tf_age.getText());
+		vo.home = tf_home.getText();
+		try {
+			db.modify(vo);
+		} catch (Exception e) {
+			ta.setText("입력이 실패하였습니다." + e.getMessage());
+		}
+		clearTextField();
+	}
+
+	public void deleteData() {
+		InfoVO vo = new InfoVO();
+
+		vo.tel = tf_tel.getText();
+
+		try {
+			db.delete(vo);
+		} catch (Exception e) {
+			ta.setText("입력이 실패하였습니다." + e.getMessage());
+		}
+		clearTextField();
+	}
+
+	public void insertData() {
+		InfoVO vo = new InfoVO();
+
+		vo.name = tf_name.getText();
+		vo.id = tf_id.getText();
+		vo.tel = tf_tel.getText();
+		vo.gender = tf_gender.getText();
+		vo.age = Integer.parseInt(tf_age.getText());
+		vo.home = tf_home.getText();
+
+		// InfoModelImpl 에서 throws exception 을 받아서 try catch 로 예외 처리 해주기 !!
+		try {
+			db.insert(vo);
+		} catch (Exception e) {
+			ta.setText("입력이 실패하였습니다." + e.getMessage());
+		} // ta.setText 로 사용자 화면에 입력실패 화면을 띄워주고 개발자 입장에서 원인을 분석 하기 위해 e.getMessage로 실패 원인
+			// 간략하게 띄우기
+
+		clearTextField();
+	} // 사용자가 입력한 값을 가져와서 변수에 넣기
+
+	void clearTextField() {
+		tf_name.setText(null);
+		tf_id.setText(null);
+		tf_tel.setText(null);
+		tf_gender.setText(null);
+		tf_age.setText(null);
+		tf_home.setText(null);
+	}
+
+	public static void main(String args[]) {
+		System.out.println("Starting DBTest...");
+		InfoView mainFrame = new InfoView();
+		mainFrame.setup();
+		mainFrame.eventProc();
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### InfoVO
+
+~~~
+
+package jdbc.gui;
+
+// VO(Value of ) = DTO(Data Transfer Object) 데이터 전송 객체
+
+// 서로 다른 값들을 정리해주는 class
+
+// constructor 생성
+
+public class InfoVO {
+
+	String name;
+	String id;
+	String tel;
+	String gender;
+	int age;
+	String home;
+
+	public InfoVO() {
+	}
+
+	public InfoVO(String name, String id, String tel, String gender, int age, String home) {
+		super();
+		this.name = name;
+		this.id = id;
+		this.tel = tel;
+		this.gender = gender;
+		this.age = age;
+		this.home = home;
+	}
+
+	// setter / getter 생성
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getHome() {
+		return home;
+	}
+
+	public void setHome(String home) {
+		this.home = home;
+	}
+
+	// 한줄에 출력하기 위해
+	public String toString() {
+		return name + "\t" + id + "\t" + tel + "\t" + gender + "\t" + age + "\t" + home + "\n";
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

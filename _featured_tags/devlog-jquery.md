@@ -1,7 +1,7 @@
 ---
 layout: tag-blog
-title: Algorithm
-slug: algorithm
+title: jquery
+slug: jquery
 category: devlog
 menu: false
 order: 4

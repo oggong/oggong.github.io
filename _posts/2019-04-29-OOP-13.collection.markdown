@@ -1,0 +1,330 @@
+---
+layout: post
+title:  "0429-[자바]-OOP-13.collection"
+subtitle:   "0429-collection"
+categories: devlog
+tags: Java
+
+---
+## collection
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### ArrayListEx
+
+~~~
+
+package l_collection;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class ArrayListEx {
+
+	public static void main(String[] args) {
+
+		ArrayList list = new ArrayList(4);
+		list.add("rabbit");
+		list.add("zebra");
+		list.add("fox");
+		list.add("cat");
+		list.add("ant");
+		list.add("lion");
+		list.add(100);
+		list.add(200);
+
+//		for(String str : list) {
+//			System.out.println(str);
+//		}
+		System.out.println(list.toString());
+
+		list.set(2, "dog");
+		System.out.println(list);
+
+		list.remove(4);
+		System.out.println(list);
+
+		Collections.sort(list);
+		System.out.println(list);
+
+//		for (int i = 0; i < list.size(); i++) {
+//			String str = (String) list.get(i);
+//			System.out.println(str);
+//		}
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### ArrayListEx2
+
+~~~
+
+package l_collection;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class ArrayListEx2 {
+
+	public static void main(String[] args) {
+
+		ArrayList<Student> data = method();
+		// 여기서 출력
+
+//		for (Student a : data) {
+//			System.out.println(a);
+//		}
+
+		// 표준화 출력
+		// Enumeration -> Iterator
+		Iterator it = data.iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
+		}
+
+//		for (int i = 0; i < data.size(); i++) {
+//			Student s = (Student) data.get(i);
+//			System.out.println(s);
+//		}
+	}
+
+	static ArrayList method() {
+		Student a = new Student("홍길자", 20);
+		Student b = new Student("홍길숙", 30);
+		Student c = new Student("홍동자", 40);
+		ArrayList<Student> list = new ArrayList<Student>();
+		list.add(a);
+		list.add(b);
+		list.add(c);
+		return list;
+	}
+}
+
+class Student {
+	String name;
+	int age;
+
+	Student(String name, int age) {
+		this.name = name;
+		this.age = age;
+
+	}
+
+	public String toString() {
+		return name + "학생은" + age + "세 입니다.";
+	}
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### HashMapEx
+
+~~~
+
+
+package l_collection;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class HashMapEx {
+
+	public static void main(String[] args) {
+		HashMap map = new HashMap();
+		map.put("kimjava", "1111");
+		map.put("parkjava", "1234");
+		map.put("leejava", "1234");
+		map.put("kimjava", "9999");
+		Scanner input = new Scanner(System.in);
+		boolean stop = false;
+		while (!stop) {
+			System.out.println("아이디와 패스워드 입력");
+			System.out.println("아이디 입력->");
+			String id = input.nextLine();
+
+			System.out.println("패스워드 입력->");
+			String pw = input.nextLine();
+
+			if (map.containsKey(id)
+			/* 아이디가 map 에 key에 해당되는가? */) {
+				if (map.get(id).equals(pw)
+				/* 그 아이디와 같은 key의 값과 입력받은 패스워드 같다면 */) {
+					System.out.println("로그인 성공");
+					stop = true;
+				} else {
+					System.out.println("비밀번호가 일치하지 않습니다.");
+					continue;
+				}
+
+			} else {
+				System.out.println("존재하지 않는 아이디 입니다.");
+				continue;
+			}
+		}
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### HashSetEx
+
+~~~
+
+package l_collection;
+
+import java.util.*;
+
+public class HashSetEX {
+
+	public static void main(String[] args) {
+
+		HashSet list = new HashSet();
+		list.add("rabbit");
+		list.add("zebra");
+		list.add("fox");
+		list.add("fox");
+		list.add("zebra");
+		list.add("lion"); // set은 순서를 저장하지 않는 것
+
+		System.out.println(list);
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### HashSetLotto
+
+~~~
+
+package l_collection;
+
+import java.util.*;
+
+public class HashSetLotto {
+
+	public static void main(String[] args) {
+
+		HashSet<Integer> lotto = new HashSet<Integer>();
+		while (lotto.size() < 6) {
+			int su = (int) ((Math.random() * 45) + 1);
+			lotto.add(su);
+		}
+
+//		for (int i = 0; i < 6; i++) {
+//			int su = (int) ((Math.random() * 45) + 1);
+//			lotto.add(su);
+//		}
+		System.out.println(lotto);
+		ArrayList<Integer> list = new ArrayList<Integer>(lotto);
+		Collections.sort(list);
+		System.out.print(list);
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### StackQueueEx
+
+~~~
+
+package l_collection;
+
+import java.util.*;
+
+public class StackQueueEx {
+
+	public static void main(String[] args) {
+
+		// Stack - LIFO(Last In First Out)
+
+		Stack stack = new Stack();
+		stack.push("A");
+		stack.push("B");
+		stack.push("C");
+
+		while (!stack.isEmpty()) {
+			System.out.println(stack.pop());
+		}
+		Queue queue = new LinkedList();
+		queue.offer("가");
+		queue.offer("나");
+		queue.offer("다");
+
+		while (!queue.isEmpty()) {
+			System.out.println(queue.poll());
+
+		}
+
+	}// end of main
+
+}// end of class
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### TreeSetEx
+
+~~~
+
+package l_collection;
+
+import java.util.*;
+
+public class TreeSetEx {
+
+	public static void main(String[] args) {
+		TreeSet set = new TreeSet();
+
+		set.add("사자");
+		set.add("고양이");
+		set.add("낭만고양이");
+		set.add("오리");
+		set.add("날아");
+		set.add("올라");
+		set.add("저하늘");
+		set.add("멋진");
+		set.add("달이");
+		set.add("될게요");
+		set.add("사자");
+		set.add("사자");
+
+		System.out.println(set);
+		System.out.println(set.subSet("d", "s"));
+		System.out.println(set.headSet("d"));
+		System.out.println(set.tailSet("d"));
+
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
