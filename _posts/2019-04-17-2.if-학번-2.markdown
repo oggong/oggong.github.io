@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "0417-[자바]control-2. if문 학번"
+subtitle:   "0417-Ex02.if문 학번"
+categories: devlog
+tags: Java
+
+---
+## Ex02.if문 학번 [제어문]
+---
+<p>
+-if문<br>
+  - 1, 3, 9 이면 남자를 출력 <br>
+  - 2, 4, 8 이면 여자를 출력 <br>
+</p>
+
+---
+
+~~~
+public class Ex01_if_주민번호 {
+
+	public static void main(String[] args) {
+
+		String id = "800101-1234567";
+		char sung = id.charAt(7);
+
+
+		if (sung == '1' || sung == '3' || sung == '9') {
+			// sung 은 char이니깐 문자로 받아줘야 한다 '' 표실
+			System.out.println("남자 입니다.");
+
+		} else if (sung == '2' || sung == '4' || sung == '8') {
+			System.out.println("여자 입니다.");
+		}
+
+	}
+
+}
+
+
+
+~~~
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57626183-5dde2e00-75d0-11e9-81de-c4f29cf0b7d8.jpg" width="100">

@@ -1,0 +1,56 @@
+---
+layout: post
+title:  "0415-[자바]datatype-1.Naming"
+subtitle:   "0415-Ex01_Naming"
+categories: devlog
+tags: Java
+
+---
+
+## Ex01_Naming
+
+* // 한 줄 주석문입니다.
+
+* / * 여러줄 주석문 * /
+
+* /**	원래 도움말 주석  * /
+
+---
+
+ 데이터 타입 (자료형)
+ 1. 기본형 (primitive type) <br>
+ 		논리형 : boolean <br>
+ 		문자형 : char <br>
+ 		정수형 : int / long <br>
+ 		실수형 : double <br>
+
+ 2. 참조형(reference type) : 클래스, 배열 <br>
+ 		-> new 연산자 이용해서 메모리 할당 <br>
+  	ex) String --- 문자열 (참조형이라서 기본형이랑 다름) <br>
+		ex) String (예외) <br>
+
+---
+
+
+~~~
+
+public class Ex01_Naming {
+
+	public static void main(String[] args) {
+
+	// 1 . 변수 선언
+	char a; // 문자형 변수 만들기
+	// char 1a (x) char a1(o) ------------char == 2byte
+
+	int b;
+	double d;
+
+	// 2. 값 지정
+	a = '김';  // char은 ''사용,  ""은 사용 불가
+	b = 100;
+	d = 100.3;
+
+	}
+}
+
+~~~

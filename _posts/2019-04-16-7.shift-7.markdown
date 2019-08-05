@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "0416-[자바]operator-7.쉬프트 연산자"
+subtitle:   "0416-Ex07_shift"
+categories: devlog
+tags: Java
+
+---
+## Ex07_shift [쉬프트 연산자]
+---
+<p>
+-shift : 모든 비트의 값을 이동하는 연산자<br>
+  - >> : 오른쪽으로 이동<br>
+  - << : 왼쪽 이동<br>
+  - >>> : 오른쪽으로 이동 하나 (무조건 부호에 0)
+</p>
+
+---
+
+~~~
+public class Ex07_shift {
+
+	public static void main(String[] args) {
+
+		int a = -4;
+		System.out.println(a >> 2); // 0100 --> 0001 1
+		System.out.println(a << 1); // 0100 --> 1000 8
+		System.out.println(a>>>1); // 어마무시한 큰수가 된다
+	}
+
+}
+~~~
+
+<!-- - 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57611056-011d4c00-75ad-11e9-9940-d5a928759a2e.jpg" width="50"> -->

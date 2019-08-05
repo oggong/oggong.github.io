@@ -1,0 +1,110 @@
+---
+layout: post
+title:  "0418-1-[자바]control-9.while 연습"
+subtitle:   "0418-Ex09.while 연습"
+categories: devlog
+tags: Java
+
+---
+## Ex09_while 연습 [제어문]
+---
+<p>
+StringTokenizer
+
+</p>
+
+---
+
+~~~
+
+public static void main(String[] args) {
+
+		String str = " 아름다운 우리나라 대한민국.";
+		StringTokenizer st = new StringTokenizer(str);
+		// 단어들을 Token
+
+		while (st.hasMoreTokens()) {
+		// hasMoreTokens 다음 토큰 t/f 연달아 토큰을 실행 시킨 이후에
+		//토큰이 더이상 있지 않으면 false로 나옴
+
+			System.out.println(st.nextToken());
+		}
+
+~~~
+
+
+
+
+- 결과<br/>
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148461-3e59ea00-8a44-11e9-811f-f187213fa068.JPG" width="70"><br/><br/><br/><br/><br/>
+
+
+
+---
+
+~~~
+String str = "100*3+4/2-5";
+		StringTokenizer st = new StringTokenizer(str, "+-*/%");
+		// 연산자만 빠지기
+
+		while (st.hasMoreTokens()) {
+
+			System.out.println(st.nextToken());
+		}
+
+~~~
+
+- 결과
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148502-b32d2400-8a44-11e9-8ef1-e71ab5daacb2.JPG" width="50"><br/><br/><br/><br/><br/>
+
+
+---
+
+<p>
+1~10까지 더하기
+</p>
+
+~~~
+int sum = 0;
+		int i = 1;
+		// for문 초기값 위로 이동
+		// 반복문의 갯수가 정해져 있을 때 === for문
+		// 반복문의 갯수가 정해져 있지 않을 때 === while문
+
+		// for (; i <= 10;) {
+
+		while (i <= 10) {
+			sum += i;
+			i++;
+		}
+		System.out.print("값 :" + sum);
+
+~~~
+
+- 결과
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148524-00a99100-8a45-11e9-95dc-4c16a1bac142.JPG" width="50"><br/><br/><br/><br/><br/>
+
+
+<p>
+구구단 수를 입력 받아서 구구단 출력
+</p>
+
+~~~
+Scanner input = new Scanner(System.in);
+System.out.println("출력 할 구구단의 숫자를 입력 하시오.");
+
+int dan = input.nextInt();
+int i = 1;
+
+while (i <= 9) {
+	System.out.printf("%d * %d = %d \n", dan, i, dan * i);
+	i++;
+}
+
+}
+
+
+~~~
+
+- 결과
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148603-08b60080-8a46-11e9-837d-3438e618f4c6.JPG" width="200"><br/><br/><br/><br/><br/>

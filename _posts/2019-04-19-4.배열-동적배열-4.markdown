@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "0419-1-[자바]-array-6.동적배열"
+subtitle:   "0419-Ex06_동적배열"
+categories: devlog
+tags: Java
+
+---
+## Ex06_동적배열 [배열]
+---
+<p>
+동적 배열
+ 	출력<br/>
+		* <br/>
+		** <br/>
+		*** <br/>
+		**** <br/>
+
+
+</p>
+---
+
+~~~
+public static void main(String[] args) {
+
+	char[][] star = new char[4][];
+	// 값지정
+	for (int i = 0; i < star.length; i++) {
+
+		star[i] = new char[i + 1];
+// star.length를 1번째는 1번 2번째는 2개 --> 서로다른 배열 갯수
+//			4열로 4개를 만드는것 x
+//			1열 메모리
+
+		for (int j = 0; j < i + 1; j++) {
+			star[i][j] = '*';
+
+		}
+	}
+
+
+	for (int i = 0; i < star.length; i++) {
+		for (int j = 0; j < star[i].length; j++) {
+			System.out.print(star[i][j]);
+		}
+		System.out.println();
+	}
+}
+}
+~~~
+
+
+- 결과<br/>
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59158862-a3bce200-8afb-11e9-8247-fb6622c41b38.JPG" width="70"><br/><br/><br/><br/><br/>

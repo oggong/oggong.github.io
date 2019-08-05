@@ -1,0 +1,132 @@
+---
+layout: post
+title:  "0417-[자바]control-8.연습문제"
+subtitle:   "0417-Ex08.연습문제"
+categories: devlog
+tags: Java
+
+---
+## Ex08_연습문제 [제어문]
+---
+<p>
+	문제) 행과 열의 수를 입력받아 다음과 같이 출력하는 프로그램을 작성하시오.
+
+     입력 <br/>
+	     3  4 <br/>   
+
+     출력 <br/>
+     1 2 3 4 <br/>
+     2 4 6 8 <br/>
+     3 6 9 12 <br/>
+
+</p>
+
+---
+
+~~~
+
+1번 풀이
+
+		Scanner input = new Scanner(System.in);
+
+		int row = 0, col = 0; // 행 열 초기화
+
+		System.out.print(" "); // 행 입력
+		col = input.nextInt();
+
+		System.out.print(" "); // 열 입력
+		row = input.nextInt();
+
+		for (int i = 1; i <= row; i++) {
+			for (int j = 1; j <= col; j++) {
+				System.out.print(i * j + " ");
+			}
+			System.out.println(" ");
+		}
+	}
+}
+
+~~~
+
+~~~
+2번 풀이
+
+	Scanner input = new Scanner(System.in);
+
+	int height = 0, width = 0;
+
+	System.out.print(" ");
+	height = input.nextInt();
+
+	System.out.print(" ");
+	width = input.nextInt();
+
+	for (int i = 1; i <= height; i++) {
+		for (int j = 1; j <= width; j++) {
+			System.out.print(j + " ");
+
+					}
+		System.out.println(" ");
+				}
+		}
+}
+~~~
+
+
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59147860-e6b78080-8a3b-11e9-9740-29c1eb9a8dbf.JPG" width="70"><br/><br/><br/><br/><br/>
+
+
+---
+
+
+<p>
+문제2)  문자열처리하기 <br/>
+문자 N(a~z, A~Z)를 입력받아 N이 소문자면 a부터 N까지 인쇄하고<br/>
+N이 대문자이면 문자 N부터  Z까지 출력하라 <br/>
+그 밖의 문자가 입력되면 Error 를 출력하라<br/>
+
+입력  출력 <br/>
+f       abcdef <br/>
+X       XYZ <br/>
+6       Error <br/>
+
+</p>
+
+
+~~~
+
+public static void main(String[] args) {
+
+	Scanner input = new Scanner(System.in);
+	System.out.print("문자를 입력하세요");
+	char ch = input.next().charAt(0);
+
+	if (ch >= 'A' & ch <= 'Z') {
+		for (int i = ch; i <= 'Z'; i++) {
+			System.out.print((char) i);
+		}
+		} else if (ch >= 'a' & ch <= 'z') {
+			for (int j = 'a'; j <= ch; j++) {
+				System.out.print((char) j);
+			}
+			} else {
+				System.out.println("error");
+				}
+			}
+		}
+
+
+~~~
+
+- 결과(1)<br/>
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59147984-5a0dc200-8a3d-11e9-8e05-9558353f99c5.JPG" width="100"><br/><br/><br/><br/><br/>
+- 결과(2)<br/>
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148003-8295bc00-8a3d-11e9-95a0-fb85411fd153.JPG" width="100"><br/><br/><br/><br/><br/>
+- 결과(3)<br/>
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148006-8e817e00-8a3d-11e9-81aa-4467110c5142.JPG" width="100"><br/><br/><br/><br/><br/>

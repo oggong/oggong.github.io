@@ -1,0 +1,62 @@
+---
+layout: post
+title:  "0417-[자바]control-4. swich_case_주민번호"
+subtitle:   "0417-Ex04.switch_주민번호"
+categories: devlog
+tags: Java
+
+---
+## Ex04_switch_주민번호 [제어문]
+---
+<p>
+- switch 문 : 분기문<br>
+  -switch(__ ){ <br>
+    case A: 명령어A; break; <br>
+    case B: 명령어B; break; <br>
+    case C: 명령어C; break; <br>
+    default: 그외 명령어; <br>
+     만약 default 를 앞에 쓰게 된다면 break; 사용 <br>
+     ___ : 정수형 / 문자형   ex) double x <br>
+     String(1.5 버전 이후) 사용 <br>
+  }
+</p>
+
+---
+~~~
+
+public class Ex04_switch_주민번호 {
+
+	public static void main(String[] args) {
+
+		String id = "931212-1234567";
+		char chul = id.charAt(8);
+		String home = "";
+
+		switch (chul) {
+		case '0':
+			home = "서울";
+			break;
+		case '1':
+			home = "인천/부산";
+			break;
+		case '2':
+			home = "경기";
+			break;
+		case '9':
+			home = "제주";
+			break;
+		default:
+			home = "한국인";
+		}
+		System.out.println("출신지: " + home);
+
+	}//end of main
+
+}// end of class
+
+
+~~~
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58370708-878a4400-7f44-11e9-882c-2c6820e6a6ee.JPG" width="100">

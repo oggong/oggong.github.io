@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "0415-[자바]datatype-3.Declaration"
+subtitle:   "0415-Ex03_Declaration"
+categories: devlog
+tags: Java
+
+---
+
+## Ex03_Declaration
+
+~~~
+
+public class Ex03_Declaration {
+
+	public static void main(String[] args) {
+		// (1) 변수 선언 -> 값 대입
+		int kor;
+		kor = 30;
+
+		// (2) 초기화 = 변수 선언 + 값 지정(대입)
+		int eng = 33;
+
+		if(kor == eng) {
+			System.out.println("두 점수는 동일 합니다.");
+		}else {
+			System.out.println("다르다");
+		}
+		int temp; // temporary ------- swap
+		temp = kor;
+		kor = eng;
+		eng = temp;
+		System.out.println("국어 :"+kor+"영어 :"+eng);
+		// 기존 자바에서 사용하던 방식
+		System.out.printf("국어 : %d, 영어 : %d",kor,eng);
+		// c 계열에서 쓰던 방식  둘다 사용 가능
+	}
+}
+~~~

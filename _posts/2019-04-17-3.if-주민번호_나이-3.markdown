@@ -1,0 +1,80 @@
+---
+layout: post
+title:  "0417-[자바]control-3. if문 주민번호_나이"
+subtitle:   "0417-Ex03.if문 주민번호_나이"
+categories: devlog
+tags: Java
+
+---
+## Ex03.if문 주민번호_나이 [제어문]
+---
+<p>
+-if문<br>
+  - 1, 3, 9 이면 남자를 출력 <br>
+  - 2, 4, 8 이면 여자를 출력 <br>
+
+  - 1 - 정수값 1 (연산 가능)
+  - '1' - 문자 1
+  - "1" - 문자열 1
+
+
+</p>
+
+---
+~~~
+import java.util.*;
+~~~
+
+---
+
+~~~
+
+public class Ex03_주민번호_나이 {
+
+	public static void main(String[] args) {
+
+~~~
+
+---
+
+~~~
+
+		String id = "931212-1234567"; //
+
+		String nai1 = id.substring(0, 2);
+    // nai1 에는 93 이라는 문자열이 들어 있음
+
+		int nai2 = Integer.parseInt(nai1); // casting 연산자는 기본형일때만!!!
+//		Integer.parseInt(nai1)
+---- String 을 Int 형으로 바꿔준다! String("93" -> 93)
+
+		char a = id.charAt(7);
+
+		int age = 0;
+		// 주민번호 7번째 문자를 얻어와서
+		// 1 이거나 2라면 1900
+		// 3 이거나 4라면 2000
+
+		// Calendar 클래스를 이용해서 년도값을 구해서 년도 지정
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);
+
+		if (a == '1' || a == '2') {
+      // 안씌워도 가능 하지만 사실상 블록을 씌워 주는것이 가독성 좋음
+			age = year - (1900 + nai2) + 1;
+			System.out.println("당신의 나이: " + age);
+		} else if (a == '3' || a == '4') {
+			age = year - (2000 + nai2) + 1;
+			System.out.println("당신의 나이: " + age);
+		}
+
+
+	}//end of main
+
+}// end of class
+
+~~~
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58370424-61af7000-7f41-11e9-8bf0-a0626d1a8f3d.JPG" width="120">

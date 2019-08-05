@@ -1,0 +1,41 @@
+---
+layout: post
+title:  "0418-1-[자바]control-11.break-continue"
+subtitle:   "0418-Ex11.break_continue"
+categories: devlog
+tags: Java
+
+---
+## Ex11_break_continue[제어문]
+---
+<p>
+  break - 블럭을 벗어나는 명령<br/>
+	continue - 블럭의 끝으로 가라는 명령
+</p>
+
+---
+
+~~~
+
+public static void main(String[] args) {
+		END: for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+
+				if (j == 1)
+					break END; // continue;
+				System.out.println("<" + i + "," + j + ">");
+			}
+			System.out.println("데이타");
+		}
+
+	}
+
+
+
+~~~
+
+
+
+
+- 결과<br/>
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148711-567f3880-8a47-11e9-8718-05c405b3e529.JPG" width="50"><br/><br/><br/><br/><br/>

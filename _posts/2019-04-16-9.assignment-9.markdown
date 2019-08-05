@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "0416-[자바]operator-9. 대입 연산자"
+subtitle:   "0416-Ex09_Assignment"
+categories: devlog
+tags: Java
+
+---
+## Ex09_Assignment [대입 연산자]
+---
+<p>
+-대입 연산자<br>
+  - 대입연산자: =<br>
+  - 축약대입연산자 (산술/ 이진논리 / 쉬프트)<br>
+</p>
+
+---
+
+~~~
+public class Ex10_Assignment {
+
+	public static void main(String[] args) {
+
+		int a = 10, b = 7;
+
+		a += b; // a = a + b;
+		System.out.println("A=" + a);
+
+		a = 10;
+		b = 7;
+
+		a -= b;
+		System.out.println("A=" + a);
+
+		a = 10;
+		b = 7;
+
+		a *= b;
+		System.out.println("A=" + a);
+
+		a = 10;
+		b = 7;
+
+		a /= b;
+		System.out.println("A=" + a);
+	}
+
+}
+
+~~~
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57624066-16ee3980-75cc-11e9-863b-d85a14287515.jpg" width="60">
