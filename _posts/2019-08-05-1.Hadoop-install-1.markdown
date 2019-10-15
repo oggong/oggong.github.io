@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "0805-1-[Hadoop]-hadoop-1.사전 설치"
-subtitle:   "0805-1.hadoop 사전 설치"
+title:  "1015-1-[React]-React-1.React란"
+subtitle:   "1015-1.React 소개"
 categories: devlog
-tags: Hadoop
+tags: React
 
 ---
 ## 1.Hadoop 사전 설치
@@ -247,7 +247,7 @@ https://www.virtualbox.org/   > Download > Vitural Box Old builds
 <br/>
 
   ~~~
-  
+
   VAGRANTFILE_API_VERSION = "2"
 
   Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
