@@ -1,10 +1,9 @@
 ---
 layout: post
-title:  "1015-1-[React]-React-1.React란"
-subtitle:   "1015-1.React 소개"
+title:  "0805-1-[Hadoop]-hadoop-1.사전 설치"
+subtitle:   "0805-1.hadoop 사전 설치"
 categories: devlog
-tags: React
-
+tags: Hadoop
 ---
 ## 1.Hadoop 사전 설치
 ---
