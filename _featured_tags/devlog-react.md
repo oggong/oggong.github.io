@@ -4,6 +4,6 @@ title: React
 slug: react
 category: devlog
 menu: false
-order: 1
-header-img: "/img/react.png"
+order: 2
+header-img: "/img/reactjs.png"
 ---
