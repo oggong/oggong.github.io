@@ -1,0 +1,274 @@
+---
+layout: post
+title:  "0430-[자바]-GUI-3.event"
+subtitle:   "0430-event"
+categories: devlog
+tags: Java
+
+---
+## event
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Test
+
+~~~
+
+
+package c_event;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class Test extends JFrame {
+
+	JButton b;
+	JTextField tf;
+
+	Test() {
+		b = new JButton("눌러봐 버튼");
+		tf = new JTextField("입력해봐", 20);
+
+	}
+
+	void addLayout() {
+		setLayout(new FlowLayout());
+
+		add(b);
+		add(tf);
+
+		setSize(400, 300);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public static void main(String[] args) {
+
+		Test t = new Test();
+		t.addLayout();
+
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### TestA
+
+~~~
+
+package c_event;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class TestA extends JFrame {
+
+	JButton b;
+	JTextField tf;
+
+	TestA() {
+		b = new JButton("눌러봐 버튼");
+		tf = new JTextField("입력해봐", 20);
+
+	}
+
+	void addLayout() {
+		setLayout(new FlowLayout());
+
+		add(b);
+		add(tf);
+
+		setSize(400, 300);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	void eventProc() {
+		// 2. 핸들러 객체 생성
+		MyEvent me = new MyEvent();
+
+		// 3. 이벤트 발생을 원하는 컴포넌트와 연결
+		b.addActionListener(me);
+		tf.addActionListener(me);
+	}
+
+	// 1, 이벤트 핸들러
+	class MyEvent implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			Object obj = e.getSource(); // object 지정
+
+			if (obj == b) {
+				String msg = b.getText();
+				JOptionPane.showMessageDialog(null, msg + " 이벤트 발생");
+			} else if (obj == tf) {
+				String msg = tf.getText();
+				JOptionPane.showMessageDialog(null, msg + "를 입력하셨습니다.");
+			}
+		}
+
+	}
+
+	public static void main(String[] args) {
+
+		TestA t = new TestA();
+		t.addLayout();
+		t.eventProc(); // 호출 먼저 ----> 그다음 메소드 생성
+	}
+
+}
+
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### TestB
+
+~~~
+
+
+package c_event;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class TestB extends JFrame implements ActionListener {
+
+	JButton b;
+	JTextField tf;
+
+	TestB() {
+		b = new JButton("눌러봐 버튼");
+		tf = new JTextField("입력해봐", 20);
+
+	}
+
+	void addLayout() {
+		setLayout(new FlowLayout());
+
+		add(b);
+		add(tf);
+
+		setSize(400, 300);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	// 이벤트 구현
+	void eventProc() {
+		b.addActionListener(this);
+		tf.addActionListener(this);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		JOptionPane.showMessageDialog(null, "이벤트 발생");
+	}
+
+	public static void main(String[] args) {
+
+		TestB t = new TestB();
+		t.addLayout();
+		t.eventProc();
+
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### TestC
+
+~~~
+
+
+package c_event;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class TestC extends JFrame {
+
+	JButton b;
+	JTextField tf;
+
+	TestC() {
+		b = new JButton("눌러봐 버튼");
+		tf = new JTextField("입력해봐", 20);
+
+	}
+
+	void addLayout() {
+		setLayout(new FlowLayout());
+
+		add(b);
+		add(tf);
+
+		setSize(400, 300);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	void eventProc() {
+
+// 1.		
+//		MyEvent evt = new MyEvent();
+//		b.addActionListener(evt);
+//		==================================
+// 2.
+//		b.addActionListener(new MyEvent());
+//		========================================
+		// 변수를 생성 하고 여러번 쓰지 않을때 줄여주기 (개발자 코딩을 줄이면 줄일 수록 good)
+
+//		class MyEvent implements ActionListener {
+//		public void actionPerformed(ActionEvent e) {
+//			JOptionPane.showMessageDialog(null, "이벤트 발생");
+//		}
+//	}
+// =============================================================
+// 3.
+
+		b.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "이벤트 발생");
+			}
+		});
+		tf.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "이벤트 발생2");
+			}
+		});
+	}
+
+	public static void main(String[] args) {
+
+		TestC t = new TestC();
+		t.addLayout();
+		t.eventProc();
+
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>

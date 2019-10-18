@@ -1,0 +1,64 @@
+---
+layout: post
+title:  "0426-[자바]-OOP-7.access"
+subtitle:   "0426-access"
+categories: devlog
+tags: Java
+
+---
+## access
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Main
+
+~~~
+
+package g_access;
+
+import g_access.sub.Access;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Access me = new Access();
+//		me.a = "프라이빗 변경"; 동일 패키지 내에서는 private 빼고는 모두 접근 가능
+		me.b = "퍼블릭 변경";
+//		me.c = "디폴트 변경"; 다른 패키지에 있을때에는 public 만 접근 가능
+//		me.d = "프로텍티드 변경";
+		me.output();
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### SubClassMain
+
+~~~
+
+package g_access;
+
+// 접근 지정자는 4가지
+
+
+import g_access.sub.Access;
+
+public class SubClassMain extends Access { // 상속!
+
+	public static void main(String[] args) {
+		SubClassMain me = new SubClassMain();
+//		me.a = "프라이빗 변경";
+		me.b = "퍼블릭 변경";
+//		me.c = "디폴트 변경";
+		me.d = "프로텍티드 변경"; //상속 관계에 있을때는 접근가능
+		me.output();
+	}
+}
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>

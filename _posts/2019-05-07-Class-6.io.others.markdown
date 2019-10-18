@@ -1,0 +1,47 @@
+---
+layout: post
+title:  "0507-[자바]-Class-6.io.others"
+subtitle:   "0507-io.others"
+categories: devlog
+tags: Java
+
+---
+## io.others
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### FileEx
+
+~~~
+
+package io.others;
+
+import java.io.File;
+
+public class FileEx {
+
+	public static void main(String[] args) {
+		File f = new File("src\\io\\others");
+		System.out.println(f.getAbsolutePath()); // 절대 값
+		System.out.println(f.getPath()); // 상대 값 (지정한 값)
+
+		if (f.isFile()) {
+			System.out.println("파일입니다.");
+		} else if (f.isDirectory()) {
+			System.out.println("디렉토리입니다.");
+			String[] sub = f.list();
+			for (String m : sub) {
+				System.out.println(m);
+			}
+		}
+
+		File f2 = new File("src\\io\\others\\파일.txt");
+		f2.delete();
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

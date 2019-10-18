@@ -1,20 +1,21 @@
 ---
 layout: post
-title:  "1016-1-[React]-1.React 특징"
+title:  "1016-[React]-1.React 특징"
 subtitle:   "1016-1.React 특징"
 categories: devlog
 tags: react
 
 ---
 ## React 특징
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ###리액트는 주요특징
 
 <strong>Virtual DOM</strong>
 <br/>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 * DOM 이란 Document Object Model 의 약어
 * 객체로 문서 구조를 표현 하는 방법으로 XML 이나 HTML 로 작성
@@ -64,3 +65,8 @@ DOM을 최소한으로 조작하여 작업을 처리하는 방식으로 개선
 그리고 여러가지 라이브러리, 라우팅에는 react-router , Ajax 처리에는 axios, fetch, 상태 관리 redux, Mobx 등
 <br/>
 다른 수많은 라이브러리를 사용 할 수 있다.
+
+<hr style="height: 1px; background: skyblue; "/>
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>

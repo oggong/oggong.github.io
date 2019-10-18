@@ -1,0 +1,82 @@
+---
+layout: post
+title:  "0508-[Oracle]-1.basic-sql"
+subtitle:   "0508-basic"
+categories: devlog
+tags: Oracle
+
+---
+## basic
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### basic-sql
+
+~~~
+
+-- SQL ( DDL / DML / DCL )
+-- DDL
+
+select * from emp;
+
+
+CREATE TABLE emp_copy AS
+SELECT * FROM emp;
+
+select * from emp_copy;
+
+--1. 사원번호가 7782인 사원의 부서를 10번으로 변경
+--      UPDATE  table_name SETcolumn=value WHEREcondition;
+        UPDATE emp_copy SET deptno=30 WHERE empno=7782;
+--2. 사원번호가 7782인 사원의 이름을 홍길숙으로 변경하고 급여를 3500으로 변경
+        UPDATE emp_copy SET ename='홍길숙' WHERE empno=7782;
+        UPDATE emp_copy SET sal=3500 WHERE empno=7782;
+--3. 모든 부서원의 보너스를 300씩 인상 변경
+    -- UPDATE  table_name SETcolumn=value WHEREcondition;
+        UPDATE emp_copy SET comm=nvl(comm,0) +300;
+--4. 사원번호가 7499인 사원의 정보를 삭제
+--  DELETE  FROM table_name WHEREcondition;
+        DELETE FROM emp_copy WHERE empno=7499;
+--5. 입사일자가 81년 6월 1일 이전인 사원의 정보를 삭제
+    DELETE FROM emp_copy WHERE hiredate<'81/06/01';
+--6. 입사(사번9999, 사원명:본인명, 업무:IT, 월급:6000)
+    INSERT INTO emp_copy(EMPNO,ENAME,JOB,SAL) VALUES(9999,'오민석','IT',6000);
+
+-- 통으로 날리기
+    DROP TABLE emp_copy;
+
+    CREATE TABLE student(
+        id char(4),
+        name varchar2(10),
+        kor number(3),
+        math number(3),
+        total number(3),
+        avg number(5,2)
+        );
+-- 테이블 구조 확인
+    DESC student;
+-- 데이터 (레코드) 확인
+    SELECT * FROM student;
+-- 영어 점수 컬럼 추가 (eng number(3))
+    ALTER TABLE student ADD (eng number(3));
+-- 총점 컬럼 삭제
+    ALTER TABLE student DROP(total);
+-- 평균 컬럼에서 소숫점 1자리 변경
+    ALTER TABLE student MODIFY (avg number(4,1));
+
+    DESC STUDENT;
+
+--데이터 입력
+    INSERT INTO student VALUES ('8001','홍길순',100,80,0,50);
+    INSERT INTO student (id,name,kor,math,eng) VALUES('8088','홍길동',55,66,88);
+--데이터 검색
+    SELECT * FROM student;
+--홍길동 학생의 평균값을 입력하세요
+    UPDATE student SET avg = (kor+math+eng)/3 WHERE name= '홍길동';
+
+    
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

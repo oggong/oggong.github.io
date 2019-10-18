@@ -1,33 +1,34 @@
 ---
 layout: post
-title:  "1016-2-[React]-2.React 작업환경 구축"
+title:  "1016-[React]-2.React 작업환경 구축"
 subtitle:   "1016-2.React 특징"
 categories: devlog
 tags: react
 ---
 
 ## React 작업 환경 구축
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69627506-0e53e100-108e-11ea-8796-da80776fd11c.png" width="200"/><br/><br/><br/>
 
 - www.nodejs.org
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69627721-80c4c100-108e-11ea-9ee6-a9389aaa57f6.JPG" width="600"/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 - LTS 버전 다운로드
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69627849-cda89780-108e-11ea-8b08-6b05855b3a1a.png" width="200"/><br/><br/><br/>
 
 - https://yarnpkg.com/en/docs/install#windows-stable
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69628475-0fd1d900-108f-11ea-8edd-82f5cf72d133.JPG" width="600"/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69629312-7e169b80-108f-11ea-87e5-39f9b8711f26.png" width="200"/><br/><br/><br/>
 
@@ -36,7 +37,7 @@ tags: react
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69629684-b918cf00-108f-11ea-93e0-f09da35514a6.JPG" width="700"/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69630092-0432e200-1090-11ea-86e7-e2485d17fb6c.png" width="200"/><br/><br/><br/>
 
@@ -112,3 +113,8 @@ PS D:\react-study\test>
 
 
 3. npm start / yarn start 로 프로젝트 시작!
+
+<hr style="height: 1px; background: skyblue; "/>
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>

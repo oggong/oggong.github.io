@@ -14,9 +14,15 @@ tags: react
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69639868-b5417880-10a0-11ea-8a77-7f53c651e69e.png" width="280"/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
+
+<hr style="height: 1px; background: skyblue; "/>
+
 #### 파일 구조 2
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/69646414-1c642a80-10ab-11ea-8939-87e0e2a23156.png" width="380"/><br/><br/><br/><br/><br/><br/>
+
+
+<hr style="height: 1px; background: skyblue; "/>
 
 
 - App.js
