@@ -1,0 +1,407 @@
+---
+layout: post
+title:  "0515-[Oracle]-8.view"
+subtitle:   "0515-view"
+categories: devlog
+tags: Oracle
+
+---
+## view
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### view
+
+~~~
+
+-- 전체 사원들 중 평균급여보다 낮은 급여를 받는 사원의 명단을 조회
+SELECT AVG(SAL) FROM emp;
+
+SELECT empno,ename,sal
+FROM emp
+WHERE sal < (SELECT AVG(SAL) FROM emp);
+
+-- 쿼리 안에 쿼리가 들어간다고 하여 서브 쿼리라고 한다!
+
+-- 월급을 가장 많이 받는 사람의 정보를 조회하기
+
+SELECT empno,ename,sal
+FROM emp
+WHERE sal = (SELECT MAX(SAL) FROM emp);
+
+-- 평균급여보다 높고 최대 급여보다 낮은 월급을 받는 사원 명단 조회
+
+-- 평균 급여 쿼리
+SELECT empno,ename,sal
+FROM emp
+WHERE sal = (SELECT AVG(SAL) FROM emp);
+
+-- 최대 급여 쿼리
+SELECT empno,ename,sal
+FROM emp
+WHERE sal = (SELECT MAX(SAL) FROM emp);
+
+-- 평균급여보다 높고 최대 급여보다 낮은 월급을 받는 사원 명단 조회
+SELECT empno,ename,sal
+FROM emp
+WHERE sal BETWEEN (SELECT AVG(SAL) FROM emp) AND (SELECT MAX(SAL) FROM emp);
+
+-- 평균급여보다 높고 최대 급여보다 낮은 월급을 받는 사원 명단 조회
+SELECT empno,ename,sal
+FROM emp
+WHERE sal > (SELECT AVG(SAL) FROM emp)
+AND sal < (SELECT MAX(SAL) FROM emp);
+
+SELECT empno, ename , sal
+FROM emp e1,
+    (SELECT avg(sal) avg , max(sal) max FROM emp) e2
+WHERE e1.sal > e2.avg AND e1.sal <e2.max;
+    -- 서브쿼리에 조인까지 하였음.
+
+-- 월급순으로 상위 10명의 명단을 출력 (rownum <=10)
+
+SELECT empno,ename,sal
+FROM emp
+ORDER BY nvl(sal,0) DESC;
+ -- 1. 월급 순으로 명단으로 띄운다
+
+SELECT *
+FROM(SELECT empno,ename,sal FROM emp ORDER BY nvl(sal,0) DESC)
+WHERE rownum <= 10;
+-- 위의 월급 순을 띄운 쿼리를 FROM() 안에다가 쓰기
+
+SELECT empno,ename,sal
+FROM emp
+WHERE rownum <= 10
+ORDER BY nvl(sal,0) DESC; -- 이렇게 하면 안되는 것 같음! 값이 다름 KING SAL 이 없음
+
+SELECT * FROM emp;
+
+--1. SCOTT의 급여보다 많은 사원의 정보를 사원번호, 이름, 담당업무, 급여를 출력
+
+ -- 사원번호, 이름 ,담당업무, 급여 출력
+SELECT empno,ename,job,sal
+FROM emp;
+
+-- SCOTT의 급여
+SELECT empno,ename,job,sal
+FROM emp
+WHERE ename = 'SCOTT';
+-----------------------------------------------------------
+SELECT empno,ename,job,sal
+FROM emp
+WHERE sal >(SELECT sal FROM emp WHERE ename='SCOTT');
+
+SELECT * FROM emp;
+SELECT * FROM dept;
+
+-- 2. 30번 부서의 최소 급여보다 각부서의 최소 급여가 높은 부서를 출력
+
+-- 30번 부서의 최소 급여
+SELECT deptno, min(sal) min
+FROM emp
+WHERE deptno = '30'
+GROUP BY deptno;
+-- 부서별 최소급여
+SELECT d.dname, min(e.sal)
+FROM emp e , dept d
+WHERE e.deptno = d.deptno
+GROUP BY d.dname;
+---------------------
+SELECT d.dname, min(e.sal) min
+FROM emp e, dept d
+WHERE e.deptno = d.deptno AND e.sal >(SELECT min(sal) FROM emp WHERE deptno ='30')
+GROUP BY d.dname
+ORDER BY min DESC;
+
+--3. 업무별로 평균 급여 중에서 가장 적은 급여를 가진 직업을 출력
+SELECT job, avg(sal)
+FROM emp
+GROUP BY job
+HAVING round(avg(sal)) =
+(SELECT min(round( avg(sal))) avg
+FROM emp e1
+GROUP BY job);
+
+-- 업무별로 평균 급여 중에서 가장 적은 급여를 가진 직업을 출력
+SELECT job, round( avg(sal))
+FROM emp
+GROUP BY job;
+
+SELECT min(avg(sal))
+FROM emp
+GROUP BY job;
+
+SELECT job, avg(sal)
+FROM emp
+GROUP BY job
+HAVING round(avg(sal))=(SELECT min(round(avg(sal)))
+FROM emp
+GROUP BY job);
+
+
+
+
+
+--4. 사원번호가 7521의 업무와 같고 사번 7934인 직원보다 급여를 많이 받는 사원의 정보를 출력
+
+-- 7521 사원번호의 업무
+SELECT job,sal
+FROM emp
+WHERE empno='7521';
+-- 7934인 직원보다 급여를 많이 받는 사원
+SELECT sal
+FROM emp
+WHERE empno='7934';
+
+SELECT *
+FROM emp
+WHERE job =(SELECT job FROM emp WHERE empno='7521') AND sal>(SELECT sal FROM emp WHERE empno='7934');
+
+--5.업무가 ‘MANAGER’인 사원의 정보를 이름, 업무, 부서명, 근무지를 출력
+
+-- MANAGER 인 사원
+SELECT e.ename,e.job, d.dname,d.loc
+FROM emp e, dept d
+WHERE e.deptno = d.deptno and job = 'MANAGER';
+
+--6.'WARD'와 부서와 업무가 같은 사원 명단 출력
+
+-- 'WARD'의 부서와 업무
+SELECT e.ename,d.dname,e.job
+FROM emp e , dept d
+WHERE e.deptno = d.deptno and ename = 'WARD';
+
+SELECT deptno, job
+FROM emp
+WHERE ename ='WARD';
+
+SELECT *
+FROM emp e1,(SELECT deptno, job FROM emp WHERE ename ='WARD')e2
+WHERE (e1.deptno= e2.deptno AND e1.job = e2.job) AND e1.ename != 'WARD';
+
+
+------- 05-15
+
+-- 업무 별로 최소 급여를 받는 사원의 정보를 사원번호, 이름 ,담다업무, 급여를 출력
+
+--(1) 업무별로 최소 급여
+SELECT job, min(sal)
+FROM emp
+GROUP BY job;
+
+--
+SELECT empno, ename, job, sal
+FROM emp
+WHERE (job, sal) in (SELECT job, min(sal) FROM emp GROUP BY job);
+
+
+-- 10번 부서 사원들의 업무와 동일한 직원들 검색
+
+--(1) 10번 부서 사원들
+SELECT job FROM emp WHERE deptno =10;
+--(2) 동일한 직원들 검색
+SELECT *
+FROM emp
+WHERE job =  ANY(SELECT job FROM emp WHERE deptno =10);
+
+SELECT *
+FROM emp
+WHERE job IN (SELECT job FROM emp WHERE deptno =10);
+
+--  부서별 최소급여를 받는 사원보다 많은 급여를 받는 사원을 정보 출력
+
+--(1) 30번 부서의 최소급여
+SELECT min(sal)
+FROM emp
+GROUP BY deptno;
+
+--(2) 보다 많은 급여를 받는 사원
+SELECT *
+FROM emp
+WHERE sal > ANY(SELECT min(sal) FROM emp GROUP BY deptno);
+
+-- ANY 와 ALL 의 사용법 익혀두기
+
+--적어도 한명의 사원으로부터 보고를 받을 수 있는 사원 (====== 상사)의 정보를 사원번호, 이름,업무를 출력
+SELECT e.empno,e.ename,e.job
+FROM emp e
+WHERE exists(SELECT * FROM emp e2 WHERE e.empno = e2.mgr);
+
+-- 부하 직원이 없는 사원들을 검색
+SELECT e.empno,e.ename,e.job
+FROM emp e
+WHERE not exists(SELECT * FROM emp e2 WHERE e.empno = e2.mgr);
+
+create table stat_salary (
+           stat_date   date  not  null, -- 날짜
+           dept_no   number,            --부서
+           emp_count number,            --사원수
+           tot_salary number,           --급여총액
+           avg_salary number );         -- 급여평균
+
+SELECT *FROM stat_salary;
+
+-- 부서별 급여 통계 테이블 생성
+
+-- 날짜와 부서번호 입력
+INSERT INTO stat_salary(stat_date,dept_no)
+    SELECT sysdate,deptno FROM dept;
+--사원수 ,급여총액,평균급여 입력(?) -> 수정
+UPDATE stat_salary s
+SET (s.emp_count , s.tot_salary, s.avg_salary)
+= (SELECT count(*), sum(sal),avg(sal) FROM emp e  WHERE e.deptno = s.dept_no GROUP BY deptno);
+
+
+CREATE TABLE emp_copy AS select * from emp;
+
+SELECT * FROM emp_copy;
+
+-- scott 의 업무와 급여를 사용하여 jones 의 업무와 급여를 수정
+SELECT job, sal
+FROM emp_copy
+WHERE ename = 'SCOTT';
+
+UPDATE emp_copy e
+SET (e.job,e.sal) = (SELECT job,sal FROM emp_copy WHERE ename='SCOTT')
+WHERE e.ename ='JONES';
+
+SELECT * FROM emp_copy;
+SELECT * FROM dept;
+-- 부서명이 sales 인 사원의 정보를 삭제
+DELETE FROM emp_copy
+WHERE empno in  (SELECT e.empno FROM emp_copy e , dept d WHERE e.deptno = d.deptno and d.dname = 'SALES');
+
+DELETE FROM emp_copy
+WHERE deptno = (SELECT deptno FROM dept WHERE dname ='SALES');
+
+--King에게 보고하는 모든 사원의 이름과 급여를 출력
+
+-- king의 empno 가 mgr 번호인 사람들
+SELECT * FROM emp_copy;
+
+SELECT *
+FROM emp_copy
+WHERE ename='KING';
+
+SELECT e1.ename,e1.sal
+FROM emp_copy e1 , emp_copy e2
+WHERE e1.mgr = e2.empno and e2.ename ='KING';
+
+CREATE TABLE emp_copy AS select * from emp;
+DROP TABLE emp_copy;
+
+-- 월급이 30번 부서의 최저 월급보다 많은 사원들을 출력
+SELECT * FROM emp_copy;
+
+SELECT min(sal)
+FROM emp_copy
+WHERE deptno = 30;
+
+SELECT *
+FROM emp_copy
+WHERE sal > (SELECT min(sal) FROM emp_copy WHERE deptno =30);
+
+--5. 10번 부서의 직원들 중 30번 부서의 사원과 같은 업무를 맡고 있는 사원의 이름과 업무를 출력
+SELECT ename,job,deptno
+FROM emp_copy
+WHERE deptno = 30;
+
+
+CREATE OR REPLACE VIEW v_emp  AS
+           select empno, ename, deptno from emp;
+-- VIEW 생성
+
+--CREATE TABLE emp_cp AS
+--    SELECT empno,ename,deptno from emp;
+
+SELECT * FROM emp; -- 진짜 테이블
+SELECT * FROM v_emp; -- 가상 테이블
+
+INSERT INTO v_emp (empno,ename,deptno) VALUES(8888,'맹심이', 30);
+-- 가상테이블에 넣어도 진짜 테이블에 값이 들어감
+INSERT INTO v_emp (empno,ename,deptno) VALUES(8888,'꽁심이', 30);
+-- 진짜 테이블의 PK 영향을 받아서 입력 되지 않음.
+INSERT INTO v_emp (empno,ename,deptno) VALUES(7777,'박심이', 60);
+-- 무결성 제약조건 위배 ,FK 영향을 받아서 안됨 (부서테이블에 존재하지않는 숫자)
+
+-- 읽기 전용 뷰 생성
+CREATE OR REPLACE VIEW v_emp AS
+    SELECT empno,ename,deptno from emp
+with read only;
+
+INSERT INTO v_emp(empno,ename,deptno) VALUES (7777,'박심이', 20);
+-- 읽기 전용 뷰에서는 DML 작업 X --- 그러나 뷰는 무조건 읽기전용은 아니다 다만 읽기전용으로 지정할수 있을 뿐
+
+-- 사원번호, 사원명 ,부서명 --> V_emp_info
+CREATE OR REPLACE VIEW v_emp_info AS
+    SELECT e.empno empno ,e.ename ename ,d.dname dname
+    from emp e,dept d where e.deptno = d.deptno;
+
+SELECT * FROM v_emp_info;
+
+-- v_emp_info 에 입력하세요
+
+INSERT INTO v_emp_info(empno,ename,dname) VALUES (8899,'옹심이''RESERCH');
+-- 두개이상의 테이블에서 조인해온 뷰는 하나의 키로 입력이 안됨
+
+--뷰 : 데이터보안
+    -- 복잡한 쿼리의 사용빈도가 높은 경우
+
+-- 부서별로 부서명, 최소급여,최대급여,부서의 평균 급여를 포함하는 DEPT_SUM 뷰를 생성하여라
+CREATE OR REPLACE VIEW dept_sum AS
+    SELECT d.dname dname,min(sal) min, max(sal) max, round(avg(sal)) avg_sal
+    FROM emp e, dept d WHERE e.deptno = d.deptno  GROUP BY d.dname;
+
+SELECT d.dname dname,min(sal) min, max(sal) max, round(avg(sal)) avg_sal
+    FROM emp e, dept d WHERE e.deptno = d.deptno  GROUP BY d.dname;
+
+SELECT d.dname dname,min(sal) min, max(sal) max, round(avg(sal)) avg_sal
+    FROM emp e INNER JOIN dept d ON e.deptno = d.deptno  GROUP BY d.dname;
+
+SELECT * FROM dept_sum;
+-- 원본 테이블을 계속 반영 함
+
+INSERT INTO emp(empno,ename,sal,deptno) VALUES (8890,'홍홍홍',10000,20);
+--시퀀스 (sequence) : 자동 증가수
+------------------------------------------------------------------------------
+
+--[게시판]
+-------------------------------------
+--게시글번호 제목 내용 조회수 작성자 작성날짜
+/*
+CREATE  SEQUENCE   sequence_name
+           [ minvalue 1                  -- 시퀀스 최소 숫자
+            maxvalue 999999999999 -- 시퀀스 최대 숫자
+            increment by 1             -- 증가치
+            start with 1                  -- 시작숫자
+            nocache                      -- cache를 사용하면 미리 값을 할당하여 조금 빠르게 접근
+            noorder                      -- 요청되는 순서대로 값 할당
+            nocycle ] ;                    -- 다시 시작할지 여부
+*/
+
+DROP SEQUENCE seq_emp_empno;
+CREATE SEQUENCE seq_emp_empno start with 5000;
+
+ INSERT INTO emp(empno,ename,deptno) VALUES(seq_emp_empno.nextval,'홍',10);
+ SELECT * from emp;
+
+ INSERT INTO emp(empno,ename,deptno) VALUES(seq_emp_empno.nextval,'홍2',10);
+ --nextval 자동으로 번호 증가시켜준다.
+ INSERT INTO emp(empno,ename,deptno) VALUES(seq_emp_empno.nextval,'홍3',10);
+ INSERT INTO emp(empno,ename,deptno) VALUES(seq_emp_empno.nextval,'홍4',10);
+ INSERT INTO emp(empno,ename,deptno) VALUES(seq_emp_empno.nextval,'홍5',10);
+ INSERT INTO emp(empno,ename,deptno) VALUES(seq_emp_empno.nextval,'홍6',10);
+
+ SELECT seq_emp_empno.currval FROM dual;
+ -- 현재 empno 값을 보여줌
+
+ --모델링 수업 + 조별 과제
+
+ 
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

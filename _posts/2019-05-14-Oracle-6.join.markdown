@@ -1,0 +1,256 @@
+---
+layout: post
+title:  "0514-[Oracle]-6.join"
+subtitle:   "0514-JOIN"
+categories: devlog
+tags: Oracle
+
+---
+## join
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### join
+
+~~~
+
+SELECT * FROM emp;
+
+/*
+1. 업무별, 부서별 급여 합계와 인원수를 출력하되,
+   10번 부서를 제외하고 업무가 ‘SALESMAN’과 ‘MANAGER’만 출력한다.
+*/
+
+SELECT deptno,job, sum(sal) sum, count(*) cnt
+FROM emp
+WHERE deptno != 10
+GROUP BY job, deptno
+HAVING job = 'SALESMAN' OR job = 'MANAGER';
+
+SELECT deptno,job, sum(sal) sum, count(*) cnt
+FROM emp
+WHERE job = 'SALESMAN' OR job = 'MANAGER' AND deptno != 10
+GROUP BY job, deptno;
+
+-- 둘중 하나 빠른거로
+
+/*
+2. 업무별로 평균급여와 최대급여를 출력하되, 평균급여가 2000이상인 것만 출력하고 평균급여가 높은 순으로 정렬
+*/
+SELECT job,round(avg(sal)) avg, max(sal) max
+FROM emp
+GROUP BY job
+HAVING round(avg(sal)) >= 2000
+ORDER BY max DESC;
+
+/*
+
+3. 5개씩 급여합계와 인원수를 출력 (rownum이용)
+*/
+select rownum, empno, ename from emp;
+
+
+SELECT ceil(rownum/5) grp, sum(sal) sum, count(*) cnt
+FROM emp
+GROUP BY ceil(rownum/5);
+
+/*
+4. 같은 입사년도 별로 인원수를 출력
+*/
+SELECT to_char(hiredate,'YYYY') hireyear ,count(*) cnt
+FROM emp
+GROUP BY to_char(hiredate,'YYYY');
+
+/*
+5. 다음과 같이 출력
+
+   CLERK     SALESMAN MANAGER       (업무명)
+-----------------------------------------------------------------------
+     4           4       3           (인원수)
+*/
+
+SELECT  sum(decode(job,'CLERK', 1)) CLERK,
+        sum(decode(job,'SALESMAN', 1)) SALESMAN,
+        sum(decode(job,'MANAGER',1)) MANAGER
+FROM emp;
+
+SELECT sum(CASE job WHEN 'CLERK' THEN 1 END) as CLERK,
+sum(CASE job WHEN 'SALESMAN' THEN 1 END) as SALESMAN,
+sum(CASE job WHEN 'MANAGER' THEN 1 END) as MANAGER
+FROM emp;
+
+
+
+
+/*
+6. 다음과 같이 출력
+
+업무명  10번부서 20번부서 30번부서 급여합계
+----------------------------------------------------------------------------------------
+CLERK  1300  1900     950  4150
+SALESMAN 0     0    5600   5600
+PRESIDENT 5000     0       0  5000
+MANAGER    2450  2975    2850  8275
+ANALYST     0  6000       0  6000
+*/
+SELECT job "업무명",
+    sum(decode(deptno,10,sal,0)) "10번 부서",
+    sum(decode(deptno,20,sal,0)) "20번 부서",
+    sum(decode(deptno,30,sal,0)) "30번 부서",
+    sum(sal) "급여합계"
+    from emp
+    group by job;
+
+SELECT job "업무명",
+sum(CASE deptno WHEN 10 THEN sal else 0 END) as "10번부서",
+sum(CASE deptno WHEN 20 THEN sal else 0 END) as "20번부서",
+sum(CASE deptno WHEN 30 THEN sal else 0 END) as "30번부서",
+sum(sal) "급여합계"
+FROM emp
+group by job;
+
+---------------------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+-- 사원 테이블(emp)에 사원명과 부서테이블(dept)에 그 사원의 부서며을 출력
+SELECT ename,dname FROM emp,dept;
+-- Cartesian product => 그냥 두 테이블 곱해버림
+
+SELECT ename, dname
+FROM emp, dept; -- Cartesian Product
+
+-- 소속을 명확히 밝혀서 써주는 것을 권장
+SELECT emp.ename,dept.dname,emp.deptno
+FROM emp , dept
+WHERE emp.deptno=dept.deptno;
+-- 소속을 별칭으로 써줄수 있음
+SELECT e.ename,d.dname,e.deptno
+FROM emp e , dept d
+WHERE e.deptno=d.deptno;
+
+--내부 조인
+SELECT e.ename as ename, d.dname as dname, e.deptno as deptno
+FROM emp e , dept d
+WHERE e.deptno = d.deptno;
+
+--외부 조인
+-- => 없는 데이터를 포함하여 조인
+/*
+*외부조인 : 한 테이블에 공통 컬럼값이 없더라도(null이라도) 검색
+*(+) : 해당 데이터가 존재하지 않더라도 이를 무시하고 조인에 참여
+*/
+SELECT e.ename ename, d.dname dname, e.deptno deptno
+FROM emp e, dept d
+WHERE e.deptno = d.deptno(+);
+    -- emp 테이블에 부서 테이블이 없어도 나오길 희망 한다.
+
+SELECT e.ename ename, d.dname dname, e.deptno deptno
+FROM emp e, dept d
+WHERE e.deptno(+) = d.deptno;
+    --emp 테이블에 사원 테이블이 없어도 나오길 희망 한다.
+
+SELECT e.ename ename, d.dname dname, e.deptno deptno
+FROM emp e, dept d
+WHERE e.deptno(+) = d.deptno(+); -- 에러
+
+
+--ANSI 조인 ( 표준화 )
+    -- 내부조인 INNER JOIN (equi join)
+
+SELECT e.ename, d.dname, d.deptno
+FROM emp e INNER JOIN dept d
+ON e.deptno = d.deptno; -- ON이라고 써서 가독성을 높히자!
+
+SELECT e.ename, d.dname, deptno
+FROM emp e INNER JOIN dept d
+USING (deptno);
+-- USING 자체를 많이 사용하지는 않음
+
+-- 코딩 방법을 표준화로 사용하는 것을 권장 (연습은 둘다 하는 것이 좋겠다!)
+
+--ANSI 조인 ( 표준화 )
+    -- 외부조인 LEFT OUTER JOIN / RIGHT OUTER JOIN
+SELECT e.ename, d.dname, d.deptno
+FROM emp e LEFT OUTER JOIN dept d
+ON e.deptno = d.deptno;
+
+SELECT e.ename, d.dname, d.deptno
+FROM emp e RIGHT OUTER JOIN dept d
+ON e.deptno = d.deptno;
+
+SELECT e.ename ename, d.dname dname, e.deptno deptno
+FROM emp e, dept d
+WHERE e.deptno(+) = d.deptno(+); -- 에러
+
+SELECT e.ename, d.dname, d.deptno
+FROM emp e FULL OUTER JOIN dept d
+ON e.deptno = d.deptno; -- 가능
+
+-- 각 사원의 매니저를 검색
+SELECT e1.empno,e1.ename,e1.mgr,e2.ename
+FROM emp e1, emp e2
+WHERE e1.mgr = e2.empno;
+
+    --셀프 조인 (self join)
+    -- 표준화는 아님
+    -- 사원 테이블을 두개라고 생각 한 후
+    -- 사원 테이블에서 해당 사원을 찾은 후 상사번호를 찾아서
+    -- 상사 번호에 해당 하는 이름을 가져와서 출력
+    -- ()
+
+-- 내부 조인     
+SELECT e1.empno,e1.ename,e1.mgr,e2.ename
+FROM emp e1, emp e2
+WHERE e1.mgr = e2.empno;  
+
+--> 표준화
+SELECT e1.empno,e1.ename,e1.mgr,e2.ename
+FROM emp e1 INNER JOIN emp e2
+ON e1.mgr = e2.empno;
+
+--외부 조인
+SELECT e1.empno,e1.ename,e1.mgr,e2.ename
+FROM emp e1, emp e2
+WHERE e1.mgr = e2.empno(+);
+
+--> 표준화
+SELECT e1.empno,e1.ename,e1.mgr,e2.ename
+FROM emp e1 LEFT OUTER JOIN emp e2
+ON e1.mgr = e2.empno;
+---------------옛날 방식 과 표준화 방식 둘다 익혀두는 것이 중요!
+
+
+SELECT e1.empno,e1.ename,e1.mgr,e2.ename
+FROM emp,e1 left outer hoin emp e2
+ON e1.mgr = e2.empno;
+/*
+    집합(SET)
+         -UNION 합집합
+         -UNION ALL 합집합 + 중복 2번 출력
+         -INTERSECT 교집합
+         -MINUS 차집합
+*/
+-- 업무가 CLERK인 사원의 사번, 사원명, 업무, 부서번호
+SELECT empno, ename, job,deptno
+FROM emp
+WHERE job ='CLERK'
+-- (SMITH ADAMS JAMES MILLER)
+
+-- 10번 부서의 사번 , 사원명, 업무 ,부서번호
+-- 컬럼명이 동일한 상태에서 합집합
+UNION
+SELECT empno, ename, job,deptno
+FROM emp
+WHERE deptno =10;
+-- (CLERK KING MILLER)
+
+
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

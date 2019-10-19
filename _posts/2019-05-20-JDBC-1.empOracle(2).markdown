@@ -1,0 +1,263 @@
+---
+layout: post
+title:  "0520-[JDBC]-1.empOracle(2)"
+subtitle:   "0520-empOracle(2)"
+categories: devlog
+tags: Oracle
+
+---
+## empOracle (2)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### InsertTest
+
+~~~
+
+package emp.oracle2;
+
+import java.sql.*;
+
+public class InsertTest {
+
+	public static void main(String[] args) {
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@192.168.0.170:1521:orcl";
+		String user = "scott";
+		String pass = "tiger";
+		Connection con = null; // 선언은 멤버변수로 한번 해주기 나중에 nullpoint exception 발생
+
+		try {
+			// 1. 드라이버를 메모리 로딩
+			Class.forName(driver); // oracle.jdbc.OracleDriver 를 driver로 사용 메모리에 올린다.
+			//2. 연결 객체 얻어오기
+			 con = DriverManager.getConnection(url, user, pass);
+			System.out.println("연결성공");
+		} catch (Exception ex) {
+			System.out.println("연결 실패 :" + ex.getMessage());
+		}
+
+		//3. SQL 문장 만들기
+		//4. SQL 전송객체 만들기
+		//5. 전송하기
+		//6. 닫기
+		try {
+				// 화면에서 입력값 얻어오기
+//				int empno = 5678;
+//				String ename = "갓DB";
+//				int sal = 9000;
+//				int deptno = 30;
+//				String job = "IT부서";                // Statement
+
+				// 화면에서 입력한 값을 얻어와서 셋팅
+				int empno = 6789;
+				String ename = "갓DB";
+				int sal = 9000;
+				int deptno = 30;
+				String job = "IT부서";
+													//preparedstatement
+
+
+				String sql = "INSERT INTO emp(empno, ename, sal, deptno, job)   "
+						+ "VALUES(?,?,?,?,?)";
+				//"+empno+",'"+ename+"',"+sal+","+deptno+","+"'"+job+"'
+				System.out.println(sql); // 항상 sql 문장 만든후 자바에서 실행 해보기
+
+
+				//Statement st = con.createStatement();
+				PreparedStatement st = con.prepareStatement(sql); // 미완성된 sql 불러오기  == (VALUES ?,?,?,?,?)
+
+				// SQL을 가져온 이후 물음표 세팅 해주기
+				st.setInt(1, empno);
+				st.setString(2, ename);
+				st.setInt(3, sal);
+				st.setInt(4, deptno);
+				st.setString(5, job);
+
+//				int result = st.executeUpdate(sql); // excuteUpdate에 결과값이 넘어옴
+													// excuteUpdate 에 commit 이 합쳐저 있기 때문에
+													// 원래는 commit rollback 을 수동으로 해줘야 함.
+
+				// 전송
+				int result = st.executeUpdate(); // -- sql 전송하면 안됨
+				st.close();
+				con.close();
+				System.out.println("연결성공");
+		} catch (SQLException ex) {
+			System.out.println("전송실패" + ex.getMessage());
+		}
+
+	}
+
+}
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### SelctTest
+
+~~~
+
+package emp.oracle2;
+
+import java.sql.*;
+
+public class SelectTest {
+
+	public static void main(String[] args) {
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@192.168.0.170:1521:orcl";
+		String user = "scott";
+		String pass = "tiger";
+		Connection con = null; // 선언은 멤버변수로 한번 해주기 나중에 nullpoint exception 발생
+
+		try {
+			// 1. 드라이버를 메모리 로딩
+			Class.forName(driver); // oracle.jdbc.OracleDriver 를 driver로 사용 메모리에 올린다.
+			// 2. 연결 객체 얻어오기
+			con = DriverManager.getConnection(url, user, pass);
+			System.out.println("연결성공");
+		} catch (Exception ex) {
+			System.out.println("연결 실패 :" + ex.getMessage());
+		}
+
+		try {
+//			String sql = "SELECT *FROM emp ORDER BY sal DESC";
+
+//			int empno = 7788;
+//			// 7788 에 해당하는 record 를 가져옴
+//			// 처음엔 바로 가리키지 않고 그위를 읽어옴 . next 를 써줘야 7788 레코드를 가져옴
+//			
+//			String sql = "SELECT *FROM emp WHERE empno=?";
+//			
+//			PreparedStatement st = con.prepareStatement(sql);
+//			
+//			st.setInt(1,empno);
+//			
+//			ResultSet rs = st.executeQuery(sql);
+//			
+//			// 하나를 쓰더라도 next 를 사용하여 7788을 가져와야 함.
+//			while(rs.next()) {
+//				System.out.println(rs.getInt("EMPNO")+"/" // getInt("EMPNO") 컬럼명 넣어줘야 한다. 가독성을 높히기위해 대문자 이용 선호
+//						+rs.getString("ENAME")+ "/" +rs.getInt("SAL"));
+//			st.close();
+//			con.close();			
+
+			// 사원 테이블의 총 사원수와 월급의 평균을 출력하세요.
+
+			// 1. 드라이버를 메모리 로딩
+			// 2. 연결 객체 얻어오기
+			// 3. SQL 문장 만들기
+
+
+			String sql = "SELECT count(*) as count, round(avg(sal)) as avg FROM emp" ;
+			PreparedStatement st = con.prepareStatement(sql);
+
+
+
+
+
+			ResultSet rs = st.executeQuery();
+			// 4. SQL 전송객체 만들기
+
+			while (rs.next()) {
+				System.out.println(rs.getInt("count") + "/" + rs.getInt("avg") );
+				// 5. 전송하기
+				}
+
+				// 6. 닫기
+				rs.close();
+				st.close();
+				con.close();
+
+			System.out.println("연결성공");
+		} catch (SQLException ex) {
+			System.out.println("전송실패" + ex.getMessage());
+		}
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### UpdateTest
+
+~~~
+
+package emp.oracle2;
+
+import java.sql.*;
+
+public class UpdateTest {
+
+	public static void main(String[] args) {
+		String driver = "oracle.jdbc.OracleDriver";
+		String url = "jdbc:oracle:thin:@192.168.0.170:1521:orcl";
+		String user = "scott";
+		String pass = "tiger";
+		Connection con = null; // 선언은 멤버변수로 한번 해주기 나중에 nullpoint exception 발생
+
+		try {
+			// 1. 드라이버를 메모리 로딩
+			Class.forName(driver); // oracle.jdbc.OracleDriver 를 driver로 사용 메모리에 올린다.
+			//2. 연결 객체 얻어오기
+			 con = DriverManager.getConnection(url, user, pass);
+			System.out.println("연결성공");
+		} catch (Exception ex) {
+			System.out.println("연결 실패 :" + ex.getMessage());
+		}
+
+		try {
+			//3. SQL 문장 만들기
+				// 화면에서 입력값 얻어오기 	
+				// 화면에서 입력한 값을 얻어와서 셋팅
+				int empno = 6789;
+				String ename = "홍숙자";
+				int sal = 12000;
+				int deptno = 20;
+				String job = "개발";
+													//preparedstatement
+
+				// 6789 사번의 사원정보를 변경
+				String sql = " UPDATE emp SET ename= ?,sal= ?,deptno= ?,job= ?   "
+						+ "WHERE empno = ? ";
+
+
+				// 항상 sql 문장 만든후 자바에서 실행 해보기
+				System.out.println(sql);
+
+				//4. SQL 전송객체 만들기
+				PreparedStatement st = con.prepareStatement(sql);
+				// 미완성된 sql 불러오기  == (VALUES ?,?,?,?,?)
+
+				// SQL을 가져온 이후 물음표 순서대로  세팅 해주기
+				st.setString(1, ename);
+				st.setInt(2, sal);
+				st.setInt(3, deptno);
+				st.setString(4, job);
+				st.setInt(5, empno);
+
+				//5. 전송하기
+				int result = st.executeUpdate(); // -- sql 전송하면 안됨
+
+				//6. 닫기
+				st.close();
+				con.close();
+
+				System.out.println("연결성공");
+		} catch (SQLException ex) {
+			System.out.println("전송실패" + ex.getMessage());
+		}
+
+	}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

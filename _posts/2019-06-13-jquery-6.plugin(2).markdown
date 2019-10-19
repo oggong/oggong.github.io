@@ -1,0 +1,407 @@
+---
+layout: post
+title:  "06-13-[jquery]-6.plugin(2)"
+subtitle:   "0613-jQuery-plugin(2)"
+categories: devlog
+tags: jquery
+
+---
+
+## plugin (2)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### form
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+  <title> 회원가입 </title>
+
+  <link rel="stylesheet" href="css/base.css" type="text/css" media="screen"  />  
+  <link rel="stylesheet" href="css/form.css" type="text/css" media="screen"  />  
+  <script src="../../lib/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/jquery.validate.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/scripts.js"type="text/javascript" ></script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="content">
+      <div id="signup">
+        <h2>회원 가입</h2>
+        <form action="">
+          <div>
+            <label for="name">이름:</label>
+            <input name="name" id="name" type="text"/>
+          </div>
+          <div>
+            <label for="email">이메일:</label>
+            <input name="email" id="email" type="text"/>
+          </div>
+          <div>
+            <label for="website">웹사이트 URL:</label>
+            <input name="website" id="website" type="text"/>
+          </div>
+          <div>
+            <label for="password">암호:</label>
+            <input name="password" id="password" type="password" />
+          </div>
+          <div>
+            <label for="passconf">암호 확인:</label>
+            <input name="passconf" id="passconf" type="password" />
+          </div>
+
+		<div class="stats">
+          <h2 class="title"> 모든 항목에 동의해야 합니다. </h2>
+          <input class='agree' name="agree" type="checkbox"/>(가)조항<br/>
+          <input class='agree' name="agree" type="checkbox"/>(나)조항<br />
+          <input class='agree' name="agree" type="checkbox"/>(다)조항<br />
+          <input class='agree' name="agree" type="checkbox"/>(라)조항<br />
+          <input class='agree' name="agree" type="checkbox"/>(마)조항<br />
+          <hr/>
+          <input class="check-all" name="agree" type="checkbox" /><span>위 조항 모두</span>
+          <br/>				
+        </div>
+
+        <div>
+           <input type="submit" value="보내기" />
+        </div>
+
+
+		</form>
+      </div>
+
+    </div>
+
+ </div>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### prettyPopin
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- prettyPopin의 표준 스타일을 임포트（1） -->
+  <link rel=stylesheet    href="css/prettyPopin.css" type="text/css" />
+
+  <!-- jQuery라이브러리를 임포트（2） -->
+  <script type="text/javascript"   src="../../lib/jquery-1.9.1.js"></script>
+
+  <!-- prettyPopin라이브러리를 임포트（3） -->
+  <script type="text/javascript"   src="js/jquery.prettyPopin.js"></script>
+
+  <script type="text/javascript"  src="js/scripts.js"></script>
+</head>
+<body>
+ ・<a href="./files/regular.html" rel="prettyPopin">
+     팝업표시</a><br />
+ ・<a href="./files/page-1.html" rel="prettyPopin">
+     팝업표시（내부 화면 전환 있음）</a>
+</body>
+</html>
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+
+#### datePicker
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Datepicker</title>
+<link rel="stylesheet" type="text/css"
+  href="http://code.jquery.com/ui/1.10.0/themes/ui-lightness/jquery-ui.css" />
+<script type="text/javascript"  src="http://code.jquery.com/jquery-1.9.0.js"></script>
+<script type="text/javascript"   src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/i18n/jquery-ui-i18n.min.js"></script>
+
+
+</head>
+<body>
+<label for="date">날짜:</label>
+<input id="datepicker" type="text">
+</body>
+</html>
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### bxslider
+
+~~~
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<title> Plugin </title>
+<style type="text/css">
+*{margin:0;padding:0;}
+img{border:none 0;vertical-align:top;}
+#banner_wrap{position:relative;width:470px;margin:0 auto;}
+
+#prevBtn{position:absolute;left:0;top:10px;}
+#nextBtn{position:absolute;right:15px;top:10px;}
+</style>
+
+
+</head>
+<body>
+   <div id="banner_wrap">
+      <ul id="slide_banner">
+         <li><a href="#"><img src="images/pic_t1.jpg" alt="사진1" /></a></li>
+         <li><a href="#"><img src="images/pic_t2.jpg" alt="사진2" /></a></li>
+         <li><a href="#"><img src="images/pic_t3.jpg" alt="사진3" /></a></li>
+         <li><a href="#"><img src="images/pic_t4.jpg" alt="사진4" /></a></li>
+         <li><a href="#"><img src="images/pic_t5.jpg" alt="사진5" /></a></li>
+         <li><a href="#"><img src="images/pic_t6.jpg" alt="사진6" /></a></li>
+         <li><a href="#"><img src="images/pic_t7.jpg" alt="사진7" /></a></li>
+         <li><a href="#"><img src="images/pic_t8.jpg" alt="사진8" /></a></li>
+      </ul>
+      <p><a href="#" id="prevBtn"><img src="images/prev_btn.png" alt="이전버튼" /></a></p>
+      <p><a href="#" id="nextBtn"><img src="images/next_btn.png" alt="다음버튼" /></a></p>
+   </div>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### cookie_main.html
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메인페이지</title>
+<script type="text/javascript">
+window.open("9_promotion.html","","width=400, height=360");
+
+</script>
+</head>
+<body>
+<h2>우리 메인 페이지입니다. </h2>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### promotion.html
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>광고페이지</title>
+</head>
+<body>
+<img alt="" src="./images/image.jpg"><br/>
+이 페이지를 3분간 열지 않겠습니다.
+<input type="checkbox">
+<input type='button' id='closeWin' name='closeWin' value='닫기'/>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### js/jquery.cookie.js
+
+~~~
+
+/*!
+ * jQuery Cookie Plugin v1.3
+ * https://github.com/carhartl/jquery-cookie
+ *
+ * Copyright 2011, Klaus Hartl
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.opensource.org/licenses/GPL-2.0
+ */
+(function ($, document, undefined) {
+
+	var pluses = /\+/g;
+
+	function raw(s) {
+		return s;
+	}
+
+	function decoded(s) {
+		return decodeURIComponent(s.replace(pluses, ' '));
+	}
+
+	var config = $.cookie = function (key, value, options) {
+
+		// write
+		if (value !== undefined) {
+			options = $.extend({}, config.defaults, options);
+
+			if (value === null) {
+				options.expires = -1;
+			}
+
+			if (typeof options.expires === 'number') {
+				var days = options.expires, t = options.expires = new Date();
+				t.setDate(t.getDate() + days);
+			}
+
+			value = config.json ? JSON.stringify(value) : String(value);
+
+			return (document.cookie = [
+				encodeURIComponent(key), '=', config.raw ? value : encodeURIComponent(value),
+				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+				options.path    ? '; path=' + options.path : '',
+				options.domain  ? '; domain=' + options.domain : '',
+				options.secure  ? '; secure' : ''
+			].join(''));
+		}
+
+		// read
+		var decode = config.raw ? raw : decoded;
+		var cookies = document.cookie.split('; ');
+		for (var i = 0, l = cookies.length; i < l; i++) {
+			var parts = cookies[i].split('=');
+			if (decode(parts.shift()) === key) {
+				var cookie = decode(parts.join('='));
+				return config.json ? JSON.parse(cookie) : cookie;
+			}
+		}
+
+		return null;
+	};
+
+	config.defaults = {};
+
+	$.removeCookie = function (key, options) {
+		if ($.cookie(key) !== null) {
+			$.cookie(key, null, options);
+			return true;
+		}
+		return false;
+	};
+
+})(jQuery, document);
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### jstorage.html
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- jQuery라이브러리를 임포트 -->
+  <script type="text/javascript"  src="http://code.jquery.com/jquery-1.9.0.js"></script>
+
+  <!-- jstorage라이브러리를 임포트 -->
+  <script type="text/javascript" src="js/jstorage.min.js"></script>
+
+  <script type="text/javascript">
+
+  </script>
+</head>
+<body>
+<form id="sample">
+  이름：<input id="name" /><br />
+  비고：<input id="memo" /><br /><br />
+  <button id="set">등록</button>
+  <button id="del">삭제</button>
+</form>
+
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+
+
+#### visulaize.html
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Visualize</title>
+<script type="text/javascript"  src="http://code.jquery.com/jquery-1.9.0.js"></script>
+
+</head>
+<body>
+<table id="data">
+  <caption>2012년 하기 경비</caption>
+  <thead>
+    <tr>
+      <td></td><th>7月</th><th>8月</th><th>9月</th>
+      <th>10月</th><th>11月</th><th>12月</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>수도광열비</th><td>213</td><td>224</td><td>205</td>
+      <td>187</td><td>190</td><td>202</td>
+    </tr>
+    <tr>
+      <th>선전광고비</th><td>211</td><td>175</td><td>110</td>
+      <td>199</td><td>123</td><td>201</td>
+    </tr>
+    <tr>
+      <th>사무용품비</th><td>111</td><td>101</td><td>99</td>
+      <td>121</td><td>98</td><td>110</td>
+    </tr>
+    <tr>
+      <th>신문도서비</th><td>101</td><td>99</td><td>87</td>
+      <td>96</td><td>100</td><td>91</td>
+    </tr>
+    <tr>
+      <th>그 외 잡비</th><td>124</td><td>108</td><td>99</td>
+      <td>101</td><td>112</td><td>99</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

@@ -1,0 +1,127 @@
+---
+layout: post
+title:  "0521-[JDBC]-5.tabpane"
+subtitle:   "0521-tabpane"
+categories: devlog
+tags: Oracle
+
+---
+## tabpane
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### CustomerAdmin
+
+~~~
+
+package g_tabpane;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class CustomerAdmin extends JPanel
+{
+
+	JButton b = new JButton("내 버튼");
+
+	public CustomerAdmin(){
+			setBackground( Color.blue );
+			add(b);
+	}
+};
+// 패널을 상속 받음
+// 서로다른 탭을 각 담당 설계
+// 깃허브 연동
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### RentAdmin
+
+~~~
+
+package g_tabpane;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class RentAdmin extends JPanel
+{
+	public RentAdmin(){
+			setBackground( Color.yellow );
+	}
+};
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### VideoAdmin
+
+~~~
+
+package g_tabpane;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class VideoAdmin extends JPanel
+{
+	public VideoAdmin(){
+			setBackground( Color.red );
+	}
+};
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### VideoShop
+
+~~~
+
+package g_tabpane;
+
+import java.awt.*;
+import javax.swing.*;
+public class VideoShop extends JFrame
+{
+	CustomerAdmin	customer;
+	VideoAdmin			video;
+	RentAdmin			rent;
+
+	public VideoShop(){
+		//각각의 화면을 관리하는 클래스 객체 생성
+			customer = new CustomerAdmin();
+			video		= new VideoAdmin();
+			rent			= new RentAdmin();
+
+			JTabbedPane  pane = new JTabbedPane();
+			pane.addTab("고객관리", customer );
+			pane.addTab("비디오관리", video);
+			pane.addTab("대여관리", rent );
+
+			pane.setSelectedIndex(2);
+
+			add("Center", pane );
+			setSize(300,200);
+			setVisible( true );
+
+			setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	}
+	public static void main(String[] args)
+	{
+			new VideoShop();
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

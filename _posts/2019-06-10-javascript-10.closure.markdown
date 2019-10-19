@@ -1,0 +1,138 @@
+---
+layout: post
+title:  "06-10-[javascript]-10.closure"
+subtitle:   "0610-js-closure"
+categories: devlog
+tags: javascript
+
+---
+
+## closure
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### functionReturn
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	//-------------------------------------------------------------------------
+	//  즉시 실행 함수
+	//	 - 함수를 변수에 직접 할당하는 것이 아니라 함수의 결과물을 할당하기 위해 즉시 실행 함수를 사용(?)
+	//	- 추후에 클로져와 관련
+
+	var func = function(num) {
+		document.write('num=' + num);
+	}(10);
+
+	var byensu = function(num) {
+		/* 	var fun = function(){
+		 num--;
+		 document.write('> num=' + num); */
+
+		return function() {
+			num--;
+			document.write('> num=' + num);
+		}
+	}(10);
+
+	byensu();
+	byensu();
+	byensu();
+</script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### callbackFunction
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script type="text/javascript">
+	/*  콜백함수란? 함수가 다른 함수의 파라메터로 전달되는 함수
+	 콜백함수는 함수가 실행되는 중간에 호출되어 상태 정보를 저장하거나 결과 값을 처리할 때 사용
+	 */
+
+	//------ 함수 선언
+	//  function add(a, b){
+	// }
+	//------ 함수 호출
+	//add(3,4);
+	function add(a, b, callFunc) {
+		var result = a + b;
+		callFunc(result);
+
+		var count = 0;
+
+		return function() {
+			count++;
+			return a + "+" + b + "=" + count + "번째"+"<br/>";
+		};
+
+	}
+	var returnVar = add(10, 20, function(res) {
+		document.write('결과 :' + res);
+	});
+	document.write('리턴결과:' + returnVar()+"<br/>");
+	document.write('리턴결과:' + returnVar()+"<br/>");
+	document.write('리턴결과:' + returnVar()+"<br/>");
+	document.write('리턴결과:' + returnVar()+"<br/>");
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### closure
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+//----------------------------------------------------------
+// 4. 지역변수를 참조하는 함수 안에 함수 클로저(closure)		
+//			전역변수는 특정 함수 몇 개만 공유하지 못하고 전체가 공유하는 변수이다.
+//			클로저는 특정 함수가 암묵적으로 다른 함수의 참조를 가지고 있기 때문에
+//			호출되는 함수가 참조하는 함수의 메모리 공간을 참조한다. (?)
+//			아무튼 클로저를 이용하여 전역변수의 사용을 줄일 수 있다
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

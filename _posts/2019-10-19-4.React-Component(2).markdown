@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "1019-[React]-4.React Component (2)"
-subtitle:   "1019-4.Component"
+title:  "1018-[React]-4.React Component (2)"
+subtitle:   "1018-4.Component"
 categories: devlog
 tags: react
 ---

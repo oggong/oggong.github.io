@@ -1,0 +1,509 @@
+---
+layout: post
+title:  "0530-[Web]-CSS(2)"
+subtitle:   "0530-CSS(2)"
+categories: devlog
+tags: web
+
+---
+
+## CSS (2)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### posi-absolute
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> position - absolute 배치</title>
+
+	<style type="text/css">
+		div img {
+			position:absolute;
+
+		}
+		h2 {
+			position: fixed;
+			left: 50px;
+			top: 200px;
+
+		}
+
+	</style>
+
+</head>
+<body>
+	<hr>
+		<h2>미니미들은 친구들</h2>
+	<hr>
+	<img src='./img/room.gif' width='500px' height='400px' alt='미니미들의 공간'/>
+	<div>
+		<img style="left:100px; top: 100px;" src='./img/minimi-1.PNG' />
+		<img style="left:250px; top: 200px;"  src='./img/minimi-2.PNG' />
+		<img style="left:300px; top: 300px;"  src='./img/minimi-3.PNG' />
+		<img style="left:350px; top: 400px;"  src='./img/minimi-4.PNG' />
+		<img style="left:450px; top: 500px;"  src='./img/minimi-5.PNG' />
+		<img style="left:250px; top: 600px;"  src='./img/minimi-6.PNG' />
+	</div>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### posi-relative
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>상대배치</title>
+
+<style type="text/css">
+div {
+	height: 150px;
+	width: 100px;
+	border: 1px solid gray;
+	text-align: center;
+	text color: aqua;
+	background: teal;
+	display: inline-block;
+	padding: 20px;
+	margin: 20px;
+
+}
+
+/* 홀수번째 배경색 orange 짝수번째  배경색 olive  */
+div:nth-child(odd):hover {
+	background: orange;
+	position: relative;
+	left: 20px;
+	top: 20px;
+	vertical-align: middle;
+}
+
+div:nth-child(even):hover {
+	background: olive;
+	position: relative;
+	right: 20px;
+	bottom: 20px;
+}
+</style>
+</head>
+<body>
+	<h3>나의 취미</h3>
+	<hr>
+	<div id='sp'>소풍</div>
+	<div>나들이</div>
+	<div>책보기</div>
+	<div>멍때리기</div>
+	<div>맛집탐방</div>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### scroll
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>overflow 프로퍼티</title>
+
+<style type="text/css">
+
+
+	p {
+		width: 500px;
+		height: 80px;
+		border: 1px dashed blue;
+
+		}
+	.hidden {overflow: hidden}
+	.auto{ overflow: auto}
+	.scroll{overflow: scroll}
+</style>
+
+</head>
+<body>
+
+	<p>
+			막부는 1695년 12월 25일 돗토리번에 대한 조회를 통해
+			 “울릉도(죽도)와 독도(송도) 모두 돗토리번에 속하지 않는다”는 사실을 확인한 후(「돗토리번 답변서」),
+			 1696년 1월 28일 일본인들의 울릉도 방면 도해를 금지하도록 지시하였습니다.
+			 이로써 한&#183;일 양국간 분쟁은 마무리되었고, 울릉도쟁계 과정에서울릉도와 독도가 우리나라 영토임이 확인되었습니다.
+	</p><br/>
+	<p class='hidden'>
+			막부는 1695년 12월 25일 돗토리번에 대한 조회를 통해
+			 “울릉도(죽도)와 독도(송도) 모두 돗토리번에 속하지 않는다”는 사실을 확인한 후(「돗토리번 답변서」),
+			 1696년 1월 28일 일본인들의 울릉도 방면 도해를 금지하도록 지시하였습니다.
+			 이로써 한&#183;일 양국간 분쟁은 마무리되었고, 울릉도쟁계 과정에서울릉도와 독도가 우리나라 영토임이 확인되었습니다.
+	</p><br/>
+	<p class='auto'>
+			막부는 1695년 12월 25일 돗토리번에 대한 조회를 통해
+			 “울릉도(죽도)와 독도(송도) 모두 돗토리번에 속하지 않는다”는 사실을 확인한 후(「돗토리번 답변서」),
+			 1696년 1월 28일 일본인들의 울릉도 방면 도해를 금지하도록 지시하였습니다.
+			 이로써 한&#183;일 양국간 분쟁은 마무리되었고, 울릉도쟁계 과정에서울릉도와 독도가 우리나라 영토임이 확인되었습니다.
+	</p><br/>
+	<p class='scroll'>
+			막부는 1695년 12월 25일 돗토리번에 대한 조회를 통해
+			 “울릉도(죽도)와 독도(송도) 모두 돗토리번에 속하지 않는다”는 사실을 확인한 후(「돗토리번 답변서」),
+			 1696년 1월 28일 일본인들의 울릉도 방면 도해를 금지하도록 지시하였습니다.
+			 이로써 한&#183;일 양국간 분쟁은 마무리되었고, 울릉도쟁계 과정에서울릉도와 독도가 우리나라 영토임이 확인되었습니다.
+	</p><br/>
+</body>
+</html>
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### zindex
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>z-index 프로퍼티</title>
+	<style type="text/css">
+		img {position: absolute;}
+		#spadeA{z-index:-4; left:10px;top:120px;}
+		#spade2{z-index:3; left:40px;top:130px;}
+		#spade3{z-index:2; left:80px;top:140px;}
+		#spade7{z-index:1; left:120px;top:150px;}
+
+	</style>
+</head>
+<body>
+<h3>z-index 프로퍼티</h3>
+<hr>
+<div>
+	<img id="spadeA" src="img/spade-A.png"
+		width="100" height="140" alt="스페이드A">
+	<img id="spade2" src="img/spade-2.png"
+		width="100" height="140" alt="스페이드2">
+	<img id="spade3" src="img/spade-3.png"
+		width="100" height="140" alt="스페이드3">
+	<img id="spade7" src="img/spade-7.png"
+		width="100" height="140" alt="스페이드7">
+</div>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### positioning1
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Positioning</title>
+
+<style type="text/css">
+#header {
+	border: 3px dotted red;
+}
+
+#left {
+	float: left;
+	border: 3px dotted purple;
+	width: 220px;
+	height: 500px;
+}
+
+#content {
+	float: right;
+	border: 3px dotted green;
+	width: 600px;
+	height: 500px;
+}
+
+#footer {
+	clear: both;
+	border: 3px dotted blue;
+}
+</style>
+<style type="text/css" media="screen and (max-width:650px)">
+#left {
+	display: none;
+}
+
+#content {
+	float: left;
+}
+</style>
+
+<style type="text/css" media='print'>
+#header, #left, #footer {
+	display: none;
+}
+
+#content {
+	float: left;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div id="wrap">
+		<div id="header">헤더영역</div>
+		<div id="left">왼쪽의 메뉴 영역</div>
+		<div id="content">
+			<ul>
+				<li>17세기 일본 돗토리번(鳥取藩)의 오야(大谷) 및 무라카와(村川) 양가는 조선 영토인 울릉도에서 불법
+					어로행위를 하다가 1693년 울릉도에서 <strong>안용복</strong>을 비롯한 조선인들과 만나게 되었습니다.
+				</li>
+				<li>양가는 일본 정부(에도 막부)에 조선인들의 울릉도 도해(渡海)를 금지해달라고 청원하였고,
+					막부가쓰시마번(對馬藩)에 조선 정부와의 교섭을 지시함에 따라 양국간 교섭이 개시되는데, 이를 ‘울릉도쟁계’라 합니다.</li>
+				<li>에도 막부는 1695년 12월 25일 돗토리번에 대한 조회를 통해 “울릉도(죽도)와 독도(송도) 모두
+					돗토리번에 속하지 않는다”는 사실을 확인한 후(<<strong>「돗토리번 답변서」</strong>), 1696년 1월
+					28일 일본인들의 울릉도 방면 도해를 금지하도록 지시하였습니다.
+				</li>
+				<li>이로써 한&#183;일 양국간 분쟁은 마무리되었고, 울릉도쟁계 과정에서울릉도와 독도가 우리나라 영토임이
+					확인되었습니다.</li>
+			</ul>
+		</div>
+		<div id="footer">밑에 영역</div>
+	</div>
+
+
+</body>
+</html>
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### positioning2
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Positioning</title>
+</head>
+
+<body>
+
+<div id="wrap">
+	<div id="header">헤더영역</div>
+	<div id="left">왼쪽의 메뉴 영역</div>
+	<div id="content">						
+						<ul>
+							<li>17세기 일본 돗토리번(鳥取藩)의 오야(大谷) 및 무라카와(村川) 양가는 조선 영토인 울릉도에서 불법 어로행위를 하다가 1693년 울릉도에서 <strong>안용복</strong>을 비롯한 조선인들과 만나게 되었습니다. </li>
+							<li>양가는 일본 정부(에도 막부)에 조선인들의 울릉도 도해(渡海)를 금지해달라고 청원하였고, 막부가쓰시마번(對馬藩)에 조선 정부와의 교섭을 지시함에 따라 양국간 교섭이 개시되는데, 이를 ‘울릉도쟁계’라 합니다.</li>
+							<li>에도 막부는 1695년 12월 25일 돗토리번에 대한 조회를 통해 “울릉도(죽도)와 독도(송도) 모두 돗토리번에 속하지 않는다”는 사실을 확인한 후(<<strong>「돗토리번 답변서」</strong>), 1696년 1월 28일 일본인들의 울릉도 방면 도해를 금지하도록 지시하였습니다. </li>
+							<li>이로써 한&#183;일 양국간 분쟁은 마무리되었고, 울릉도쟁계 과정에서울릉도와 독도가 우리나라 영토임이 확인되었습니다.</li>
+						</ul></div>
+	<div id="footer">밑에 영역</div>
+</div>
+
+
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### table
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>05_html5_table.html</title>
+
+<style type="text/css">
+	table {border: 1px solid #FF6F61;}
+
+	tr:nth-child(1){background:#FFC6C6;color:#FFFFFF;}
+
+	tr:nth-child(odd) {background:#FF6F61;}
+</style>
+
+
+</head>
+<body>
+
+	<table border='2'>
+	<tr><td colspan='2'>부서명</td><td>전화번호 (02+)</td><td>팩스번호 (02+)</td></tr>
+	<tr><td colspan='2'>종합상황실<td>123-1001~1005</td><td>321-1001</td></tr>
+	<tr><td rowspan='2'>비서실</td><td>비서실장</td><td>123-1111</td><td rowspan="2">321-1002(사장)</br> 321-1003(감사)</td></tr>
+	<tr><td>비서실</td><td>123-1112(사장)</br>123-1113-(감사)</td></tr>
+	<tr><td rowspan='3'>홍보실</td><td>홍보실장</td><td>123-1001</td><td rowspan='3'>321-1101</td></tr>
+	<tr><td>홍보부</td><td>123-2001~123-2009</td></tr>
+	<tr><td>국제	협력부</td><td>123-1230~1234</td></tr>
+	</table>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### transition
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>트랜잭션</title>
+
+<style type="text/css">
+img {
+	float: left;
+	margin-right: 30px;
+	margin-bottom: 20px;
+	width:50%;
+	transition-property:width;
+	transition-duration:2s;
+	-webkit-transition-property:width;
+	-webkit-transition-duration:2s;
+}
+
+.clear_both {
+	clear: both;
+}
+
+img:hover {
+	width: 100%;
+}
+</style>
+
+</head>
+<body>
+	<div>
+		<p>그림 위에 마우스를 올린다면</p>
+		<img id="pic_beach" alt="" src="img/beach.jpg">
+		<h1>우리집 앞 마당</h1>
+
+		<div class="clear_both"></div>
+		<p>추운 겨울 따뜻한 해변으로의 여행이 더욱 갈망되는 시기입니다. 그래서 소개할 곳은 트립어드바이저가 선정한
+			'세상에서 가장 아름다운 해변 10곳'입니다. 2년간의 트립어드바이저 조사 결과 프로베덴시알레스섬에 위치한 'Turks
+			and Caicos'가 1위로 꼽혔습니다. 선정된 해변들은 사용자들이 양적·질적으로 가장 훌륭하다는 리뷰를 남긴 곳들입니다.
+
+			2위는 'Baia do Sancho'입니다. 이 해변은 브라질의 페르난도 데 노로냐에 위치해 있습니다. 바이아 도 산초는
+			터크스케이커스제도가 1위로 선정되기 전까지 쭉 1위를 유지했습니다. 3위는 쿠바에 위치한 'Playa
+			Paraiso'해변입니다. 한 트립어드바이저는 이 해변에 대한 후기로 "꿈이 이루어졌다"고 남기기도 했습니다. 프랄린 섬에
+			위치한 'Anse Lazio'가 4위로 선정됐습니다. "깨끗하고 맑은 물"이 이 곳을 한 마디로 표현하는 말일 수
+			있겠습니다.</p>
+		<p>베네수엘라에 위치한 'Cayo de Agua'해변이 5위입니다. 6위는 'Flamenco Beach'입니다.
+			푸에르토 리코에 위치한 이 해변은 왜 상위에 랭크됐냐는 질문에 "고운 모래와 혼을 쏙 빼간 바닷물"이라는 답변이 주를
+			이뤘습니다. 7위는 스페인에 위치한 'Playa de Ses Illetes'입니다. 열광적인 한 리뷰어는 "자연을
+			배회했다"라는 말을 남기기도 했습니다. 8위에는 아시아의 해변이 랭크됐습니다. 미얀마에 위치한 'Ngapali
+			Beach'인데요. 자연스럽게 아시아에서 가장 아름다운 해변으로도 선정됐습니다.</p>
+		<p>온두라스의 'West Bay Beach'는 9위에 올랐습니다. 만족할만한 스노우쿨링을 할 수 있다는 점이 상위에
+			랭크된 이유 중 하나였습니다. 마지막으로 소개할 곳은 필리핀에 있는 'Nacpan Beach'입니다. 이용자는 "만약 당신이
+			스쿠터를 빌린다면 정말 가치 있을 것"이라며 해변을 이용하는 팁을 남기기도 했습니다.</p>
+	</div>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### html5_css
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5 structure</title>
+
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>
+				<mark>HTML5</mark>문서의 주요 구조
+			</h1>
+			<h2>HTML5를 처음 공부하는 당신을 위해</h2>
+		</header>
+		<nav>
+			<ul>
+				<li>header</li>
+				<li>nav</li>
+				<li>section</li>
+				<li>article</li>
+				<li>footer</li>
+			</ul>
+		</nav>
+		<section>
+			<article>
+				<header>
+					<h2>header란?</h2>
+					<time>posted 2016-01-01</time>
+				</header>
+				<p>header란 head와 다르다.</p>
+				<p>주로 문서의 제목을 나타낼 때 사용된다.</p>
+				<footer>
+					<p>comments (0)</p>
+				</footer>
+			</article>
+			<article>
+				<header>
+					<h2>nav란?</h2>
+					<time>posted 2016-01-01</time>
+				</header>
+				<p>nav는 화면에서 메뉴를 주로 나타낸다.</p>
+				<p>일반적으로 ul > li 항목으로 표현한다.</p>
+				<footer>
+					<p>comments (0)</p>
+				</footer>
+			</article>
+		</section>
+		<aside>
+			<ul>
+				<li><header>&lt;head&gt;</header>
+					<p>단순히 문서의 정보 표시</p></li>
+				<li>javascript</li>
+			</ul>
+		</aside>
+		<footer>
+			<p>copyright &copy; 2014 ~</p>
+		</footer>
+	</div>
+</body>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

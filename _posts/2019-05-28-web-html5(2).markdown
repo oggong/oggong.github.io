@@ -1,0 +1,183 @@
+---
+layout: post
+title:  "0528-[Web]-html5(2)"
+subtitle:   "0528-html5(2)"
+categories: devlog
+tags: web
+
+---
+
+## html5 (2)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### table
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>05_html5_table.html</title>
+</head>
+<body>
+
+	<table border='2'>
+	<tr><td colspan='2'>부서명</td><td>전화번호 (02+)</td><td>팩스번호 (02+)</td></tr>
+	<tr><td colspan='2'>종합상황실<td>123-1001~1005</td><td>321-1001</td></tr>
+	<tr><td rowspan='2'>비서실</td><td>비서실장</td><td>123-1111</td><td rowspan="2">321-1002(사장)</br> 321-1003(감사)</td></tr>
+	<tr><td>비서실</td><td>123-1112(사장)</br>123-1113-(감사)</td></tr>
+	<tr><td rowspan='3'>홍보실</td><td>홍보실장</td><td>123-1001</td><td rowspan='3'>321-1101</td></tr>
+	<tr><td>홍보부</td><td>123-2001~123-2009</td></tr>
+	<tr><td>국제	협력부</td><td>123-1230~1234</td></tr>
+	</table>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### home
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<fieldset>
+		<legend>로그인 정보</legend>
+		<ol>
+		<li><label for='id'>아이디</label><input type='text' name='id'
+			id='id' required/></li>
+		<li><label for='password'>비밀번호</label><input type='password' name='password'
+			id='password' required/></li>
+		<li><label for='passwordcofirm'>비밀번호</label><input type='password' name='passwordconfirm'
+			id='passwordconfirm' required/></li>		
+		<li><label for='grade'>회원 등급 <select name='grade'>
+		<option value=''>준회원</option>
+		</select>
+		</ol>
+	</fieldset>
+	<fieldset>
+		<legend>개인 정보</legend>
+		<ol>
+			<li><label for='name'>이름 </label> <input type='text' name='name'
+				id='name' placeholder='5자미만 공백없이' required /></li>
+			<li><label for='email'>이메일 </label> <input type='email' name='email'
+				id='email' placeholder='abcd@domain.com' required /></li>
+				<li><label for='tel'>연락처 </label> <input type='tel' name='tel'
+				id='tel' placeholder='010-0000-0000' required /></li>
+			<li><label for='mybirth'>생일 </label><input type='date' name='mybirth'
+			id='mybirth' placeholder='연도-월-일'/></li>		
+		</ol>
+	</fieldset>
+	<fieldset>
+		<legend>코딩 숙련도(상,중,하)</legend>
+		<li><input type='range' name='range' min='1' max='3'/></li>
+	</fieldset>
+	<fieldset>
+		<input type='submit' name='submit'>
+	</fieldset>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### SimpleForm
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>06_SimpleForm.html</title>
+</head>
+<body>
+
+<form action="xxxxx.jsp" method='post'><!-- form 태그 method='post' -보안 방식  -->
+
+	<fieldset>
+		<legend>회원가입</legend>
+		<ol>
+	<li>이름: <input name='irum' type='text'/></li> <!-- 이름 입력 텍스트 필드 -->
+	<li>비밀번호: <input name='pw' type='password'/></li> <!--  -->
+	<li>직업 <select name='job'>
+		<option value=''>프로그래머</option>
+		</select>
+		</li>
+	<li>취미 : <input type='checkbox' name='hobby' value='잠자기'> 잠자기
+	<input type='checkbox' name='hobby' value='먹기'> 먹기  
+	 <input type='checkbox' name='hobby' value='숨쉬기'> 숨쉬기  </li>
+	<li> 성별 <input type='radio' name='male'> 남자
+	<input type='radio' name='female'> 여자</li>
+	<li><input name='confirm' type='submit' value='확인'>
+		<input name='cancel' type='reset' value='취소'></li>
+
+	</ol>
+
+	</fieldset>
+	<fieldset>
+	여행하고 싶은 장소: <input type='text' list='countries'/>
+	<datalist id ='countries'>
+	<option value='가나'/>
+		<option value='브라질'/>
+			<option value='없음'/>
+	</fieldset>
+
+
+</form>
+
+</body>
+</html>
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### oldForm
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>old form</title>
+</head>
+<body>
+<form id="myform" action="#">
+	<label for="email">email</label>
+	<input type="text" id="email" name="email">
+	<input type="submit">
+</form>
+</body>
+<script>
+	document.querySelector("#myform").addEventListener("submit", function(e){
+		var email = document.querySelector("#email");
+		var isValidate = false;
+		var regexp = /[a-z]+[a-z0-9]*\.?[a-z0-9]*@[a-z0-9]+\.?[a-z0-9]*/i;
+		 if(!regexp.test(email.value)){
+			alert("이메일 형식이 다릅니다.");
+			e.preventDefault();
+		}
+	});
+</script>
+</html>
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

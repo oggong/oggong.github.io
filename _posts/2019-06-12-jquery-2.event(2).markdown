@@ -1,0 +1,115 @@
+---
+layout: post
+title:  "06-12-[jquery]-2.event(2)"
+subtitle:   "0612-jQuery-event(2)"
+categories: devlog
+tags: jquery
+
+---
+
+## event(2)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### js/jquery.js
+
+~~~
+
+/**
+ *
+ */
+$(function() {
+
+	$('.rollover').each(function() {
+		var a = $(this);
+		var img = a.find('img');
+
+		// [필수] img 에 속성 중에서 src 값 변경 (attr() 이용)
+		// [선택] replace ('a','b') 이용
+		var src_off = img.attr('src');
+		var src_on = src_off.replace('_off','_on');
+
+		$('<img>').attr('src',src_on);
+		// 이미지 미리 가져오기
+
+
+		a.hover(function(){
+			img.attr('src',src_on);
+		}, function(){
+			img.attr('src', src_off);
+		});
+
+
+
+	});
+
+})
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### css/style.css
+
+~~~
+
+*{
+	margin:0;
+	padding:0;
+}
+.header{
+	background:#222222 url(bg.png) repeat-x 0 100%;
+	padding:40px 0 0 42px;
+	*zoom:1; /* ie */
+	border-bottom:8px solid #91b280;
+}
+.menu{
+	height:38px;
+}
+.menu li{
+	list-style-type:none;
+	float:left;
+	padding:0 0 0 8px;
+}
+.menu li a{
+	float:left;
+}
+.menu li a img{
+	width:161px;
+	height:38px;
+	border:none;
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### jquery_test.html
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>jQuery test</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<script src="../lib/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="./js/jquery.js" charset="utf-8"></script>
+</head>
+<body>
+	<div class="header">
+		<ul class="menu">
+			<li><a href="#" class="rollover"><img src="imgs/menu01_off.png" alt="Home" /></a></li>
+			<li><a href="#" class="rollover"><img src="imgs/menu02_off.png" alt="Products" /></a></li>
+			<li><a href="#" class="rollover"><img src="imgs/menu03_off.png" alt="Company" /></a></li>
+		</ul>
+	</div>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

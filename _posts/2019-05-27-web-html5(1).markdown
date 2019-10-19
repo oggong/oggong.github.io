@@ -1,0 +1,355 @@
+---
+layout: post
+title:  "0527-[Web]-html5(1)"
+subtitle:   "0527-html5(1)"
+categories: devlog
+tags: web
+
+---
+
+## html5 (1)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### section
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>산과 벗하는 산악회</title>
+</head>
+<body>
+
+	<!-- 주석 -->
+
+
+
+	<!-- 주석 -->
+	<!-- 페이지  안에서 제목 h1~h6 -->
+
+	<header>
+		<h1>주말 산행 뿐만 아니라 주중 산행, 무박 산행도 합니다</h1>
+	</header>
+
+	<nav>
+		<!-- navigation 약자 --- 메뉴 역할 -->
+		<!--  <ol> order list <ul> unorder list -->
+
+		<!-- <ul>
+			<li><a href="http://www.w3schools.com" target="_blank">산행예절</a></li>
+			<li><a href="http://www.daum.net"target="_self">산행준비</a></li>
+			<li><a href="http://www.naver.com"target="_parent">산행종류</a></li>
+			<li><a href="http://www.mk.co.kr"target="_top"> 보행요령</a></li>
+			<li><a href="http://www.nate.com"> 등산식량</a></li>
+		</ul> -->
+
+		<!-- 북마크  -->
+
+		<ol>
+			<li><a href='#greeting'>산행예절</a></li>
+			<li><a href='#atiquette'>산행준비</a></li>
+			<li><a href='#manner'>산행종류</a></li>
+			<li><a href='99_html5구조_css.html'> 보행요령</a></li>
+		</ol>
+	</nav>
+
+	<section>
+		<header>
+			<h3>산행 예절</h3>
+		</header>
+
+		<article>
+
+			<h4 id="greeting">인사</h4>
+
+			<p>인사를 할 때에는 너무 큰소리로 하지 말고 상대방이 똑똑히 들을 정도의 소리로 인사한다. 산쟁이 중에는 "수고
+				하십니다"란 인사를 싫어하는 사람이 많다. 오히려 그것 보단 "힘내세요" "조금만 가면 정상입니다" "좋은 산행
+				되세요"라고 인사가 적당하지 않은가 생각한다. 그리고 단체로 갈 땐 모든 사람이 인사를 하면 안된다 여러 명이 줄지어서 갈
+				땐 선두에 선 사람이 인사를 하고 뒷사람은 가볍게 목례정도만 하면 된다.</p>
+
+			<p>인사를 할 때에는 너무 큰소리로 하지 말고 상대방이 똑똑히 들을 정도의 소리로 인사한다. 산쟁이 중에는 "수고
+				하십니다"란 인사를 싫어하는 사람이 많다. 오히려 그것 보단 "힘내세요" "조금만 가면 정상입니다" "좋은 산행
+				되세요"라고 인사가 적당하지 않은가 생각한다. 그리고 단체로 갈 땐 모든 사람이 인사를 하면 안된다 여러 명이 줄지어서 갈
+				땐 선두에 선 사람이 인사를 하고 뒷사람은 가볍게 목례정도만 하면 된다.</p>
+
+			<p>인사를 할 때에는 너무 큰소리로 하지 말고 상대방이 똑똑히 들을 정도의 소리로 인사한다. 산쟁이 중에는 "수고
+				하십니다"란 인사를 싫어하는 사람이 많다. 오히려 그것 보단 "힘내세요" "조금만 가면 정상입니다" "좋은 산행
+				되세요"라고 인사가 적당하지 않은가 생각한다. 그리고 단체로 갈 땐 모든 사람이 인사를 하면 안된다 여러 명이 줄지어서 갈
+				땐 선두에 선 사람이 인사를 하고 뒷사람은 가볍게 목례정도만 하면 된다.</p>
+
+			<p>인사를 할 때에는 너무 큰소리로 하지 말고 상대방이 똑똑히 들을 정도의 소리로 인사한다. 산쟁이 중에는 "수고
+				하십니다"란 인사를 싫어하는 사람이 많다. 오히려 그것 보단 "힘내세요" "조금만 가면 정상입니다" "좋은 산행
+				되세요"라고 인사가 적당하지 않은가 생각한다. 그리고 단체로 갈 땐 모든 사람이 인사를 하면 안된다 여러 명이 줄지어서 갈
+				땐 선두에 선 사람이 인사를 하고 뒷사람은 가볍게 목례정도만 하면 된다.</p>
+
+			<h4 id="atiquette">추월을 해야 할땐 먼저 양해를 구하자.</h4>
+
+			<p>좁은 등산로에서 예고없이 추월을 한다면 배낭 같은 것이 부딪혀 서로 중심이 흐트러질 경우가 많다. 약한 사람은
+				튕겨 날 경우도 있다. 추월을 할 땐 미리 "먼저 가겠습니다"라고 하고 비켜주면 그때 "고맙습니다"라고 인사를 하고 추월을
+				하자.</p>
+
+			<p>좁은 등산로에서 예고없이 추월을 한다면 배낭 같은 것이 부딪혀 서로 중심이 흐트러질 경우가 많다. 약한 사람은
+				튕겨 날 경우도 있다. 추월을 할 땐 미리 "먼저 가겠습니다"라고 하고 비켜주면 그때 "고맙습니다"라고 인사를 하고 추월을
+				하자.</p>
+
+			<p>좁은 등산로에서 예고없이 추월을 한다면 배낭 같은 것이 부딪혀 서로 중심이 흐트러질 경우가 많다. 약한 사람은
+				튕겨 날 경우도 있다. 추월을 할 땐 미리 "먼저 가겠습니다"라고 하고 비켜주면 그때 "고맙습니다"라고 인사를 하고 추월을
+				하자.</p>
+
+			<p>좁은 등산로에서 예고없이 추월을 한다면 배낭 같은 것이 부딪혀 서로 중심이 흐트러질 경우가 많다. 약한 사람은
+				튕겨 날 경우도 있다. 추월을 할 땐 미리 "먼저 가겠습니다"라고 하고 비켜주면 그때 "고맙습니다"라고 인사를 하고 추월을
+				하자.</p>
+			<h4>올라오는 사람에게 양보를 하자.</h4>
+			<p>산에서 많이 경험을 하였을 것이다. 내려 오는 사람보단 올라가는 사람이 시간이 촉박하다. 또 페이스 유지도
+				올라오는 사람이 유지하기가 어렵다. 단체일 경우에는 소수인 그룹이 양보한다.</p>
+		</article>
+	</section>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### list
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>카레만들기</title>
+</head>
+<body>
+	<h2>커리(Curry) 재료</h2>
+
+	<!-- 순서가 없는 목록 ul unorder list  -->
+	<ul>
+		<li>카레 가루 100g</li>
+		<li>닭가슴살 200g</li>
+		<li>감자 1개</li>
+		<li>양파 1/2개</li>
+		<li>당근 1/2개</li>
+	</ul>
+
+	<!-- 카레 이미지 출력 curry.jpg
+		img 태그 이용
+	  -->
+
+
+	<h2><img alt="카레 사진 입니다." src='/WebUI/images/sample/curry.jpg'>커리(Curry) 만드는 법</h2>
+	<h2><img alt="카레 사진 입니다." src='../images/sample/curry.jpg'>커리(Curry) 만드는 법</h2>
+
+	<!-- 절대 경로  -->
+	<ul>
+		<li><a href='/WebUI/media/a.mp4'>비디오파일</a></li>
+		<li><a href='/WebUI/media/b.mp3'>음악파일</a></li>
+	</ul>
+	<!-- 상대 경로 -->
+	<ul>
+		<li><a href='../media/a.mp4'>비디오파일</a></li>
+		<li><a href='../medias/b.mp3'>음악 파일</a></li>
+	</ul>
+
+
+
+
+	<!-- ol li 태그 이용  -->
+	<ol type='i	'>
+
+		<li>카레 가루 8큰술에 물 6큰술을 넣어 풀어놓는다.</li>
+		<li>닭가슴살, 감자, 양파, 당근 등을 따로 중불에 살짝 볶는다.</li>
+		<li>볶아 놓은 재료를 카레를 풀어놓은 물과 함께 냄비에 넣고 물 2컵을 부은 후 15분 정도 끓인다.</li>
+		<li>양파</li>
+		<li>외떡잎식물 백합목 백합과의 두해살이풀</li>
+		<li>당근</li>
+		<li>쌍떡잎식물 산형화목 미나리과의 두해살이풀.</li>
+	</ol>
+
+
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### text
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>제주 올레</title>
+</head>
+
+<body>
+
+	<h1>제주 올레</h1>
+
+	<b>진하게</b>
+	<br />
+	<strong>중요한</strong>
+	<br />
+	<em>강조</em>
+	<br />
+	<i>이탤릭체</i>
+	<br />
+	<b><i>진하게 이탤릭체</i></b>
+	<br />
+	<br />
+	<br /> 보통문자
+	<small>작은문자</small>
+	<br /> 보통문자
+	<sup>윗첨자</sup>
+	<br /> 보통문자
+	<sub>아래첨자</sub>
+	<br />
+	<br />
+	<br />
+	<del>삭제</del>
+	<br />
+	<ins>추가</ins>
+	<br />
+	<mark>하이라이팅</mark>
+	<br />
+
+	<br />
+	<br /> 제주 올레 제주 올레 7코스
+	<p>
+		<!-- 2.  수봉로 글씨만 하이라이팅 -->
+		외돌개를 출발하여 법환포구를 경유해 월평포구까지 어어진 해안올레. 올레인들이 가장 아끼고자연생태길인
+		<mark> '수봉로'</mark>
+		를 만날 수 있다. <br /> 수봉로는 세 번째 코스 개척 시기인 2007년 12월, 올레지기인 '김수봉'님이 염소가 다니던
+		길에 직접 삽과 곡괭이만으로 계단과 길을 만들어서 사람이 걸어다닐 수 있도록 한 길이다.<br/>
+	</p>
+	<!-- 1 -->
+	<b>패스포트 스탬프 확인 장소</b>
+	<br />
+	<!-- 진하게 -->
+	<strong>시작 외돌개 제주 올레 안내소</strong>
+	<br />
+	<!-- 중요하게 -->
+	<em>중간 강정 올레 쉼터</em>
+	<br />
+	<!-- 강조 -->
+	<i>종점 월평 송이 슈퍼</i>
+	<br />
+	<!-- 이탤릭체 -->
+
+	<!-- 3.   삭제할 글자와 밑줄을 -->
+	난이도 : 상 길이: 총 16.4km(4~5시간) 수봉로는 언덕길이고 일강정 바당올레에서 서건도 사이 바윗길이 험한 편이다
+	<br />
+	<del>수봉로는 언덕길이고 일강정 바당올레에서 서건도 사이 바윗길이 험한 편이다</del>
+
+	<p>수봉로는 언덕길이고 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					일강정 바당올레에서
+								서건도 사이 바윗길이 험한 편이다</p>
+
+	<pre>수봉로는 언덕길이고
+					일강정 바당올레에서
+								서건도 사이 바윗길이 험한 편이다</pre>
+
+
+	<section>
+		<figure>
+			<figcaption>
+				<img src='../images/new/road1.jpg' /> 수봉로 언덕을 넘자마자 다시 만나게 되는 바다.
+			</figcaption>
+		</figure>
+		<figure>
+			<figcaption>
+				<img src='/WebUI/images/new/road2.jpg' /> 외돌개 산책로에서 외돌개가 보인다. 전설을
+				들어보면 가슴 아리다
+			</figcaption>
+		</figure>
+	</section>
+
+
+
+</body>
+</html>
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
+
+#### span
+
+~~~
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>푸터 영역  | WebCafe</title>
+
+<style type="text/css">
+
+address {
+    clear:both;
+	padding:0 0 15px 3px;
+	font-size:15px;
+	line-height:1.5;
+	color:#787878;
+}
+
+address .addr {
+	padding-right:10px;
+	color : #9922cc;
+	font-size: 18px;
+}
+address .tel, address .fax {
+	padding: 0px 3px;
+	color : #aa3302;
+	font-family : Serif;
+}
+
+address .copyright {
+	padding-right:10px;
+	color : #ee1212;
+	font-size: 13px;
+}
+
+</style>
+</head>
+
+
+<body>
+<div id="footer">
+  <div class="footerInner">
+    <p class="footerLogo"><img src="../images/common/logo_copyright.gif" alt="WebCafe" /></p>
+    <h2>사이트 이용안내</h2>
+    <ul class="guideMenu">
+      <li><a href="#">회사소개</a></li>
+      <li><a href="#">개인정보보호정책</a></li>
+      <li><a href="#">이메일주소무단수집거부</a></li>
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#">Site map</a></li>
+    </ul>
+    <address>
+    	<span class="addr">서울시 마포구 상수동 123-12 한주빌딩 5층</span>
+    	<span class="tel">· 전화: 02-1234-1234</span>
+		<span class="fax">· FAX: 02-1234-1234</span>
+		<span class="email">· E-MAIL: webmaster@mail.com</span><br />
+   	 	<span class="copyright">Copyright ⓒ Web Cafe CORPORATION ALL RIGHTS RESERVED.</span>
+    </address>
+  </div>
+</div>
+</body>
+</html>
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

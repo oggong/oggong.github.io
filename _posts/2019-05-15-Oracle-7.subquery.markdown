@@ -1,0 +1,90 @@
+---
+layout: post
+title:  "0515-[Oracle]-7.subquery"
+subtitle:   "0515-subquery"
+categories: devlog
+tags: Oracle
+
+---
+## subquery
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### subquery
+
+~~~
+
+SELECT * FROM employees;
+
+-- 1. 연도별로 입사자들의 최소급여, 최대 급여, 급여의 총합 그리고 평균 급여를 구하시오
+SELECT to_char(hire_date,'YY') hiredate , min(salary) min, max(salary) max, sum(salary) sum
+FROM employees
+GROUP BY to_char(hire_date,'YY')
+ORDER BY to_char(hire_date,'YY');
+
+
+
+-- 2. 부서별 평균 급여가 $10,000 이상인 부서만 구하시오. ( 평균급여가 높은 순으로 )
+SELECT * FROM employees;
+
+SELECT department_id, round(avg(salary))
+FROM employees
+GROUP BY department_id
+HAVING round(avg(salary)) >= 10000
+ORDER BY round(avg(salary)) desc;
+
+
+-- 3. 부서별 최대 급여를 구하시오.  해당되는 부서번호는 10번과 20번임
+SELECT department_id, max(salary) max
+FROM employees
+WHERE department_id = '10' or department_id = '20'
+GROUP BY department_id;
+
+
+
+
+--4. 이름의 성이 'King' 사원의 사번과 부서명을 출력 ( employees, departments )
+SELECT * FROM employees;
+SELECT * FROM departments;
+
+SELECT e.employee_id,e.last_name,d.department_name
+FROM employees e, departments d
+WHERE e.department_id = d.department_id and e.last_name = 'King';
+
+--5. 이름의 성이 'King' 사원의 사번과 부서명 그리고 업무명을 출력 ( employees, departments, jobs )
+SELECT * FROM employees;
+SELECT * FROM departments;
+SELECT * FROM jobs;
+
+SELECT e.employee_id , e.last_name , d.department_id, j.job_title
+FROM employees e, departments d, jobs j
+WHERE e.department_id = d. department_id and  e.job_id = j.job_id and e.last_name='King';
+
+--6. 2007년 상반기에 입사한 사원들의 사번과 이름, 입사일 그리고 부서명을 출력
+-- (*) Grant는 아직 부서가 배정받지 못한 상태이지만 Grant도 출력되려면
+SELECT e.hire_date, e.employee_id, e.first_name || ' ' || e.last_name AS full_name,d.department_name
+FROM employees e FULL OUTER JOIN departments d
+ON e.department_id = d.department_id
+WHERE to_char(e.hire_date,'YY') = '07' AND to_char(e.hire_date,'MM') <07
+ORDER BY e.hire_date;
+
+
+--7. 'Executive' 부서에서 사원과 해당 사원의 관리자 이름을 출력
+-- (*) 관리자가 없는 사원인 'King'이 출력되려면
+SELECT * FROM employees;
+
+SELECT e.employee_id id, d.department_name depart,
+e.first_name || e.last_name "사원",
+e2.first_name || e2.last_name "관리자"
+FROM employees e LEFT OUTER JOIN employees e2
+ON (e.manager_id = e2.employee_id) LEFT OUTER JOIN departments d
+ON (e.department_id = d.department_id)
+WHERE d.department_name = 'Executive';
+
+
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>

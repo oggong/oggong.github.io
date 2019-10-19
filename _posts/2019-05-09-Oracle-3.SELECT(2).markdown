@@ -1,0 +1,53 @@
+---
+layout: post
+title:  "0509-[Oracle]-3.SELECT(2)"
+subtitle:   "0509-SELECT"
+categories: devlog
+tags: Oracle
+
+---
+## SELECT (2)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### SELECT
+
+~~~
+
+SELECT * FROM employees;
+
+/*
+1. 2003년에 입사한 사원들의 사번, 이름, 입사일을 출력
+*/
+SELECT employee_id, first_name || ' ' || last_name AS full_name, hire_date
+FROM employees
+WHERE to_char(hire_date,'YY') =3;
+
+/*
+2. 업무가 FI_ACCOUNT / FI_MGR / SA_MAN / SA_REP 인 사원들의 정보를 출력
+*/
+SELECT *
+FROM employees
+WHERE (job_id ='FI_ACCOUNT')OR (job_id = 'FI_MGR') OR (job_id ='SA_MAN') OR (job_id ='SA_REP');
+
+/*
+3. 커미션을 받는 사원들의 명단을 출력
+*/
+SELECT first_name || ' ' || last_name AS full_name,commission_pct
+FROM employees
+WHERE commission_pct is not null;
+/*
+4.업무가 SA_MAN 또는 SA_REP이면 "판매부서"를 그 외는 "그 외 부서"라고 출력
+*/
+SELECT first_name || ' ' || last_name AS full_name, CASE job_id
+    WHEN 'SA_MAN' THEN '판매부서'
+    WHEN 'SA_REP' THEN '판매부서'
+    ELSE '그 외 부서'
+    END AS DEPARTMENTS
+FROM employees;
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue"/>
