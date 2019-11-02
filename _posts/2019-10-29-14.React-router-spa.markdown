@@ -1,0 +1,665 @@
+---
+layout: post
+title:  "1029-[React]-14.React router-spa"
+subtitle:   "1029-14.React router-spa"
+categories: devlog
+tags: react
+---
+
+## React router-spa
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### SPA (Single Page Application) 싱글 페이지 애플리케이션 
+
+- 말 그대로 한 개의 페이지로 이루어진 애플리케이션이라는 의미
+
+#### SPA 단점
+
+- 앱의 규모가 커지면 자바스크립트 파일이 너무 커진다는 것
+- 페이지 로딩시 사용자가 실제로 방문하지 않을수도 있는 페이지의 스크립트도 불러오기 때문 
+- 코드 스플리팅을 사용하면 라우트 별로 파일들을 나누어 트래픽과 로딩속도 개선 할수 있다.
+
+#### 프로젝트 준비 및 기본적인 사용법
+
+- yarn create react-app router-tutorial
+- cd router-tutorial
+- yarn add react-router-dom
+
+
+#### 프로젝트에 라우터 적용
+
+- src/index.js
+
+~~~
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+
+ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+
+
+~~~
+
+- 페이지 만들기
+
+- Home.js
+
+~~~
+
+import React from 'react';
+
+const Home = () => {
+    return (
+        <div>
+            <h1>홈</h1>
+            <p>홈, 그 페이지는 가장 먼저 보여지는 페이지.</p>
+        </div>
+    );
+};
+export default Home;
+
+~~~
+
+- About.js
+
+~~~
+
+import React from 'react';
+
+const About = () => {
+
+    return (
+        <div>
+            <h1>소개</h1>
+            <p>이 프로젝트는 리액트 라우터 기초를 실습해 보는 예제 프로젝트입니다.</p>
+        </div>
+    );
+};
+
+export default About;
+
+~~~
+
+- App.js
+
+~~~
+
+import React from 'react';
+import { Route } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+
+const App = () => {
+  return (
+    <div>
+      <Route path="/" component={Home} exact={true} />
+      <Route path="/about" component={About} />
+    </div>
+  );
+}
+
+export default App;
+
+~~~
+
+#### Link 컴포넌트를 사용하여 다른 주소로 이동하기
+
+- App.js
+
+~~~
+
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+
+const App = () => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">소개</Link>
+        </li>
+      </ul>
+      <hr />
+      <Route path="/" component={Home} exact={true} />
+      <Route path="/about" component={About} />
+    </div>
+  );
+}
+
+export default App;
+
+~~~
+
+#### Route 하나에 여러개의 path 설정하기
+
+- App.js
+
+~~~
+
+import React from 'react';
+import { Route } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+
+const App = () => {
+  return (
+    <div>
+      <Route path="/" component={Home} exact={true} />
+      <Route path={['/about', '/info']} component={About} />
+    </div>
+  );
+}
+
+export default App;
+
+~~~
+
+
+#### URL 파라미터와 쿼리
+
+- Profile.js
+
+~~~
+
+import React from 'react';
+
+const data = {
+    developer: {
+        name: '오민석',
+        description: '리액트 개발자를 꿈꾸는 청년'
+    },
+    gildong: {
+        name: '홍길동',
+        description: '고전 소설 홍길동전의 주인공'
+    }
+};
+
+const Profile = ({ match }) => {
+    const { username } = match.params;
+    const profile = data[username];
+    if (!profile) {
+        return <div>존재하지 않는 사용자입니다.</div>;
+    }
+    return (
+        <div>
+            <h3>
+                {username}({profile.name})
+            </h3>
+            <p>{profile.description}</p>
+        </div>
+    );
+};
+export default Profile;
+
+~~~
+
+- App.js
+
+~~~
+
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+import Profile from './Profile';
+
+const App = () => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">소개</Link>
+        </li>
+        <li>
+          <Link to="/profile/developer">developer 프로필</Link>
+        </li>
+        <li>
+          <Link to="/profile/gildong">gildong 프로필</Link>
+        </li>
+      </ul>
+
+      <hr />
+      <Route path="/" component={Home} exact={true} />
+      <Route path={['/about', '/info']} component={About} />
+      <Route path="/profile/:username" component={Profile} />
+    </div>
+  );
+}
+
+export default App;
+
+~~~
+
+#### URL 쿼리
+
+- yarn add qs
+
+- About.js
+
+~~~
+
+import React from 'react';
+import qs from 'qs';
+
+const About = ({ location }) => {
+
+    const query = qs.parse(location.search, {
+        ignoreQueryPrefix: true // 이 설정을 통해 문자열 맨 앞의 ? 를  생략합니다.
+    });
+    const showDetail = query.detail === 'true';
+
+    return (
+        <div>
+            <h1>소개</h1>
+            <p>이 프로젝트는 리액트 라우터 기초를 실습해 보는 예제 프로젝트입니다.</p>
+            {showDetail && <p>detail 값을 true로 설정하셨군요!</p>}
+        </div>
+    );
+};
+
+export default About;
+
+~~~
+
+#### 서브 라우트
+
+Profiles.js
+
+~~~
+
+import React from 'react';
+import { Link, Route } from 'react-router-dom';
+import Profile from './Profile';
+
+const Profile = () => {
+    return (
+        <div>
+            <h3>사용자 목록:</h3>
+            <ul>
+                <li>
+                    <Link to="/profile/developer">developer</Link>
+                </li>
+                <li>
+                    <Link to="/profile/gildong">gildong</Link>
+                </li>
+            </ul>
+
+            <Route
+                path="/profiles"
+                exact
+                render={() => <div>사용자를 선택해 주세요.</div>}
+            />
+            <Route
+                path="/profiles/:username" component={Profile}
+            />
+        </div>
+    )
+}
+
+export default Profiles;
+
+~~~
+
+- App.js
+
+
+~~~
+
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+import Profile from './Profile';
+
+const App = () => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">소개</Link>
+        </li>
+        <li>
+          <Link to="/profile/profiles">프로필</Link>
+        </li>
+      </ul>
+
+      <hr />
+      <Route path="/" component={Home} exact={true} />
+      <Route path={['/about', '/info']} component={About} />
+      <Route path="/profiles" component={Profiles} />
+    </div>
+  );
+}
+
+export default App;
+
+
+~~~
+
+#### 리액트 라우터 부가 기능
+
+- history
+- 로그인 후 화면을 전환하거나, 다른 페이지로 이탈하는 것을 방지해야 할때 history 활용
+
+- HistorySample.js
+
+~~~
+
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+import Profile from './Profile';
+
+const App = () => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">소개</Link>
+        </li>
+        <li>
+          <Link to="/profile/profiles">프로필</Link>
+        </li>
+      </ul>
+
+      <hr />
+      <Route path="/" component={Home} exact={true} />
+      <Route path={['/about', '/info']} component={About} />
+      <Route path="/profiles" component={Profiles} />
+    </div>
+  );
+}
+
+export default App;
+
+~~~
+
+- App.js
+
+~~~
+
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+import Profiles from './Profiles';
+import HistorySample from './HistorySample';
+
+const App = () => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">소개</Link>
+        </li>
+        <li>
+          <Link to="/profile/profiles">프로필</Link>
+        </li>
+      </ul>
+
+      <hr />
+      <Route path="/" component={Home} exact={true} />
+      <Route path={['/about', '/info']} component={About} />
+      <Route path="/profiles" component={Profiles} />
+      <Route path="/history" component={HistorySample} />
+    </div>
+  );
+}
+
+export default App;
+
+~~~
+
+
+#### withRouter
+
+- HoC (Higher-order Component) 입니다.
+- 라우트로 사용된 컴포넌트가 아니어도 match, location, history 객체를 접근하게 해준다.
+
+- WithRouterSample.js
+
+~~~
+
+import React from 'react';
+import {withRouter} from 'react-router-dom';
+
+const WithRouterSample = ({ location, match, history }) => {
+    return (
+        <div>
+            <h4>location</h4>
+            <textarea
+                value={JSON.stringify(location, null, 2)}
+                rows={7}
+                readOnly={true}
+            />
+            <h4>match</h4>
+            <textarea
+                value={JSON.stringify(match, null, 2)}
+                rows={7}
+                readOnly={true}/>
+                <button onClick={() => history.push('/')}>홈으로</button>
+        </div>
+    );
+};
+
+export default withRouter(WithRouterSample);
+
+~~~
+
+- Profiles.js
+
+~~~
+
+import React from 'react';
+import { Link, Route } from 'react-router-dom';
+import Profile from './Profile';
+import WithRouterSample from './WithRouterSample';
+
+const Profiles = () => {
+    return (
+        <div>
+            <h3>사용자 목록:</h3>
+            <ul>
+                <li>
+                    <Link to="/profile/developer">developer</Link>
+                </li>
+                <li>
+                    <Link to="/profile/gildong">gildong</Link>
+                </li>
+            </ul>
+
+            <Route
+                path="/profiles"
+                exact
+                render={() => <div>사용자를 선택해 주세요.</div>}
+            />
+            <Route
+                path="/profiles/:username" component={Profile}
+            />
+            <WithRouterSample />
+        </div>
+    )
+}
+
+export default Profiles;
+
+~~~
+
+- Profile.js
+
+~~~
+
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import WithRouterSample from './WithRouterSample';
+
+
+const data = {
+    developer: {
+        name: '개발자',
+        description: '리액트 개발자를 꿈꾸는 청년'
+    },
+    gildong: {
+        name: '홍길동',
+        description: '고전 소설 홍길동전의 주인공'
+    }
+};
+
+const Profile = ({ match }) => {
+    const { username } = match.params;
+    const profile = data[username];
+    if (!profile) {
+        return <div>존재하지 않는 사용자입니다.</div>;
+    }
+    return (
+        <div>
+            <h3>
+                {username}({profile.name})
+            </h3>
+            <p>{profile.description}</p>
+            <WithRouterSample />
+        </div>
+    );
+};
+export default Profile;
+
+~~~
+
+#### Switch
+
+- App.js
+
+~~~
+
+import React from 'react';
+import { Route, Link, Switch } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+import Profiles from './Profiles';
+import HistorySample from './HistorySample';
+
+const App = () => {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">소개</Link>
+        </li>
+        <li>
+          <Link to="/profile/profiles">프로필</Link>
+        </li>
+      </ul>
+
+      <hr />
+      <Swtich>
+        <Route path="/" component={Home} exact={true} />
+        <Route path={['/about', '/info']} component={About} />
+        <Route path="/profiles" component={Profiles} />
+        <Route path="/history" component={HistorySample} />
+        <Route
+          // path를 따로 정의하지 않으면 모든 상황에 렌더링 됨
+          render={({ location }) => (
+            <div>
+              <h2>이 페이지는 존재하지 않습니다:</h2>
+              <p>{location.pathname}</p>
+            </div>
+          )}
+        />
+      </Swtich>
+    </div>
+  );
+};
+
+export default App;
+
+~~~
+
+#### NavLink
+
+- Profiles.js
+
+~~~
+
+import React from 'react';
+import { NavLink, Route } from 'react-router-dom';
+import Profile from './Profile';
+import WithRouterSample from './WithRouterSample';
+
+const Profiles = () => {
+
+    const activeStyle = {
+        background: 'black',
+        color: 'white'
+    };
+
+    return (
+        <div>
+            <h3>사용자 목록:</h3>
+            <ul>
+                <li>
+                    <NavLink activStyle={activeStyle} to="/profile/developer">developer</NavLink>
+                </li>
+                <li>
+                    <NavLink activStyle={activeStyle} to="/profile/gildong">gildong</NavLink>
+                </li>
+            </ul>
+
+            <Route
+                path="/profiles"
+                exact
+                render={() => <div>사용자를 선택해 주세요.</div>}
+            />
+            <Route
+                path="/profiles/:username" component={Profile}
+            />
+            <WithRouterSample />
+        </div>
+    );
+};
+
+export default Profiles;
+
+~~~
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>
+
+
+
+
+
+

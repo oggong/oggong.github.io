@@ -1,0 +1,757 @@
+---
+layout: post
+title:  "1025-[React]-10.React componentstyling(1)"
+subtitle:   "1025-10.React componentstyling(1)"
+categories: devlog
+tags: react
+---
+
+## React componentstyling (1)
+
+<hr style="height: 1px; background: skyblue; "/>
+
+## 순서
+
+### CSS
+- 가장 기본적인 방식
+
+### Sass
+- 자주 사용되는 CSS 전처리기 중 하나 , 확장된 CSS 문법 사용
+
+### CSS Module
+- 스타일을 작성할 때 CSS 클래스가 다른 CSS 클래스의 이름과 절대 충돌하지 않도록 <br/>
+    파일마다 고유한 이름을 자동으로 생성해주는 옵션
+
+### styled-components
+- 스타일을 자바스크립트 파일에 내장시키는 방식
+- 스타일을 작성함과 동시에 해당 스타일이 적용된 컴포넌트를 만들 수 있게 해준다.
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 가장흔한 방식 , 일반 CSS
+
+- 프로젝트는 일반 CSS 방식으로 만들어져 있다.
+- 기존의 CSS 스타일링이 닥히 불편하지 않고 새로운 기술을 배울 필요가 없다고 생각되면 <br/>
+  일반 CSS를 계속 사용해도 상관 없다.
+
+- App.js
+
+~~~
+
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
+
+~~~
+
+- App.css
+
+~~~
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+~~~
+
+- CSS를 작성할때 가장 중요한 점은 CSS 클래스를 중복되지 않게 만드는 것
+- CSS클래스가 중복되는 방법은 여러 방식이 있다.
+
+#### 이름 짓는 규칙
+
+- 프로젝트에 자동 생성된 App.css 에는 컴포넌트 이름-클래스 형태로 지어져 있다
+- (App-header)
+- 클래스 이름에 컴포넌트 이름을 포함시킴으로써 다른 컴포넌트에서 실수로 중복되는 <br/>
+  클래스를 만들어 사용하는 것을 방지 한다.
+- 비슷한 방식은 BEM 네이밍 방식이 있다
+    - CSS 방법론 중 하나로 , 이름을 지을때 일종의 규칙을 준수하여 해당 클래스가 <br/>
+      어디에서 어떤 용도로 사용되는지 명확하게 작성하는 방식
+      (card_title-primary)
+
+#### CSS Selector
+
+- CSS Selector를 사용하면 CSS 클래스가 특정 클래스 내부에 있는 경우에만 스타일을 적용
+
+.App 안에 들어 있는 .logo에 스타일을 적용하고 싶다면 다음과 같이 작성
+
+- App.css
+
+~~~
+
+.App {
+  text-align: center;
+}
+
+.App .logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App .logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App .header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App .link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+~~~
+
+- App.js 수정
+
+~~~
+
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header>
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
+
+~~~
+
+- 이런식으로 컴포넌트의 최상위 html 요소에는 컴포넌트의 이름으로 <br/>
+  클래스 이름을 짓고(.App)
+- 그 내부에서 소문자를 입력하거나(.logo), header 같은 태그를 사용하여 <br/>
+  클래스 이름이 불필요한 경우에는 아예 생략할수도 있다.
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Sass 사용하기
+
+- Syntactically Awesome Style Sheets) Sass (문법적으로 매우 멋진 스타일 시트)
+- CSS 전처리기로 복잡한 작업을 쉽게 할 수 있도록 해 주고, 스타일 코드의 재활용성을 <br/>
+  높여 줄 뿐만 아니라 코드의 가독성을 높여서 유지 보수를 더욱 쉽게 해준다
+
+Sass 는 두가지 확장자 .scss .sass 지원
+
+.sass
+
+~~~
+
+$font-stack: Helvetica, sans-serif
+$primary-color: #333
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+
+~~~
+
+
+.scss
+
+~~~
+
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+~~~
+
+- 주요 차이점은 중괄호와 세미콜론
+- .sass 확장자 와 세미콜론 사용 x
+- .scss 확장자는 기존 CSS를 작성하는 방식과 비교해서 문법이 크게 다르지 않음
+
+
+> yarn add node-sass
+> - node-sass
+
+- App.js
+
+~~~
+
+import React, { Component } from 'react';
+import SassComponent from './SassComponent';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <SassComponent />
+      </div>
+    )
+  }
+}
+
+
+export default App;
+
+
+~~~
+
+
+- SassComponent.scss
+
+~~~
+
+// 변수 사용하기
+$red: #fa5252;
+$orange: #fd7e14;
+$yellow: #fcc419;
+$green: #40c057;
+$blue: #339af0;
+$indigo: #5c7cfa;
+$violet: #7950f2;
+
+// 믹스인 만들기 (재사용되는 스타일 블록을 함수처럼 사용할 수 있음
+
+@mixin square($size){
+    $calculated: 32px * $size;
+    width: $calculated;
+    height: $calculated;
+}
+
+.SassComponent {
+    display: flex;
+    .box {
+        // 일반 CSS에서는 .SassComponent .box와 마찬가지
+    background: red;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    &.red{
+        //.red 클래스가 .box와 함께 사용되었을때
+        background: $red;
+        @include square(1);
+    }
+    &.orange{
+        background: $orange;
+        @include square(2);
+    }
+    &.yellow{
+        background: $yellow;
+        @include square(3);
+    }
+    &.green{
+        background: $green;
+        @include square(4);
+    }
+    &.blue{
+        background: $blue;
+        @include square(5);
+    }
+    &.indigo{
+        background: $indigo;
+        @include square(6);
+    }
+    &.violet{
+        background: $violet;
+        @include square(7);
+    }
+    &:hover {
+        // .box에 마우스를 올렸을때
+        background: black;
+    }
+    }
+}
+
+~~~
+
+- SassComponent.js
+
+~~~
+
+import React from 'react';
+import './SassComponent.scss';
+
+const SassComponent = () => {
+    return (
+        <div className="SassComponent">
+            <div className="box red" />
+            <div className="box orange" />
+            <div className="box yellow" />
+            <div className="box green" />
+            <div className="box blue" />
+            <div className="box indigo" />
+            <div className="box violet" />
+        </div>
+    )
+}
+
+export default SassComponent;
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### utils 함수 분리하기
+
+여러 파일에서 사용될 수 있는 Sass 변수 및 믹스인은 다른 파일로 따로 분리하여 <br/>
+작성한 뒤 필요한 곳에서 쉽게 불러와 사용할수 있다.
+
+- src/styles/utils.scss
+
+~~~
+
+// 변수 사용하기
+$red: #fa5252;
+$orange: #fd7e14;
+$yellow: #fcc419;
+$green: #40c057;
+$blue: #339af0;
+$indigo: #5c7cfa;
+$violet: #7950f2;
+
+// 믹스인 만들기 (재사용되는 스타일 블록을 함수처럼 사용할 수 있음
+
+@mixin square($size){
+    $calculated: 32px * $size;
+    width: $calculated;
+    height: $calculated;
+}
+
+~~~
+
+- SassComponent.scss
+
+~~~
+
+@import './styles/utils';
+
+.SassComponent {
+    display: flex;
+    .box {
+        // 일반 CSS에서는 .SassComponent .box와 마찬가지
+    background: red;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    &.red{
+        //.red 클래스가 .box와 함께 사용되었을때
+        background: $red;
+        @include square(1);
+    }
+    &.orange{
+        background: $orange;
+        @include square(2);
+    }
+    &.yellow{
+        background: $yellow;
+        @include square(3);
+    }
+    &.green{
+        background: $green;
+        @include square(4);
+    }
+    &.blue{
+        background: $blue;
+        @include square(5);
+    }
+    &.indigo{
+        background: $indigo;
+        @include square(6);
+    }
+    &.violet{
+        background: $violet;
+        @include square(7);
+    }
+    &:hover {
+        // .box에 마우스를 올렸을때
+        background: black;
+    }
+    }
+}
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### sass-loader 설정 커스터마이징
+
+기존의 프로젝트에 디렉터리를 많이 만들면 깊어지고 복잡해짐
+
+@import '../../../style/utils';
+
+> yarn eject
+
+
+- config/webpack.config.js
+
+~~~
+
+{
+  test: sassRegex,
+  exclude: sassModuleRegex,
+  use: getStyleLoaders(
+    {
+      importLoaders: 2,
+      sourceMap: isEnvProduction && shouldUseSourceMap,
+    }).concat({
+      loader: require.resolve('sass-loader'),
+      options: {
+        includePaths: [paths.appSrc + '/styles'],
+        sourceMap: isEnvProduction && shouldUseSourceMap,
+        data: `@import 'utils';`}
+    }),
+
+~~~
+
+#### node_modules 에서 라이브러리 불러오기
+
+- yarn add open-color include-media
+
+
+- utils.scss
+
+~~~
+
+@import '~include-media/dist/include-media';
+@import '~open-color/open-color';
+
+// 변수 사용하기
+$red: #fa5252;
+$orange: #fd7e14;
+$yellow: #fcc419;
+$green: #40c057;
+$blue: #339af0;
+$indigo: #5c7cfa;
+$violet: #7950f2;
+
+// 믹스인 만들기 (재사용되는 스타일 블록을 함수처럼 사용할 수 있음
+
+@mixin square($size){
+    $calculated: 32px * $size;
+    width: $calculated;
+    height: $calculated;
+}
+
+~~~
+
+- Sass 라이브러리를 불러올 때는 node_modules 내부 라이브러리 경로 안에 <br/>
+  들어 있는 scss 파일을 불러와야 한다.
+- 보통 scss 파일 경로 위치가 잘 알려져 있지 않으니 직접 확인 해야 함.
+
+- SassComponent.scss
+
+~~~
+
+@import './styles/utils';
+
+.SassComponent {
+    display: flex;
+    .box {
+        // 일반 CSS에서는 .SassComponent .box와 마찬가지
+    background: $oc-gray-2;
+    @include media('<768px'){
+        background: $oc-gray-9;
+    }
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    &.red{
+        //.red 클래스가 .box와 함께 사용되었을때
+        background: $red;
+        @include square(1);
+    }
+    &.orange{
+        background: $orange;
+        @include square(2);
+    }
+    &.yellow{
+        background: $yellow;
+        @include square(3);
+    }
+    &.green{
+        background: $green;
+        @include square(4);
+    }
+    &.blue{
+        background: $blue;
+        @include square(5);
+    }
+    &.indigo{
+        background: $indigo;
+        @include square(6);
+    }
+    &.violet{
+        background: $violet;
+        @include square(7);
+    }
+    &:hover {
+        // .box에 마우스를 올렸을때
+        background: black;
+    }
+    }
+}
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### CSS Module
+
+> - CSS를 불러와서 사용할 때 클래스 이름을 고유한 값, <br/> 
+> 즉 [파일이름] _ [클래스이름] _ [해시값] 형태로 자동으로 만들어서 컴포넌트 <br/>
+> 스타일 클래스 이름이 중첩되는 현상을 방지해주느 기술
+
+- CSSModule.module.css
+
+~~~
+
+/* 자동으로 고유해질 것이므로 흔히 사용되는 단어를 클래스 이름으로 마음대로 사용 가능 */
+
+.wrapper {
+    background: black;
+    padding: 1rem;
+    color: white;
+    font-size: 2rem;
+}
+
+/* 글로벌 CSS를 작성하고 싶다면 */
+
+:global .something {
+    font-weight: 800;
+    color: aqua;
+}
+
+~~~
+
+> :global 전역적으로 사용되는 경우 
+
+- CSSModule.js
+
+~~~
+
+import React from 'react';
+import styles from './CSSModule.module.css';
+
+const CSSModule = () => {
+    return (
+        <div className={styles.wrapper}>
+            안녕하세요, 저는 <span className="something">CSS Module!</span>
+        </div>
+    );
+};
+export default CSSModule;
+
+~~~
+
+> - CSS Module이 적용된 스타일 파일을 불러오면 객체를 하나 전달받게 되는데 <br/>
+> CSS Module에서는 사용한 클래스 이름과 해당 이름을 고유화한 값이 <br/>
+> 키-값 형태로 들어 있다.
+> - {wrapper: "CSSModule_wrapper_1SbdQ"}
+> 사용하려면 클래스르 적용하고 싶은 JSX 엘리먼트에 className={styles.[클래스 이름]}
+
+- App.js
+
+~~~
+
+import React, { Component } from 'react';
+import CSSModule from './CSSModule';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <CSSModule />
+      </div>
+    )
+  }
+}
+
+
+export default App;
+
+
+~~~
+
+CSS Module을 사용한 클래스의 이름을 두 개 이상 적용할 때는 이렇게 하자
+
+- CSSModule.module.css
+
+~~~
+
+/* 자동으로 고유해질 것이므로 흔히 사용되는 단어를 클래스 이름으로 마음대로 사용 가능 */
+
+.wrapper {
+    background: black;
+    padding: 1rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.inverted {
+    color: black;
+    background: white;
+    border: 1px solid black;
+}
+
+
+/* 글로벌 CSS를 작성하고 싶다면 */
+
+:global .something {
+    font-weight: 800;
+    color: aqua;
+}
+
+~~~
+
+- CSSModule.js
+
+~~~
+
+import React from 'react';
+import styles from './CSSModule.module.css';
+
+const CSSModule = () => {
+    return (
+        <div className={`${styles.wrapper} ${styles.inverted}`}>
+            안녕하세요, 저는 <span className="something">CSS Module!</span>
+        </div>
+    );
+};
+export default CSSModule;
+
+~~~
+
+
+- 위 코드에서는 ES6 문법 템플릿 리터럴을 사용, 문자열을 합해 주었다.
+- 문자열 안에 자바스크립트 레퍼런스를 쉽게 넣어 줄수 있다.
+
+
+~~~
+
+const name = '리액트';
+// const message = '제 이름은' + name + '입니다';
+const message = '제 이름은 ${name}입니다.';
+
+~~~
+
+#### classnames
+
+- classnames는 CSS 클래스를 조건부로 설정할 때 매우 유용한 라이브러리
+- 또한 CSS Module 을 사용할 때 이 라이브러리를 사용하면 여러 클래스를 <br/>
+  적용할때 매우 편리하다.
+
+~~~
+
+import classNames from 'classnames';
+
+classNames ('one', 'two'); // = 'one two'
+classNames ( 'one', {two: true}); // = 'one two'
+classNames ('one', {two: false}); // = 'one'
+classNames ('one', ['two','three']); // = 'one two three'
+
+const myClass = 'hello';
+classNames('one', myClass, {myCondition: true});
+// = 'one hello myCondition'
+
+~~~
+
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>
+
+
+
+
+
+

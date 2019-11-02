@@ -1,0 +1,407 @@
+---
+layout: post
+title:  "1022-[React]-7.React component-repeat"
+subtitle:   "1022-7.React component-repeat"
+categories: devlog
+tags: react
+---
+
+## React component-repeat
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 자바스크립트 배열의 map() 함수
+
+- 배열 객체의 내장 함수인 map 함수를 사용하여 반복되는 컴포넌트를 렌더링
+- map 함수는 파라미터로 전달된 함수를 사용해서 배열 내 각 요소를 원하는 규칙에 따라 <br/>
+    변환한 후 그 결과로 새로운 배열을 생성
+
+
+~~~
+
+arr.map (callback, [thisArg])
+
+
+~~~
+
+> - callback : 새로운 배열의 요소를 생성하는 함수로 파라미터는 세가지
+>   - currentValue : 현재 처리하고 있는 요소
+>   - index : 현재 처리하고 있는 요소의 index 값
+>   - array : 현재 처리하고 있는 원본 배열
+> - thisArg(선택 항목) : callback 함수 내부에서 사용할 this 레퍼런스
+
+<hr style="height: 1px; background: skyblue; "/>
+
+- ex) map 함수를 사용하여 배열 [1,2,3,4,5]의 각 요소를 제곱해서 새로운 배열 생성
+
+~~~
+
+var numbers = [1,2,3,4,5];
+
+var processed = number.map(function(num){
+    return num * num;
+});
+
+console.log(processed);
+
+~~~
+
+- map 함수는 기존 배열로 새로운 배열을 만드는 역할을 한다.
+
+- ES6
+
+~~~
+
+const numbers = [1,2,3,4,5];
+const result - number.map(num => num * num);
+console.log(result);
+
+~~~
+
+- var 키워드 대신 const , function(){} 대신 화살표 함수 사용
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 데이터 배열을 컴포넌트 배열로 변환
+
+
+- 컴포넌트 수정
+
+
+- App.js
+
+~~~
+
+import React, { Component } from 'react';
+
+import IterationSample from './IterationSample';
+
+class App extends Component {
+
+  render() {
+    return (
+      <IterationSample />
+    );
+  }
+}
+
+export default App;
+
+
+~~~
+
+- IterationSample.js
+
+~~~
+
+import React from 'react';
+
+const IterationSample = () => {
+
+    const names = ['눈사람', '얼음', '눈', '바람'];
+    const nameList = names.map(name => <li>{name}</li>);
+    return <ul>{nameList}</ul>;
+}
+export default IterationSample;
+
+~~~
+
+- 문자열로 구성된 배열 선언
+- 그 배열 값을 사용하여 <li>....</li> JSX 코드로 된 배열을 새로 생성한 후 nameList 담기
+- map 함수에서 JSX를 작성할 때는 DOM, 컴포넌트를 사용해도 된다.
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/70519625-97cfdc80-1b7f-11ea-8853-d1955ee17409.JPG" width="400"><br/><br/><br/>
+<br/><br/><br/>
+
+- 'key' prop 없다는 경고 메시지가 나옴
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### key
+
+- key는 배열을 렌더링 했을때 어떤 원소에 변동이 있었는지 알아내려고 사용
+- 유동적인 데이터를 다룰 때는 원소를 새로 생성할 수도, 제거할 수도, 수정 할수도 있음
+- key 가 없을때 Virtual DOM을 비교하는 과정에서 리스트를 순차적으로 비교하면서 변화를 감지
+- key 가 있다면 이 값을 사용하여 어떤 변화가 일어났는지 더욱 빠르게 알수 있음
+
+
+#### key 설정
+
+- key 값을 설정할 때는 map 함수의 인자로 전달되는 함수 내부에서 컴포넌트 props를 설정하듯 설정
+- key 값은 언제나 유일!
+- 데이터가 고윳값을 key 값으로 설정
+
+~~~
+
+const articleList = article.map(article => {
+    <Article
+        title={article.title}
+        writer={article.writer}
+        key={article.id}/>
+);
+
+~~~
+
+- 이때는 map 함수에 전달되는 콜백 함수의 인수인 index 값을 사용
+
+- IterationSample.js
+
+~~~
+
+import React from 'react';
+
+const IterationSample = () => {
+
+    const names = ['눈사람', '얼음', '눈', '바람'];
+    const nameList = names.map((name,index) => <li key={index}>{name}</li>);
+    return <ul>{nameList}</ul>;
+}
+
+export default IterationSample;
+
+~~~
+
+- index 값을 key로 사용
+- 고유한 값이 없을 때만 index 값을 key로 사용
+- index를 key로 사용하면 배열이 변경될 때 효율적으로 리렌더링 하지 못함
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 응용
+
+- 동적인 배열을 렌더링 하는 것을 구현
+
+#### 초기 상태 설정하기
+
+> - IterationSample 컴포넌트에서 useState를 사용하여 상태를 설정
+> - 세가지 상태를 사용
+>   - 데이터 배열
+>   - 텍스트를 입력할 수 있는 input의 상태
+>   - 데이터 배열에서 새로운 항목을 추가할때 사용할 고유 id를 위한 상태
+
+- 배열을 설정할 때 , 조금 전에는 단순히 문자열로 이루어진 배열을 만들었지만, <br/>
+    이번에는 객체형태로 이루어진 배열
+    - (해당 객체에는 문자열과 고유 id 있음)
+
+- IterationSample.js
+
+~~~
+
+import React, {useState} from 'react';
+
+const IterationSample = () => {
+
+    const [names,setNames] = useState([
+        {id: 1, text: '눈사람'},
+        {id: 2, text: '얼음'},
+        {id: 3, text: '눈'},
+        {id: 4, text: '바람'}
+    ]);
+
+    const [inputText,setInputText] = useState('');
+    const [nextId, setNextId] = useState(5);
+    // 새로운 항목을 추가할 때 사용할 id
+
+    const nameList = names.map(name => <li key={name.id}>{name.text}</li>);
+    return <ul>{nameList}</ul>;
+}
+export default IterationSample;
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 데이터 추가기능 구현
+
+- IterationSample.js
+
+~~~
+
+import React, { useState } from 'react';
+
+const IterationSample = () => {
+
+    const [names, setNames] = useState([
+        { id: 1, text: '눈사람' },
+        { id: 2, text: '얼음' },
+        { id: 3, text: '눈' },
+        { id: 4, text: '바람' }
+    ]);
+
+    const [inputText, setInputText] = useState('');
+    const [nextId, setNextId] = useState(5);
+    // 새로운 항목을 추가할 때 사용할 id
+
+    const onChange = e => setInputText(e.target.value);
+
+    const nameList = names.map(name => <li key={name.id}>{name.text}</li>);
+    return (
+        <>
+            <input value={inputText} onChange={onChange} />
+            <button>추가</button>
+            <ul>{nameList}</ul>
+        </>
+    );
+};
+export default IterationSample;
+
+~~~
+
+- ul태그의 상단에 input 과 button을 렌더링하고 , input의 상태를 관리
+
+- 버튼을 클릭했을 때 호출할 onClick 함수를 선언하여 버튼의 onClick 이벤트로 설정
+- onClick 함수에서는 배열의 내장 함수 concat을 사용하여 새로운 항목을 추가한 배열을<br/>
+    만들고, setNames를 통해 상태를 업데이트
+
+~~~
+
+import React, { useState } from 'react';
+
+const IterationSample = () => {
+
+    const [names, setNames] = useState([
+        { id: 1, text: '눈사람' },
+        { id: 2, text: '얼음' },
+        { id: 3, text: '눈' },
+        { id: 4, text: '바람' }
+    ]);
+
+    const [inputText, setInputText] = useState('');
+    const [nextId, setNextId] = useState(5);
+    // 새로운 항목을 추가할 때 사용할 id
+
+    const onChange = e => setInputText(e.target.value);
+
+    const onClick = () => {
+        const nextNames = names.concat({
+            id: nextId, // nextId 값을 id로 설정하고
+            text: inputText
+        });
+        setNextId(nextId + 1); // nextId 값에 1을 더해 준다.
+        setNames(nextNames); // names 값을 업데이트한다.
+        setInputText(''); // inputText를 비운다.
+    };
+
+    const nameList = names.map(name => <li key={name.id}>{name.text}</li>);
+    return (
+        <>
+            <input value={inputText} onChange={onChange} />
+            <button onClick={onClick}>추가</button>
+            <ul>{nameList}</ul>
+        </>
+    );
+};
+export default IterationSample;
+
+~~~
+
+> - 배열에 새항목을 추가할 때 push 함수를 사용하지 않고, concat을 사용
+> - push 함수는 기존 배열 자체를 변경
+> - concat은 새로운 배열을 만들어 준다
+> - 리액트는 상태를 업데이트 할때 기존 상태를 그대로 두면서 새로운 값을 상태로 설정
+>   - 불변성 유지
+>   - 불변성 유지 -> 리앹그 컴포넌트의 성능을 최적화 가능
+> - onClick 함수에서 새로운 항목을 추가할때 객체의 id 값은 nextId를 사용
+> - 클릭 될때 마다 값이 1씩 올라가도록 구현
+> - 클릭 될때 기존의 input 내용을 배우는것도 구현
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 데이터 제거 기능 구현하기
+
+- 더블 클릭 => 항목 제거
+    - 데이터 불변성 유지 하면서 업데이트 해줘야 한다.
+    - 불변성을 유지하면서 배열의 특정 항목제거 = filter 함수 사용
+
+- ex/filter
+
+~~~
+
+const numbers = [1,2,3,4,5,6];
+const biggerThanThree = number.filter(number => number > 3);
+// 결과 : [4,5,6]
+
+~~~
+
+> - filter 함수의 인자에 분류 하고 싶은 조건을 반환 하는 함수를 넣어 쉽게 분류
+> - filter 함수를 응용 ==> 특정 배열에서 특정 원소만 제외시킬 수도 있다
+
+- 3만 없애기
+
+~~~
+
+const numbers = [1,2,3,4,5,6];
+const withoutThree = numbers.filter(number => number !==3);
+// 결과 : [1,2,4,5,6]
+
+~~~
+
+#### filter 함수를 사용하여 IterationSample 컴포넌트의 항목 제거 기능 구현
+
+
+- IterationSample.js
+
+~~~
+
+import React, { useState } from 'react';
+
+const IterationSample = () => {
+
+    const [names, setNames] = useState([
+        { id: 1, text: '눈사람' },
+        { id: 2, text: '얼음' },
+        { id: 3, text: '눈' },
+        { id: 4, text: '바람' }
+    ]);
+
+    const [inputText, setInputText] = useState('');
+    const [nextId, setNextId] = useState(5);
+    // 새로운 항목을 추가할 때 사용할 id
+
+    const onChange = e => setInputText(e.target.value);
+
+    const onClick = () => {
+        const nextNames = names.concat({
+            id: nextId, // nextId 값을 id로 설정하고
+            text: inputText
+        });
+        setNextId(nextId + 1); // nextId 값에 1을 더해 준다.
+        setNames(nextNames); // names 값을 업데이트한다.
+        setInputText(''); // inputText를 비운다.
+    };
+
+    const onRemove = id => {
+        const nextNames = names.filter(name => name.id !==id);
+        setNames(nextNames);
+    };
+
+    const nameList = names.map(name => 
+        <li key={name.id} onDoubleClick={() => onRemove(name.id)}>
+        {name.text}
+        </li>
+        );
+    return (
+        <>
+            <input value={inputText} onChange={onChange} />
+            <button onClick={onClick}>추가</button>
+            <ul>{nameList}</ul>
+        </>
+    );
+};
+export default IterationSample;
+
+
+~~~
+
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>
+
+
+
+
+
+

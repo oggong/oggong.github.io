@@ -1,0 +1,1191 @@
+---
+layout: post
+title:  "1030-[React]-15.React external-api"
+subtitle:   "1030-15.React external-api"
+categories: devlog
+tags: react
+---
+
+## React external-api
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 비동기 작업의 이해
+
+- 처리 시간이 오래 걸리는 작업이 있다.
+- 서버의 API를 이용해야 할때는 네트워크 송수신 과정에서 시간이 걸리기 때문에 <br/>
+  작업이 즉시 처리 되는 것이 아니라, 응답을 받을 때까지 기다렸다가 전달받은 <br/>
+  응답 데이터를 처리 한다.
+
+- 해당 작업을 비동기 처리하게 된다.
+
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/70760708-d89d4080-1d8d-11ea-9331-b2e1264f247d.png" width="400"><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+- 예시
+
+~~~
+
+function printMe() {
+    console.log('Hello World');
+}
+setTimeout(printMe, 3000);
+console.log('대기 중...');
+
+~~~
+
+
+> 대기 중 ...
+> Hello World!
+
+#### 콜백 함수
+
+- ex1
+
+~~~
+
+function increase(number, callback) {
+    setTimeout(() => {
+        const result = number + 10;
+      if (callback) {
+          callback(result);
+      }
+    }, 1000)
+}
+
+increase(0, result => {
+    console.log(result);
+})
+
+~~~
+
+> - 파라미터 값이 주어지면 1초 뒤애 10을 더해서 반환 하는 함수 
+
+
+~~~
+
+function increase(number, callback) {
+    setTimeout(() => {
+        const result = number + 10;
+        if (callback) {
+            callback(result);
+        }
+    }, 1000);
+}
+
+console.log('작업 시작');
+increase(0. result => {
+    console.log(result);
+    increase(result, result => {
+        console.log(result);
+        increase(result, result => {
+            console.log(result);
+            console.log('작업 완료');
+        });
+    });
+});
+
+~~~
+
+> 작업 시작
+> 10
+> 20
+> 30
+> 40
+> 작업 완료
+
+> - 1초에 걸쳐서 10,20,30,40과 같은 형태로 여러번 순차적으로 처리하고 싶다면 콜백 중첩 구현
+
+#### Promise
+
+- Promise는 콜백 지옥 같은 코드가 형성되지 않게 하는 방안으로 ES6에 도입된 기능
+
+- ex2
+
+~~~
+
+function increase(number) {
+    const promise = new Promise((resolve, reject) => {
+        // resolve는 성공, reject는 실패
+     setTimeout(() => {
+         const result = number + 10;
+         if (result > 50) {
+             // 50보다 높으면 에러 발생시키기
+             const e = new Error('NumberTooBig');
+             return reject(e);
+         }
+         resolve(result); // number 값에 + 10 후 성공 처리
+     }, 1000);
+    });
+    return promise;
+}
+
+increase(0)
+    .then(number => {
+        //Promise 에서 resolve된 값은 .then 을 통해 받아 올 수 있음
+    console.log(number);
+    return increase(number);
+    // Promise를 리턴하면
+    })
+    .then(number => {
+        // 또 .then 으로 처리 가능
+        console.log(number);
+        return increase(number);
+    })
+    .then(number => {
+        console.log(number);
+        return increase(number);
+    })
+    .then(number => {
+        console.log(number);
+        return increase(number);
+    })
+    .then(number => {
+        console.log(number);
+        return increase(number);
+    })
+    .catch(e => {
+        // 도중에 에러가 발생한다면 .catch를 통해 알 수 있음
+        console.log(e);
+    });
+
+~~~
+
+#### async/await
+
+> - async/await 은 Promise를 더욱 쉽게 사용할 수 있도록 해주는 ES2017(ES8) 문법
+
+
+- ex3
+
+~~~
+
+function increase(number) {
+    const promise = new Promise((resolve, reject) => {
+        // resolve는 성공, reject는 실패
+        setTimeout(() => {
+            const result = number + 10;
+            if (result > 50) {
+                // 50보다 높으면 에러 발생시키기
+                const e = new Error('NumberTooBig');
+                return reject(e);
+            }
+                resolve(result);
+                // number 값에 + 10 후 성공 처리
+
+        }, 1000)
+    });
+    return promise;
+}
+
+async function runTasks() {
+    try {
+        // try/catch 구문을 사용하면 에러를 처리한다.
+        let result = await increment(0);
+        console.log(result);
+        result = await increment(result);
+        console.log(result);
+        result = await increment(result);
+        console.log(result);
+        result = await increment(result);
+        console.log(result);
+        result = await increment(result);
+        console.log(result);
+        result = await increment(result);
+        console.log(result);
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+~~~
+
+#### axios로 API 호출해서 데이터 받아 오기
+
+- yarn create react-app new-viewer
+- cd news-viewer
+- yarn add axios
+
+.prettierrc
+
+~~~
+
+{
+    "singleQuote": true,
+    "semi": true,
+    "useTabs": false,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "printWidth": 80
+}
+
+~~~
+
+jsonconfig.json
+
+~~~
+
+{
+    "compilerOptions": {
+        "target": "es6"
+    }
+}
+
+~~~
+
+- App.js
+
+~~~
+
+import React, {useState} from 'react';
+import axios from 'axios';
+
+const App = () => {
+  const [data, setData] = useState(null);
+
+  const onClick = () => {
+    axios.get('https://jsonplaceholder.typicode.com/todos/1').then(response => {
+      setData(response.data);
+    });
+  };
+  return (
+    <div>
+      <div>
+        <button onClick={onClick}>불러오기</button>
+      </div>
+      {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true} />}
+    </div>
+  )
+}
+
+
+export default App;
+
+
+~~~
+
+- App.js
+
+~~~
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const App = () => {
+  const [data, setData] = useState(null);
+
+  const onClick = async () => {
+    try {
+      const response = await axios.get(
+        'https://jsonplaceholder.typicode.com/todos/1'
+      );
+      setData(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return (
+    <div>
+      <div>
+        <button onClick={onClick}>불러오기</button>
+      </div>
+      {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true} />}
+    </div>
+  )
+}
+
+
+export default App;
+
+
+~~~
+
+#### newsapi API 키 발급받기
+
+- https://newsapi.org/register
+
+
+- App.js
+
+~~~
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const App = () => {
+  const [data, setData] = useState(null);
+
+  const onClick = async () => {
+    try {
+      const response = await axios.get(
+        'https://newsapi.org/v2/top-headlines?country=kr&apiKey=[key]',
+      );
+      setData(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return (
+    <div>
+      <div>
+        <button onClick={onClick}>불러오기</button>
+      </div>
+      {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true} />}
+    </div>
+  )
+}
+
+
+export default App;
+
+
+~~~
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 뉴스 뷰어 UI 만들기
+
+- yarn add styled-components
+
+
+- NewsItem 만들기
+
+> - 뉴스 데이터가 지니고 있는 정보로 이루어진 JSON 객체를 받아서 <br/>
+> - 필드를 리액트 컴포넌트에 나타내기
+
+> - title: 제목
+> - description: 내용
+> - url: 링크
+> - urlToImage: 뉴스 이미지
+
+
+- components/NewsItem.js
+
+~~~
+
+import React from 'react';
+import styled from 'styled-components';
+
+const NewsItemBlock = styled.div`
+    display:flex;
+
+    .thumbnail {
+        margin-right: 1rem;
+        img {
+            display: block;
+            width: 160px;
+            height: 100px;
+            object-fit: cover;
+        }
+    }
+
+    .contents {
+        h2 {
+            margin: 0;
+            a {
+                color: black;
+            }
+        }
+        p {
+            margin: 0;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+            white-space: normal;
+        }
+    }
+    & + & {
+        margin-top: 3rem;
+    }
+    `;
+const NewsItem = ({ article }) => {
+    const { title, description, url, urlToImage } = article;
+    return (
+        <NewsItemBlock>
+            {urlToImage && (
+                <div className="thumbnail">
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                        <img src={urlToImage} alt="thumbnail" />
+                    </a>
+                </div>
+            )}
+            <div className="contents">
+                <h2>
+                    <a href={url} target="_blank" rel="noopener noreferrer">
+                        {title}
+                    </a>
+                </h2>
+                <p>{description}</p>
+            </div>
+        </NewsItemBlock>
+    );
+};
+export default NewsItem;
+
+~~~
+
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### NewsList 만들기
+
+- components/NewsList.js
+
+~~~
+
+import React from 'react';
+import styled from 'styled-components';
+import NewsItem from './NewsItem';
+
+const NewsListBlock = styled.div`
+    box-sizing: border-box;
+    padding-bottom: 3rem;
+    width: 768px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    `;
+
+const sampleArticle = {
+    title: '제목',
+    description: '내용',
+    url: 'https://google.com',
+    urlToImage: 'https://via.placeholder.com/160',
+};
+
+const NewsList = () => {
+    return (
+        <NewsListBlock>
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+            <NewsItem article={sampleArticle} />
+        </NewsListBlock>
+    );
+};
+
+export default NewsList;
+
+~~~
+
+- App.js
+
+~~~
+
+import React from 'react';
+import NewsList from './components/NewsList';
+
+const App = () => {
+  return <NewsList />;
+}
+
+
+export default App;
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 데이터 연동하기
+
+- API 호출
+
+- components/NewsList.js
+
+~~~
+
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import NewsItem from './NewsItem';
+import axios from 'axios';
+
+const NewsListBlock = styled.div`
+    box-sizing: border-box;
+    padding-bottom: 3rem;
+    width: 768px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    `;
+
+const sampleArticle = {
+    title: '제목',
+    description: '내용',
+    url: 'https://google.com',
+    urlToImage: 'https://via.placeholder.com/160',
+};
+
+const NewsList = () => {
+
+    const [articles, setArticles] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        // async를 사용하는 함수 따로 선언
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get(
+                    'https://newsapi.org/v2/top-headlines?country=kr&apiKey=[key]]'
+                );
+                setArticles(response.data.articles);
+            } catch (e) {
+                console.log(e);
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
+
+    // 대기 중일 때
+
+    if (loading) {
+        return <NewsListBlock>대기 중...</NewsListBlock>;
+    }
+
+    // 아직 articles 값이 설정되지 않았을 때
+    if (!articles) {
+        return null;
+    }
+
+    // articles 값이 유효할 때
+
+    return (
+        <NewsListBlock>
+            {articles.map(article => (
+                <NewsItem key={article.url} article={article} />
+            ))}
+        </NewsListBlock>
+    );
+};
+
+export default NewsList;
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 카테고리 기능 구현하기
+
+- business
+- science
+- entertainment
+- sports
+- health
+- technology
+
+
+
+- components/Categories.js
+
+~~~
+
+import React from 'react';
+import styled from 'styled-components';
+
+const categories = [
+    {
+        name: 'all',
+        text: '전체보기'
+    },
+    {
+        name: 'business',
+        text: '비즈니스'
+    },
+    {
+        name: 'entertainment',
+        text: '엔터테인먼트'
+    },
+    {
+        name: 'health',
+        text: '건강'
+    },
+    {
+        name: 'science',
+        text: '과학'
+    },
+    {
+        name: 'sports',
+        text: '스포츠'
+    },
+    {
+        name: 'technology',
+        text: '기술'
+    }
+];
+
+const CategoriesBlock = styled.div`
+    display: flex;
+    padding: 1rem;
+    width: 768px;
+    margin: 0 auto;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        overflow-x: auto;     
+    }
+    `;
+
+const Category = styled.div`
+        font-size: 1.125rem;
+        cursor: pointer;
+        white-space: pre;
+        text-decoration: none;
+        color: inherit;
+        padding-bottom: 0.25rem;
+
+        &:hover {
+            color #495057;
+        }
+
+        & + & {
+            margin-left: 1rem;
+        }
+        `;
+
+const Categories = () => {
+    return (
+        <CategoriesBlock>
+            {categories.map(c => (
+                <Category key={c.name}>{c.text}</Category>
+            ))}
+        </CategoriesBlock>
+    );
+};
+
+export default Categories;
+
+~~~
+
+
+- App.js 
+
+~~~
+
+import React from 'react';
+import NewsList from './components/NewsList';
+import Categories from './components/Categories';
+
+const App = () => {
+  return (
+    <>
+      <Categories />
+      <NewsList />;
+  </>
+  );
+};
+
+
+export default App;
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+- App.js
+
+~~~
+
+import React, { useState, useCallback } from 'react';
+import NewsList from './components/NewsList';
+import Categories from './components/Categories';
+
+const App = () => {
+
+  const [category, setCategory] = useState('all');
+  const onSelect = useCallback(category => setCategory(category), []);
+
+  return (
+    <>
+      <Categories category={category} onSelect={onSelect} />
+      <NewsList category={category} />;
+  </>
+  );
+};
+
+
+export default App;
+
+
+~~~
+
+- components/Categories.js
+
+~~~
+
+import React from 'react';
+import styled, { css } from 'styled-components';
+
+const categories = [
+    {
+        name: 'all',
+        text: '전체보기'
+    },
+    {
+        name: 'business',
+        text: '비즈니스'
+    },
+    {
+        name: 'entertainment',
+        text: '엔터테인먼트'
+    },
+    {
+        name: 'health',
+        text: '건강'
+    },
+    {
+        name: 'science',
+        text: '과학'
+    },
+    {
+        name: 'sports',
+        text: '스포츠'
+    },
+    {
+        name: 'technology',
+        text: '기술'
+    }
+];
+
+const CategoriesBlock = styled.div`
+    display: flex;
+    padding: 1rem;
+    width: 768px;
+    margin: 0 auto;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        overflow-x: auto;     
+    }
+    `;
+
+const Category = styled.div`
+        font-size: 1.125rem;
+        cursor: pointer;
+        white-space: pre;
+        text-decoration: none;
+        color: inherit;
+        padding-bottom: 0.25rem;
+
+        &:hover {
+            color #495057;
+        }
+
+        ${props =>
+        props.active && css`
+                font-weight: 600;
+                border-bottom: 2px solid #22b8cf;
+                color: #22b8cfl
+                &:hover {
+                    color: #3bc9db;
+                }
+        `}
+
+        & + & {
+            margin-left: 1rem;
+        }
+        `;
+
+const Categories = ({ onSelect, category }) => {
+    return (
+        <CategoriesBlock>
+            {categories.map(c => (
+                <Category
+                    key={c.name}
+                    active={category === c.name}
+                    onClick={() => onSelect(c.name)}
+                >{c.text}</Category>
+            ))}
+        </CategoriesBlock>
+    );
+};
+
+export default Categories;
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### API를 호출할 때 카테고리 지정하기
+
+- components/NewsList.js
+
+~~~
+
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import NewsItem from './NewsItem';
+import axios from 'axios';
+
+const NewsListBlock = styled.div`
+    box-sizing: border-box;
+    padding-bottom: 3rem;
+    width: 768px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    `;
+
+const sampleArticle = {
+    title: '제목',
+    description: '내용',
+    url: 'https://google.com',
+    urlToImage: 'https://via.placeholder.com/160',
+};
+
+const NewsList = ({ category }) => {
+
+    const [articles, setArticles] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        // async를 사용하는 함수 따로 선언
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const query = category === 'all' ? '' : `&category=${category}`;
+                const response = await axios.get(
+                    'https://newsapi.org/v2/top-headlines?country=kr&apiKey=[key]]'
+                );
+                setArticles(response.data.articles);
+            } catch (e) {
+                console.log(e);
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, [category]);
+
+    // 대기 중일 때
+
+    if (loading) {
+        return <NewsListBlock>대기 중...</NewsListBlock>;
+    }
+
+    // 아직 articles 값이 설정되지 않았을 때
+    if (!articles) {
+        return null;
+    }
+
+    // articles 값이 유효할 때
+
+    return (
+        <NewsListBlock>
+            {articles.map(article => (
+                <NewsItem key={article.url} article={article} />
+            ))}
+        </NewsListBlock>
+    );
+};
+
+export default NewsList;
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 리액트 라우터 적용하기
+
+- yarn add react-router-dom
+
+- index.js;
+
+~~~
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom';
+
+
+ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+
+
+~~~
+
+#### NewsPage 생성
+
+
+- pages/NewsPage.js
+
+~~~
+
+import React from 'react';
+import Categories from '../components/Categories';
+import NewsList from '../components/NewsList';
+
+const NewsPage = ({ match }) => {
+    // 카데고리가 선택되지 않았으면 기본값 all로 사용
+    const category = match.params.category || 'all';
+
+    return (
+        <>
+            <Categories />
+            <NewsList category={category} />
+        </>
+    );
+};
+
+export default NewsPage;
+
+~~~
+
+- App.js
+
+~~~
+
+import React from 'react';
+import { Route } from 'react-router-dom';
+import NewsPage from './pages/NewsPage';
+
+const App = () => {
+  return <Route path="/:category?" component={NewsPage} />;
+};
+
+
+export default App;
+
+
+~~~
+
+#### Categories에서 NavLink 사용하기
+
+- components/Categories.js
+
+~~~
+
+import React from 'react';
+import styled, { css } from 'styled-components';
+
+const categories = [
+    {
+        name: 'all',
+        text: '전체보기'
+    },
+    {
+        name: 'business',
+        text: '비즈니스'
+    },
+    {
+        name: 'entertainment',
+        text: '엔터테인먼트'
+    },
+    {
+        name: 'health',
+        text: '건강'
+    },
+    {
+        name: 'science',
+        text: '과학'
+    },
+    {
+        name: 'sports',
+        text: '스포츠'
+    },
+    {
+        name: 'technology',
+        text: '기술'
+    }
+];
+
+const CategoriesBlock = styled.div`
+    display: flex;
+    padding: 1rem;
+    width: 768px;
+    margin: 0 auto;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        overflow-x: auto;     
+    }
+    `;
+
+const Category = styled.(NavLink)`
+        font-size: 1.125rem;
+        cursor: pointer;
+        white-space: pre;
+        text-decoration: none;
+        color: inherit;
+        padding-bottom: 0.25rem;
+
+        &:hover {
+            color #495057;
+        }
+
+        &.active {
+            font-weight: 600;
+            border-bottom: 2px solid #22b8cf;
+            color: #22b8cf;
+            &:hover {
+                color: #3bc9db;
+            }
+        }
+
+        ${props =>
+        props.active && css`
+                font-weight: 600;
+                border-bottom: 2px solid #22b8cf;
+                color: #22b8cfl
+                &:hover {
+                    color: #3bc9db;
+                }
+        `}
+
+        & + & {
+            margin-left: 1rem;
+        }
+        `;
+
+const Categories = ({ onSelect, category }) => {
+    return (
+        <CategoriesBlock>
+            {categories.map(c => (
+                <Category
+                    key={c.name}
+                    activeClassName="active"
+                    exact={c.name === 'all'
+                    to={c.name === 'all' ? '/' : `/${c.name}`}}
+            >{c.text}</Category>
+    ))
+}
+        </CategoriesBlock >
+    );
+};
+
+export default Categories;
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### usePromise 커스텀 Hook 만들기
+
+- lib/usePromise.js
+
+~~~
+
+import { useState , useEffect } from 'react';
+
+export default function usePromise(promiseCreator, deps) {
+    // 대기 중/완료/실패에 대한 상태 관리
+    
+    const [loading, setLoading] = useState(false);
+    const [resolved, setResolved] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const process = async () => {
+            setLoading(true);
+            try {
+                const resolved = await promiseCreator();
+                setResolved(resolved);
+            } catch(e) {
+                setError(e);
+            }
+            setLoading(false);
+        };
+        process();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, deps);
+
+    return [loading, resolved, error];
+}
+
+~~~
+
+- components/NewsList.js
+
+~~~
+
+import React from 'react';
+import styled from 'styled-components';
+import NewsItem from './NewsItem';
+import axios from 'axios';
+import usePromise from '../lib/usePromise';
+
+const NewsListBlock = styled.div`
+  box-sizing: border-box;
+  padding-bottom: 3rem;
+  width: 768px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+`;
+
+const NewsList = ({ category }) => {
+  const [loading, response, error] = usePromise(() => {
+    const query = category === 'all' ? '' : `&category=${category}`;
+    return axios.get(
+      `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=[key]]`,
+    );
+  }, [category]);
+
+  // 대기중일 때
+  if (loading) {
+    return <NewsListBlock>대기중...</NewsListBlock>;
+  }
+  // 아직 response 값이 설정되지 않았을 때
+  if (!response) {
+    return null;
+  }
+
+  // 에러가 발생했을 때
+  if (error) {
+    return <NewsListBlock>에러 발생!</NewsListBlock>;
+  }
+
+  // response 값이 유효할 때
+  const { articles } = response.data;
+  return (
+    <NewsListBlock>
+      {articles.map(article => (
+        <NewsItem key={article.url} article={article} />
+      ))}
+    </NewsListBlock>
+  );
+};
+
+export default NewsList;
+
+~~~
+
+
+
+<hr style="height: 1px; background: skyblue; "/>
+
+> 리액트를 다루는 기술 책을 보고 공부한 것을 정리하여 올린 글입니다.<br/>
+> 출처: 길벗 리액트를 다루는 기술 <br/>
+
+
+
+
+
+
