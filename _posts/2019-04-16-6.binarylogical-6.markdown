@@ -1,0 +1,40 @@
+---
+layout: post
+title:  "0416-[자바]operator-6. 바이너리 연산자"
+subtitle:   "0416-Ex06_BinaryLogical"
+categories: devlog
+tags: Java
+
+---
+## Ex06_BinaryLogical [바이너리 연산자]
+---
+<p>
+- 바이너리 연산자<br>
+  - 이진논리 : (bit에 있는 1/0): "&", "|", "^"<br>
+  - "^" exclusive or ---> 더러 사용되어짐
+</p>
+---
+
+~~~
+public class Ex06_BinaryLogical {
+
+	public static void main(String[] args) {
+
+		int a = 15, b = 10;
+
+		int and = a & b;
+
+		int or = a | b;
+		int xor = a ^ b;
+
+		System.out.println(and); // 1111 1010 1010 10
+		System.out.println(or); // 1111 1010 1111 15
+		System.out.println(xor); // 0101 5
+	}
+
+}
+~~~
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57611056-011d4c00-75ad-11e9-9940-d5a928759a2e.jpg" width="50">

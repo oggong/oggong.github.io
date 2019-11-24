@@ -1,0 +1,44 @@
+---
+layout: post
+title:  "0418-2-[자바]-array-2.2차원배열"
+subtitle:   "0418-Ex02_2차원배열"
+categories: devlog
+tags: Java
+
+---
+## Ex02_2차원배열[배열]
+---
+<p>
+1. 타입[][] 배열이름;<br/>
+<br/>
+2. 타입 배열이름[][];<br/>
+<br/>
+3. 타입[] 배열이름[];<br/>
+</p>
+
+---
+
+~~~
+
+public class Ex02_2차원 {
+
+	public static void main(String[] args) {
+
+		int[][] score;
+		score = new int[3][4];
+
+		score[1][2] = 100;
+		score[2][3] = 100;
+
+		for(int i = 1; i<=2; i++) {
+			for(int j =2; j<=3; j++) {
+
+			}
+		}
+		System.out.println(score);
+	}
+
+}
+
+
+~~~

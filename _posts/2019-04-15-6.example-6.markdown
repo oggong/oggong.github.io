@@ -1,0 +1,77 @@
+---
+layout: post
+title:  "0415-[자바]datatype-6.example"
+subtitle:   "0415-Ex06_example"
+categories: devlog
+tags: Java
+
+---
+
+## Ex06_example
+---
+
+- 세 정수 A,B,C, 가 주어진다.<br>
+  - 이때 두 번째로 큰	정수를 출력하는 프로그램을 작성하시오.<br>
+
+
+- 입력
+	 - 첫째 줄에 세 정수 A,B,C가 공백으로 구분되어 주어진다.
+	   (1 ≤ A,B,C ≤ 100)
+
+
+- 출력
+	- 두 번째로 큰 정수를 출력한다.
+
+---
+
+- 코드
+
+~~~
+import java.util.Scanner;
+
+public class Ex06_example {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		// input 생성
+		Scanner input = new Scanner(System.in);
+
+		// A값:
+		System.out.print("A : ");
+		int a = input.nextInt();
+		// B값:
+		System.out.print("B : ");
+		int b = input.nextInt();
+		// C값:
+		System.out.print("C : ");
+		int c = input.nextInt();
+
+		// A,B,C는 1보다크고 100보다 작아야한다.
+	if (1 <= a && a <= 100 || 1 <= b && b <= 100 || 1 <= c && c <= 100)
+		 {
+
+			// 두번째 큰 수 구하기
+			if (a >= b && c >= a || b >= a && a >= c) {
+				System.out.print("두번째 큰수는 " + a);
+			} else if (b >= a && c >= b || b >= c && a >= b) {
+				System.out.print("두번째 큰수는 " + b);
+			} else if (c >= a && b >= c || c >= b && a >= c) {
+				System.out.print("두번째 큰수는 " + c);
+			} else {
+				System.out.println("error");
+			}
+		} else {
+			System.out.println("error");
+		}
+	}
+
+}
+
+~~~
+
+---
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57597871-0f0ea500-758c-11e9-8176-7fca0f940ce9.JPG">

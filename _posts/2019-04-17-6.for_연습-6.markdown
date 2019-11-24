@@ -1,0 +1,63 @@
+---
+layout: post
+title:  "0417-[자바]control-6.for문 연습"
+subtitle:   "0417-Ex06.for문 연습"
+categories: devlog
+tags: Java
+
+---
+## Ex06_for문 연습 [제어문]
+---
+<p>
+-		문제 1)1~ N까지의 숫자를 다음처럼 출력하라<br>
+		1 2 3 4 5 <br>
+		6 7 8 9 10 <br>
+		11 12 13 14 15 <br>
+</p>
+
+---
+
+~~~
+for (int i = 1; i <= 15; i++) {
+
+			System.out.print(i + " ");
+			// 5의 배수라면 개행
+			if (i % 5 == 0) {
+			System.out.println();
+			}
+		}
+~~~
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58371852-4d26a400-7f50-11e9-815a-7adc92087d41.JPG" width="130"><br><br>
+
+---
+
+<p>
+- 문제3 ) 입력받은 문자열의 뒤집어서 출력하세요<br>
+
+- [예]  입력     출력 <br>
+
+- 	안녕 친구   구친 녕안 <br>
+-	 CarpeDiem   meiDepraC <br>		
+</p>
+
+---
+
+~~~
+
+String msg = "안녕 친구";
+		int length = msg.length();
+		// for 문 구조 잡기
+		// charAt() 이용해서 화면 출력
+
+		for (int i = length - 1; i >= 0; i--) {
+			System.out.print(msg.charAt(i));
+		}
+
+~~~
+
+- 결과
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58371892-c9b98280-7f50-11e9-90a6-f53d227c5e74.JPG" width="80"><br>

@@ -1,0 +1,44 @@
+---
+layout: post
+title:  "0419-1-[자바]-array-4.버블정렬"
+subtitle:   "0419-Ex04_버블정렬"
+categories: devlog
+tags: Java
+
+---
+## Ex04_버블정렬[배열]
+---
+<p>
+버블 정렬
+
+</p>
+---
+
+~~~
+public static void main(String[] args) {
+
+		int[] arr = { 22, 15, 13, 7, 35, 25 };
+
+		for (int i = arr.length - 1; i > 0; i--) {
+			for (int j = 0; j < i; j++) {
+				if (arr[j] > arr[j + 1]) {
+					int temp = arr[j]; // 임시변수에 첫번째 값 대입
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp; // 값 맞바꾸기
+			}
+		}
+	}
+
+		for (int i = 0; i < arr.length; i++) {
+		System.out.print(arr[i] + "/");
+
+			}
+		}
+}
+
+
+~~~
+
+
+- 결과<br/>
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59158594-2db67c00-8af7-11e9-8cac-2edc6e5af59b.JPG" width="150"><br/><br/><br/><br/><br/>

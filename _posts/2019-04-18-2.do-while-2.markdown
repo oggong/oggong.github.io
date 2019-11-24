@@ -1,0 +1,56 @@
+---
+layout: post
+title:  "0418-1-[자바]control-10.do-while"
+subtitle:   "0418-Ex10.do-while"
+categories: devlog
+tags: Java
+
+---
+## Ex10_do-while[제어문]
+---
+<p>
+while(false){ <br/>
+ 명령문 <br/>
+} 먼저 조건 비교 후 명령문 <br/>
+do{ <br/>
+ 명령문 <br/>
+}while(false); <br/>
+// 명령문 실행 후 조건 비교 ------------ 언제 조건을 비교하느냐의 차이
+
+</p>
+
+---
+
+~~~
+
+
+	public static void main(String[] args) {
+		char result = '\0'; // '\u0000' 자바스타일 유니코드 0
+
+		do {
+			Scanner input = new Scanner(System.in);
+			System.out.println("출력 할 구구단의 숫자를 입력 하시오.");
+
+			int dan = input.nextInt();
+
+			int i = 1;
+
+			while (i <= 9) {
+				System.out.printf("%d * %d = %d \n", dan, i, dan * i);
+				i++;
+			}
+			System.out.println("다시 할래?(y|Y)");
+			result = input.next().charAt(0);
+			// nextLine() next() vs nextLine()
+		} while (result == 'Y' | result == 'y');
+	}
+
+}
+
+~~~
+
+
+
+
+- 결과<br/>
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148682-f5576500-8a46-11e9-85ba-4a926d1473fe.JPG" width="200"><br/><br/><br/><br/><br/>

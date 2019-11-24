@@ -1,0 +1,62 @@
+---
+layout: post
+title:  "0418-2-[자바]array-1.성적"
+subtitle:   "0418-Ex01.성적"
+categories: devlog
+tags: Java
+
+---
+## Ex01_성적[배열]
+---
+<p>
+배열(array)은 같은 타입의 변수들로 이루어진 유한 집합<br/>
+<br/>
+1차원 배열<br/>
+1차원 배열은 가장 기본적인 배열로 다음과 같은 문법에 따라 선언합니다.<br/>
+
+1. 타입[] 배열이름; <br/>
+
+2. 타입 배열이름[]; <br/>
+
+</p>
+
+---
+
+~~~
+
+public static void main(String[] args) {
+
+		int kor[] = new int[5];
+		Scanner input = new Scanner(System.in);
+		System.out.println("점수 입력(ex)12/13/14");
+		String score = input.nextLine();
+		StringTokenizer st = new StringTokenizer(score,"/");
+
+		for (int i = 0; st.hasMoreTokens(); i++) {
+			kor[i] = Integer.parseInt(st.nextToken());
+		}
+
+//		for (int i = 0; i < 5; i++) {
+//
+//			kor[i] = input.nextInt();
+//		}
+
+		// 총점 구하기
+		int total = 0;
+
+		for (int i = 0; i <= 4; i++) {
+			total += kor[i];
+
+		}
+		System.out.println(total);
+	}
+
+}
+
+~~~
+
+
+
+
+- 결과<br/>
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59149381-90ecd380-8a4f-11e9-9fe1-f961f8c5b105.JPG" width="170"><br/><br/><br/><br/><br/>
