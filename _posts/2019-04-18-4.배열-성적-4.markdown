@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex01_성적[배열]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 배열(array)은 같은 타입의 변수들로 이루어진 유한 집합<br/>
 <br/>
@@ -20,7 +22,7 @@ tags: Java
 
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 

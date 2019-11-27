@@ -7,13 +7,15 @@ tags: Java
 
 ---
 ## Ex09_while 연습 [제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 StringTokenizer
 
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 
@@ -43,6 +45,7 @@ public static void main(String[] args) {
 ---
 
 ~~~
+
 String str = "100*3+4/2-5";
 		StringTokenizer st = new StringTokenizer(str, "+-*/%");
 		// 연산자만 빠지기
@@ -58,13 +61,14 @@ String str = "100*3+4/2-5";
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/59148502-b32d2400-8a44-11e9-8ef1-e71ab5daacb2.JPG" width="50"><br/><br/><br/><br/><br/>
 
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 <p>
 1~10까지 더하기
 </p>
 
 ~~~
+
 int sum = 0;
 		int i = 1;
 		// for문 초기값 위로 이동
@@ -90,6 +94,7 @@ int sum = 0;
 </p>
 
 ~~~
+
 Scanner input = new Scanner(System.in);
 System.out.println("출력 할 구구단의 숫자를 입력 하시오.");
 

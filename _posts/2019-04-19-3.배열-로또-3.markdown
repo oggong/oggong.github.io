@@ -7,15 +7,19 @@ tags: Java
 
 ---
 ## Ex05_로또[배열]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 배열을 사용한 로또 번호 랜덤 출력
 
 
 </p>
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public static void main(String[] args) {
 
 		int[][] lotto = new int[5][6];

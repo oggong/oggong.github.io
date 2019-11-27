@@ -9,6 +9,8 @@ tags: Java
 
 ## Ex04_String
 
+<hr style="height: 1px; background: skyblue; "/>
+
 ~~~
 public class Ex04_String {
 

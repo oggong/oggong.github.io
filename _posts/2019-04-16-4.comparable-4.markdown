@@ -7,11 +7,13 @@ tags: Java
 
 ---
 ## Ex04_Comparable [비교 연산자]
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 - 비교 연산자
   -  1.>  ,2.< , 3.>=  ,4.<=  ,5.== ,6.!=
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 public class Ex04_Comparable {

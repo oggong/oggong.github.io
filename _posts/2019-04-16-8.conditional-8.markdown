@@ -7,14 +7,15 @@ tags: Java
 
 ---
 ## Ex08_Conditional [삼항 연산자]
----
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 -삼항 연산자<br>
   - (조건)? A:B<br>
   - 조건이 true 이면 A 실행하고 false 이면 B 실행한다.<br>
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 public class Ex08_Samhang {

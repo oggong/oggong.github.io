@@ -1,0 +1,72 @@
+---
+layout: post
+title:  "0426-[자바]-OOP-7.access2"
+subtitle:   "0426-access2"
+categories: devlog
+tags: Java
+
+---
+## access2
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Access
+
+~~~
+
+package g_access.sub;
+
+public class Access {
+
+	private String a = "프라이빗 데이터";
+	public String b = "퍼블릭 데이터";
+	String c = "디폴트 데이터";
+	protected String d = "프로텍티드 데이터";
+
+
+	public void output() {
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
+		System.out.println(d);
+
+	}
+}
+
+/*
+ * 접근 지정자 -private : 해당 클래스에만 허용 -public : 모든 허용 -default(아무지정없는경우) : 해당 패키지에만
+ * 허용 -protected : 다른 패키지인 경우 상속관계에만 허용 (동일패키지 허용)
+ *
+ * private < default <protected < public
+ */
+
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Main
+
+~~~
+
+package g_access.sub;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Access me = new Access();
+//		me.a = "프라이빗 변경"; 동일 패키지 내에서는 private 빼고는 모두 접근 가능
+		me.b = "퍼블릭 변경";
+		me.c = "디폴트 변경";
+		me.d = "프로텍티드 변경";
+		me.output();
+	}
+
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>

@@ -7,14 +7,18 @@ tags: Java
 
 ---
 ## Ex07_baseball [배열]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 배열을 이용한 baseball 게임 <br/>
 1~10 까지의 숫자가 무작위로 3개가 있을때 유저가 3개의 숫자를 맞추는 게임
 </p>
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public static void main(String[] args) {
 
 		int baseball[] = new int[3];
@@ -69,6 +73,7 @@ public static void main(String[] args) {
 		}
 
 	} // end of main
+	
 ~~~
 
 

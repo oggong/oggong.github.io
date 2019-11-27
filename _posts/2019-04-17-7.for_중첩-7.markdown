@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex07_for문 중첩 [제어문]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 
 - ex1)
@@ -19,9 +21,10 @@ tags: Java
 
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 for (int i = 0; i < 5; i++) {
 
 		for (int j = 4; j >= i; j--) {
@@ -30,17 +33,19 @@ for (int i = 0; i < 5; i++) {
 		}
 		System.out.println();
 	}
+
 ~~~
 - 결과
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58372089-a3e1ad00-7f53-11e9-909f-5f7a07b48e56.JPG" width="60"><br><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 <p>
 알파벳 A-Z 까지 -- 26번 반복
 </p>
 
 ~~~
+
 for (int i = 0; i < 26; i++) {
 			for (char ch = 'A'; ch <= 'A' + i; ch++) {
 				System.out.print(ch);
@@ -48,6 +53,7 @@ for (int i = 0; i < 26; i++) {
 			}
 			System.out.println();
 		}
+
 ~~~
 
 - 결과
@@ -55,12 +61,15 @@ for (int i = 0; i < 26; i++) {
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58372036-bad3cf80-7f52-11e9-9c41-324b08ebe4db.JPG" width="200">
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
+
 ~~~
+
 for (int i = 0; i < 26; i++) { for (char ch = 'A'; ch <= 'A' + i; ch++) {
 		System.out.print(ch);
 
 		} System.out.println(); }
+
 ~~~
 
 - 결과
@@ -68,13 +77,15 @@ for (int i = 0; i < 26; i++) { for (char ch = 'A'; ch <= 'A' + i; ch++) {
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58372036-bad3cf80-7f52-11e9-9c41-324b08ebe4db.JPG" width="200">
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 for (int i = 0; i < 26; i++) { for (char ch = 'A'; ch <= 'Z' - i; ch++) {
 		System.out.print(ch);
 
 } System.out.println(); }
+
 ~~~
 
 - 결과
@@ -82,13 +93,15 @@ for (int i = 0; i < 26; i++) { for (char ch = 'A'; ch <= 'Z' - i; ch++) {
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58372036-bad3cf80-7f52-11e9-9c41-324b08ebe4db.JPG" width="200">
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 for (int i = 0; i < 26; i++) { for (char ch = 'A'; ch <= 'Z' - i; ch++) {
 System.out.print(ch);
 
 } System.out.println(); }
+
 ~~~
 
 - 결과
@@ -96,13 +109,15 @@ System.out.print(ch);
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58372105-02a72680-7f54-11e9-8b78-f349473b68e4.JPG" width="200">
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 for (int i = 0; i < 26; i++) { for (int ch = 'A'+i; ch <= 'Z'; ch++) {
 		  System.out.print((char)ch);
 
 		  } System.out.println(); }
+
 ~~~
 
 - 결과
@@ -110,21 +125,25 @@ for (int i = 0; i < 26; i++) { for (int ch = 'A'+i; ch <= 'Z'; ch++) {
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58372132-5154c080-7f54-11e9-9cbd-4064d94195f3.JPG" width="250">
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 for (int i = 0; i < 26; i++) { for (char ch = 'Z'; ch >= 'Z' - i; ch--) {
 		 System.out.print(ch);
 } System.out.println(); }
+
 ~~~
+
 - 결과
 
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/58372166-bc05fc00-7f54-11e9-98f2-032ba2019422.JPG" width="220">
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 for (int i = 0; i < 26; i++) {
 			for (int ch = 'A' + i; ch <= 'Z'; ch++) {
 				System.out.print((char) ch);
@@ -136,6 +155,7 @@ for (int i = 0; i < 26; i++) {
 				System.out.print(' ');
 			}
 		}
+
 ~~~
 
 - 결과

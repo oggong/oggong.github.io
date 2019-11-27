@@ -7,7 +7,9 @@ tags: Java
 
 ---
 ## Ex02_2차원배열[배열]
----
+
+<hr style="height: 1px; background: skyblue; "/>
+
 <p>
 1. 타입[][] 배열이름;<br/>
 <br/>
@@ -16,7 +18,7 @@ tags: Java
 3. 타입[] 배열이름[];<br/>
 </p>
 
----
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
 

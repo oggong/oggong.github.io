@@ -7,14 +7,17 @@ tags: Java
 
 ---
 ## Ex03_Arithmetic [산술 연산자]
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 - 산술 연산자
   - " * " , " / " , " % ", " + ", " - "
   - "%"은 나머지 연산자
----
+
+<hr style="height: 1px; background: skyblue; "/>
 
 ~~~
+
 public class Ex03_Arithmetic {
 
 	public static void main(String[] args) {
@@ -35,7 +38,10 @@ public class Ex03_Arithmetic {
 		}
 	}
 }
+
 ~~~
+
+<hr style="height: 1px; background: skyblue; "/>
 
 - 결과
 

@@ -1,0 +1,80 @@
+---
+layout: post
+title:  "0425-[자바]-OOP-5.static"
+subtitle:   "0425-static"
+categories: devlog
+tags: Java
+
+---
+## static
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Book
+
+~~~
+
+package e_static;
+
+/*
+	static 변수 : 각 객체에서 공유 하려고 각 메모리당 하나씩만
+	static 변수는 클래스명 접근이 가능!
+	(그래서 static 변수 = 클래스 변수)
+*/
+public class Book {
+	private static int count; // 아무도 객체를 생성하지 않아도 static 은 메모리에 값을 넣어줌
+						// 클래스명 접근 가능
+	int temp;
+
+	public Book() {
+		count++;
+		temp ++;
+		System.out.println("책 한권 생성");
+	}
+
+	public static int getCount() {
+		return count;
+	}
+}
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### Main
+
+~~~
+
+
+package e_static;
+
+//java Main 실행
+//
+//Main m = new Main();
+
+//m.main();
+
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		Book b1 = new Book(); // 객체 생성
+		Book b2 = new Book();
+		Book b3 = new Book();
+//		System.out.println("갯수 :" + b1.getCount());
+//		System.out.println("갯수 :" + b2.getCount());
+//		System.out.println("갯수 :" + b3.getCount());
+
+		System.out.println("갯수 :"+ Book.getCount() +" "+ b3.temp);
+
+		}
+
+}
+
+
+
+~~~
+
+<hr style="height: 1px; background: skyblue; "/>
