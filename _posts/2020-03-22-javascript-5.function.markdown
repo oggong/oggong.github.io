@@ -8,181 +8,190 @@ tags: javascript
 ---
 
 
-## 조건문
+## 함수
 
-- 특수한 상황에 특정 작업문 실행 가능
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/77245685-c6238480-6c63-11ea-9637-2652ad5a0857.JPG" width="300"/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 
 <hr style="height: 1px; background: skyblue; "/>
 
-#### if문
 
-```
-
-const a = 0;
-if (a + 1 === 2) {
-  console.log("a + 1 이 2입니다.");
-}
-
-```
-
-> Console was cleared
+#### 특정값들의 합을 구하는 함수를 만들어보자!
 
 ```
 
 const a = 1;
-if (a + 1 === 2) {
-  console.log("a + 1 이 2입니다.");
+const b = 2;
+
+const sum =  a + b;
+
+```
+
+#### function으로 만들어보자!
+
+```
+
+function 함수이름 (파라미터) {
+
+	return 결과값;
 }
 
 ```
 
-> a + 1 은 2입니다.
-
-<br/>
-
-#### 다른 블록 범위에서는 똑같은 이름으로 변수 선언 가능하다!
+- 파라미터 = 넣는 값 <br/>
+- return = 반환 = 결과값으로 내주겠다
 
 ```
 
-const a = 1;
-if (a + 1 === 2) {
-  const a = 2;
-  console.log("if문 안의 a 값은 " + a);
+function add(a, b) {
+  return a + b;
 }
 
-console.log("if문 밖의 a 값은" + a);
+const sum = add(1, 2);
+console.log(sum);
 
 ```
 
-> if문 안의 a 값은 2 <br/>
-> if문 밖의 a 값은 1
-
-#### var를 추천하지 않는 이유!
+> 3
 
 ```
 
-var a = 1;
-if (a + 1 === 2) {
-  var a = 2;
-  console.log("if문 안의 a 값은 " + a);
+unction hello(name) {
+  console.log("Hello. " + name + "!");
 }
-
-console.log("if문 밖의 a 값은 " + a);
+hello("function");
 
 ```
 
-> if문 안의 a 값은 2 <br/>
-> if문 밖의 a 값은 2
+> Hello. function!
+
 
 <hr style="height: 1px; background: skyblue; "/>
 
-#### if ~ else
+#### Template literal
+
+- ES6 부터 사용하기 시작하였다!
+    - 자바스크립트 버전으로 2015년에 만들어졌다
+    - ES2015 라고도 불린다
+
+> ES7 = 2017 <br/>
+> ES8 = 2018 <br/>
+> ES9 = 2019 <br/>
+> ES10 = 현재 여기까지 만들어졌다
+
+- ES6 에서 큰 변화가 있었고 그 이후로는 조금씩의 변화가 있었음
 
 ```
 
-const a = 10;
+function hello(name) {
+  console.log(`hello ${name}!`);
+} hello('template literal');
 
-if (a > 15) {
-  console.log("a 가 15보다 큽니다");
-} else {
-  console.log("a 가 15보다 크지 않습니다.");
+```
+
+> hello template literal!
+
+```
+
+` ${parameter}`
+
+```
+
+#### returun 이후 함수 실행이 안된다.
+
+```
+
+function hello(name) {
+  return `hello ${name}!`;
+  console.log('a');
 }
 
+const result = hello('template literal');
+console.log(result);
+
 ```
 
-> a가 15보다 크지 않습니다.
+> hello template literal!
+
+- a 는 출력되지 않음
 
 <hr style="height: 1px; background: skyblue; "/>
 
-#### if ~ else if
+#### function 연습~
 
 ```
 
-const a = 7;
-
-if(a === 5) {
-  console.log('5 입니다');
-} else if (a === 10) {
-  console.log('10 입니다.');
-} else {
-  console.log('5도 아니고 10도 아닙니다');
+function getGrade(score) {
+  if (score === 100) {
+    return "A+";
+  } else if (score >= 90) {
+    return "A";
+  } else if (score === 89) {
+    return "B+";
+  } else if (score >= 80) {
+    return "B";
+  } else if (score === 79) {
+    return "C+";
+  } else if (score >= 70) {
+    return "C";
+  } else if (score === 69) {
+    return "D+";
+  } else if (score >= 60) {
+    return "D";
+  } else {
+    return "F";
+  }
 }
 
-```
-
-> 5도 아니고 10도 아닙니다.
-
-- 첫 번째 두 번째 도 비교해서 아니었기 때문에 세 번째 출력
-
+const grade = getGrade(100);
+console.log(grade);
 
 ```
 
-const a = 7;
+> A+
 
-if (a === 5) {
-  console.log("5 입니다");
-} else if (a === 10) {
-  console.log("10 입니다.");
-} else if (a === 7) {
-  console.log("7 입니다.");
-} else {
-  console.log("5도 아니고 10 도 아닙니다. 7도 아니네요");
-}
+
+<hr style="height: 1px; background: skyblue; "/>
+
+#### 화살표 함수
 
 ```
 
- <hr style="height: 1px; background: skyblue; "/>
-
-#### switch~ case
-
-- 특정 값이 무엇이냐에 따라 작업문을 실행
+const 함수명 = (파라미터) => {}
 
 ```
 
-const device = "iphone";
+- es6 이후로 사용되기 시작함
 
-switch (device) {
-  case "iphone":
-    console.log("iphone");
-    break;
-  case "ipad":
-    console.log("ipad");
-    break;
-  case "galaxy note":
-    console.log("galaxy note");
-    break;
-  default:
-    console.log("모르겠네요...");
-}
 
 ```
 
-> iphone
+const add = (a, b) => {
+  return a + b;
+};
 
-#### break가 빠지면
+const hello = name => {
+  console.log(`Hello ${name}!`);
+};
 
-```
+const sum = add(1, 2);
+console.log(sum);
 
-const device = "iphone";
-
-switch (device) {
-  case "iphone":
-    console.log("iphone");
-
-  case "ipad":
-    console.log("ipad");
-
-  case "galaxy note":
-    console.log("galaxy note");
-
-  default:
-    console.log("모르겠네요...");
-}
+hello("arrow function");
 
 ```
 
-> iphone <br/>
-> ipad <br/>
-> galaxy note <br/>
-> 모르겠네요...
+> 3 <br/>
+> hello arrow function!
+
+#### 함수 내부에서 바로 return 가능!
+
+```
+
+const add = (a, b) => a + b;
+const sum = add(1, 2);
+console.log(sum);
+
+```
+
+> 3
