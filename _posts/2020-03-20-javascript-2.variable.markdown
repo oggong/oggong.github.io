@@ -7,11 +7,6 @@ tags: javascript
 
 ---
 
-## fastcampus 강의를 들으면서 공부한 내용을 블로그로
-## 올리려고 합니다.
-
-<hr style="height: 1px; background: skyblue; "/>
-
 #### 변수
 
 ```
