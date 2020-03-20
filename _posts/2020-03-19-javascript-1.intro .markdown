@@ -19,7 +19,7 @@ tags: javascript
 
 <hr style="height: 1px; background: skyblue; "/>
 
-> 자바스크립트
+> 자바스크립트 <br/>
 >	1.배우기 쉬운 프로그래밍 언어
 > 2. 진입 장벽이 상대적으로 낮음
 
