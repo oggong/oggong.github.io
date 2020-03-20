@@ -18,7 +18,7 @@ tagline:              All we can do is do our best to relish this remarkable rid
 # A short description of the page, used in the sidebar and as fallback for the meta description tag.
 # Markdown enabled, but don't use more than one paragraph (enforced by `>`)
 description:         >
-  java , python
+  java , javascript, android
   programmer
 
 # This should be the same author as first entry in `_data/authors.yml`
