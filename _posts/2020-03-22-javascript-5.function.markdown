@@ -195,3 +195,5 @@ console.log(sum);
 ```
 
 > 3
+
+<hr style="height: 1px; background: skyblue; "/>
