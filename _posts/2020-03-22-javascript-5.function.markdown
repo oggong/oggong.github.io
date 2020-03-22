@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "2020-03-22-[javascript]-4.conditional statement"
-subtitle:   "2020-03-22 javascript study conditional statement "
+title:  "2020-03-22-[javascript]-5.function"
+subtitle:   "2020-03-22 javascript study function "
 categories: devlog
 tags: javascript
 
