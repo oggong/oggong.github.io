@@ -15,6 +15,8 @@ tags: javascript
 
 [ 0, 1, 2, 3];
 
+<br/>
+
 <hr style="height: 1px; background: skyblue; "/>
 
 <br/>
@@ -26,6 +28,7 @@ tags: javascript
 
 <hr style="height: 1px; background: skyblue; "/>
 
+<br/>
 
 #### 사용법
 
@@ -52,6 +55,7 @@ console.log(array);
 
 > [1, "blabla", Object]
 
+<br/>
 
 <hr style="height: 1px; background: skyblue; "/>
 
@@ -78,6 +82,7 @@ console.log(array[3]);
 > Object {} <br/>
 > undefined
 
+<br/>
 
 <hr style="height: 1px; background: skyblue; "/>
 
