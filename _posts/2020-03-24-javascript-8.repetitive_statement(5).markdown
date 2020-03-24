@@ -1,19 +1,19 @@
 ---
 layout: post
-title:  "2020-03-24-[javascript]-8.repetitive_statement(4)"
-subtitle:   "2020-03-24 javascript study repetitive_statement(4) "
+title:  "2020-03-24-[javascript]-8.repetitive_statement(5)"
+subtitle:   "2020-03-24 javascript study repetitive_statement(5) "
 categories: devlog
 tags: javascript
 
 ---
 
 
-## 반복문(4) <br/>
+## 반복문(5) <br/>
 
 
-#### break continue
+#### 연습
 
-#### 반복문에서 벗어나거나 그 다음 루프를 돌게 할 수 있다.
+
 
 <br/>
 
@@ -21,24 +21,80 @@ tags: javascript
 
 <br/>
 
+
+#### 반복문 연습과 퀴즈
+
+#### 함수를 만들어보자!
+
+
+- 파라미터로 숫자로 이루어진 배열을 가지고 올것!
+- 배열을 넣어주면은 배열의 값을 모두 합하는 함수를 실행!
+- 결과는 result라는 값에다가 함수의 결과물을 넣어줄것!
+
+
 ```
+function sumOf(numbers) {
 
-for (let i = 0; i< 10; i++){
 
-  if(i === 2) continue;
-  // continue 특정 조건이 만족되었을때 그 다음 루프를 해라!
-  // 2가 skip이되고 다음이 출력
-  console.log(i);
-
-  if(i === 5) break;
-  // break 가 나타나면 반복문이 끝남
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
 }
 
-// if 문 내부에서 실행할때 한줄짜리면 코드를 중괄호 안해도됨!
-
-// continue 그 다음 루프를 돌게하고
-// break는 끝낸다
+const result = sumOf([1, 2, 3, 4, 5]);
+console.log(result);
 
 ```
 
-#### for 문 이외의 다른곳도 사용 가능!!
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/77408635-5f38d380-6dfb-11ea-9b2c-4d7602a2aecb.JPG" width="500"/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/>
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+
+#### 퀴즈
+
+- 숫자로 이루어진 배열이 주어졌을 때, 해당 숫자 배열안에 들어있는 숫자 중 <br/>
+3보다 큰 숫자로만 이루어진 배열을 새로 만들어서 반환해보세요.
+
+```
+
+function biggerThanThree(numbers) {
+  /* 구현해보세요 */
+}
+
+const numbers = [1, 2, 3, 4, 5, 6, 7];
+console.log(biggerThanThree(numbers)); // [4, 5, 6, 7]
+
+```
+
+#### 답!!
+
+```
+
+function biggerThanThree(numbers) {
+  const array = [];
+
+  for (let i = 0; i < numbers.length; i++){
+    if(numbers[i] > 3) {
+      array.push(numbers[i]);
+    }
+  }
+  return array;
+}
+
+const numbers = [1, 2, 3, 4, 5, 6, 7];
+console.log(biggerThanThree(numbers)); // [4, 5, 6, 7]
+
+```
+
+
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/77408839-aaeb7d00-6dfb-11ea-8d2b-6fff0762c673.jpg" width="1000"/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/>
