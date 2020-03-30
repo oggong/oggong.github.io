@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "2020-03-24-[Vue.js]-Vue.js intro"
-subtitle:   "2020-03-24 Vue.js intro "
+title:  "2020-03-29-[Vue.js]-Vue.js intro"
+subtitle:   "2020-03-29 Vue.js intro "
 categories: devlog
 tags: vue
 
