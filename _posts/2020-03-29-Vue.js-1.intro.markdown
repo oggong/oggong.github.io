@@ -32,6 +32,14 @@ tags: vue
   기존 웹 개발자뿐만 아니라 HTML, CSS, 자바스크립트 기초만 알아도 접근하기 쉽다
 </p>
 
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/77879506-8bd66a80-7295-11ea-956e-d8b6d74bb49c.jpg" width="400"/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+> 점진적인 프레임워크로서의 뷰의 의미
+
+
+<br/><br/>
+
+
+
 - 뷰 코어 라이브러리는 화면단 데이터 표현에 관한 기능들을 중점적으로 지원
 - 프레임워크의 기능인 라우터, 상태 관리, 테스팅 등을 쉽게 결합 할수 있는 형태로 제공
 - 라이브러리 역할뿐만 아니라 프레임워크 역할도 할수 있다는 뜻
@@ -40,11 +48,13 @@ tags: vue
 
 - www.vuejs.org 에서도 점진적인 프레임워크라고 지칭
 
+
 <br/>
 
 <hr style="height: 1px; background: skyblue; "/>
 
 <br/>
+
 
 > 프런트엔드 프레임워크 시장은 리액트 앵귤러가 높은 점유율 차지 <br/>
 리액트, 앵귤러 상대적 오래된 프레임워크, 많은 기업들이 사용
@@ -87,3 +97,12 @@ tags: vue
 - UI 화면단 라이브러리
   - 뷰(Vue.js)는 UI 화면 개발 방법 중 하나
   - MVVM 패턴의 뷰 모델 (ViewModel)에 해당하는 화면단 라이브러리
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/77880189-0489f680-7297-11ea-8ebe-0402e252963a.jpg" width="400"/> <br/><br/><br/><br/><br/><br/><br/>
+>MVVM 구조에서의 Vue.js 위치
+
+- 모델(Model) - 뷰(View) - 뷰 모델 (ViewModel)로 구조화 하여 개발하는 방식
+
+  - 이유
+  - 화면의 요소들을 제어하는 코드와 데이터 제어 로직을 분리하여 코드를 더 직관적으로 이해할 수 있고, <br/>
+  추후 유지보수 편리
