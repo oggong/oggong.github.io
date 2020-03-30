@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "2020-03-30-[Vue.js]-Vue.js dev-environment"
-subtitle:   "2020-03-30 Vue.js dev-environment "
+title:  "2020-03-30-[Vue.js]-Vue.js 3.HelloVuejs"
+subtitle:   "2020-03-30 Vue.js HelloVuejs "
 categories: devlog
 tags: vue
 
 ---
 
 
-## Vue.js 개발환경 <br/>
+## Vue.js Hello Vue.js <br/>
 
 
 #### Do it Vue.js 입문을 보고 공부한 내용을 올리고 있습니다.
@@ -21,72 +21,17 @@ tags: vue
 
 <br/>
 
+#### Vue Start!!!
 
-#### Vue.js
-
+1. HTML 파일 생성
 <br/>
-
-#### 크롬 브라우저
-#### 아톰 텍스트 에디터
-#### Node.js
-#### Vue 개발자 도구 (Vue.js devtools, 크롬 확장 플러그인 )
-
+2. 뷰 소스 코드 추가
 <br/>
-
-<hr style="height: 1px; background: skyblue; "/>
-
+3. 브라우저로 실행
 <br/>
-
-#### 크롬 브라우저 설치하기 <br/>
-
-https://www.google.com/intl/ko/chrome/
-<br/>
-
-
-<hr style="height: 1px; background: skyblue; "/>
-
-<br/>
-
-#### 아톰 에디터 설치 <br/>
-
-https://atom.io/
-<br/>
-
-#### 아톰 테마 <br/>
-
-- seti-ui
-<br/>
-- atom-material-syntax-dark
-<br/>
-
-> Theme에서 Seti 적용
-
-#### 아톰 패키지 <br/>
-
-- language-vue
 
 <br/>
 
 <hr style="height: 1px; background: skyblue; "/>
 
 <br/>
-
-#### Node.js 설치 <br/>
-
-https://nodejs.org/en/
-
-<br/>
-
-<hr style="height: 1px; background: skyblue; "/>
-
-<br/>
-
-#### 뷰 개발자 도구 설치하기 <br/>
-
-- vuejs devtools
-  - Chrome Web Store를 클릭해서 크롬 플러그인 스토어로 이동
-  - 상단 오른쪽에 있는 CHROME에 추가 버튼 클릭
-
-<br/>
-
-<hr style="height: 1px; background: skyblue; "/>
