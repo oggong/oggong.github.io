@@ -35,3 +35,54 @@ tags: vue
 <hr style="height: 1px; background: skyblue; "/>
 
 <br/>
+
+- Hello Vue.js 출력!!
+
+```
+
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue Sample</title>
+  </head>
+  <body>
+    <div id="app">
+      {{message}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        }
+      });
+    </script>
+  </body>
+</html>
+
+
+```
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+
+- 뷰 개발자 도구로 코드 확인
+  - 처음 했을 때 로그가 떴다
+    - 첫 번째 로그 해결 방법 <br/>
+    1. 도구 더보기 - 확장 프로그램
+    2. 확장 프로그램을 선택 - 설치된 확장 플럭읜 목록 표시
+    3. 파일 URL에 대한 엑세스 허용
+
+  - 뷰 개발자 도구 사용 방법
+  1. Vue 탭을 열고 페이지 가운데에 보이는 '<Root> --$vm0'을 클릭하면 화면이 나온다
+
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
