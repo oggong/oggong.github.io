@@ -1,0 +1,141 @@
+---
+layout: post
+title:  "2020-03-31-[Vue.js]-Vue.js 4.Vue-instance(2)"
+subtitle:   "2020-03-31 Vue.js Vue instance "
+categories: devlog
+tags: vue
+
+---
+
+
+## Vue.js Vue instance (2) <br/>
+
+
+#### Do it Vue.js 입문을 보고 공부한 내용을 올리고 있습니다.
+
+
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### 뷰 인스턴스 라이프 사이클
+
+- 라이프 사이클 : 모바일 앱을 비롯하여 일반적으로 애플리케이션이 가지는 생명주기 <br/>
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/77992910-0371cb80-7362-11ea-89ac-b19145eb9fc4.jpg" width="600"/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+- 인스턴스 부착 후 소멸되기 까지의 전체적인 흐름을 나타낸 뷰 인스턴스 라이프 사이클 다이어그램
+<br/>
+
+1. 생성
+<br/>
+2. 부착
+<br/>
+3. 갱신
+<br/>
+4. 소멸
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+```
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue Instance Lifecycle</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        },
+        beforeCreate: function() {
+          console.log("beforeCreate");
+        },
+        created: function() {
+          console.log("created");
+        },
+        mounted: function() {
+          console.log("mounted");
+        },
+        updated: function() {
+          console.log("updated");
+        }
+      });
+      </script>
+  </body>
+</html>
+
+```
+
+> console <br/>
+beforeCreate <br/>
+mounted
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### message 값을 변경
+
+```
+
+<html>
+  <head>
+    <title>Vue Instance Lifecycle</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        },
+        beforeCreate: function() {
+          console.log("beforeCreate");
+        },
+        created: function() {
+          console.log("created");
+        },
+        mounted: function() {
+          console.log("mounted");
+          this.message = 'Hello Vue!';
+        },
+        updated: function() {
+          console.log("updated");
+        }
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+> beforeCreate <br/>
+created
+mounted
+updated
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
