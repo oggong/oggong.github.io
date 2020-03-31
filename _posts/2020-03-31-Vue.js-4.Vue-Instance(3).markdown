@@ -1,0 +1,284 @@
+---
+layout: post
+title:  "2020-03-31-[Vue.js]-Vue.js 4.Vue-instance(3)"
+subtitle:   "2020-03-31 Vue.js Vue instance "
+categories: devlog
+tags: vue
+
+---
+
+
+## Vue.js Vue instance (3) <br/>
+
+
+#### Do it Vue.js 입문을 보고 공부한 내용을 올리고 있습니다.
+
+
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### 뷰 컴포넌트
+
+- 컴포넌트 : 조합하여 화면을 구성할 수 있는 블록(화면의 특정 영역)을 의미 <br/>
+  = 컴포넌트를 활용하면 화면을 빠르게 구조화하여 일괄적인 패턴으로 개발 가능
+<br/>
+
+- 뷰에서는 웹 화면을 구성할 때 흔히 사용하는 네비게이션 바, 테이블, 리스트, 인풋 박스 등과 같은 화면 구성 요소들을 잘게 쪼개어 컴포넌트로 관리 <br/>
+- 컴포넌트 간의 관계는 뷰에서 화면을 구성하는데 매우 중요한 역할
+- 웹 페이지 화면을 설계할 때도 이와 같은 골격을 유지하면서 설계
+- 컴포넌트 간의 관계는 자료구조의 트리모양과 유사
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### 컴포넌트 등록 <br/>
+
+- 전역 (Global)
+- 지역 (Local) <br/>
+
+- 전역 컴포넌트 등록
+
+```
+
+Vue.component('컴포넌트 이름', {
+  // 컴포넌트 내용
+  })
+
+```
+
+- 전역 컴포넌트 등록 형식에는 컴포넌트 이름과 컴포넌트 내용이 존재
+- 컴포넌트 이름은 template 속성에서 사용할 HTML 사용자 정의 태그 이름을 의미
+
+
+```
+
+<html>
+  <head>
+    <title>Vue Component Registration</title>
+  </head>
+  <body>
+    <div id="app">
+      <button>컴포넌트 등록</button>
+			<my-component></my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      Vue.component('my-component', {
+        template: '<div>전역 컴포넌트가 등록되었습니다!</div>'
+      });
+
+      new Vue({
+        el: '#app'
+      });
+    </script>
+  </body>
+</html>
+
+
+```
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/78002312-fe1c7d00-7371-11ea-84a5-1bbc7a6df22c.JPG" width="400"/>
+<br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/>
+
+1. 뷰 라이브러리 파일 로딩 <br/>
+2. 뷰 생성자로 컴포넌트 등록 Vue.component() <br/>
+3. 인스턴스 객체 생성 <br/>
+4. 특정 화면 요소에 인스턴스 부착 <br/>
+5. 인스턴스 내용 변환 <br/>
+<my-component>가 <div>로 변환 됨 <br/>
+6. 변환된 화면 요소를 사용자가 최종 확인 <br/>
+
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### 지역 컴포넌트 등록 <br/>
+
+```
+
+new Vue({
+  component: {
+    '컴포넌트 이름' : 컴포넌트 내용
+  }
+});
+
+```
+
+<br/>
+
+- 전역 컴포넌트 등록과 다르게 인스턴스에 components 속성을 추가하고 등록
+<br/>
+
+```
+
+<html>
+  <head>
+    <title>Vue Component Registration</title>
+  </head>
+  <body>
+    <div id="app">
+      <button>컴포넌트 등록</button>
+      <my-local-component></my-local-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      var cmp = {
+        // 컴포넌트 내용
+        template: '<div>지역 컴포넌트가 등록되었습니다!</div>'
+      };
+
+      new Vue({
+        el: '#app',
+        components: {
+          'my-local-component': cmp
+        }
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+<br/>
+- 변수 cmp에 화면에 나타낼 컴포넌트 내용 정의
+- 간단히 template만 사용
+- 그리고 template 속성에 <div> 태그 1개만 설정
+- 아래 뷰 인스턴스에 components 속성을 추가하고 컴포넌트 이름에는 <br/>
+  my-local-component를, 컴포넌트 내용에는 앞에서 컴포넌트 내용을 <br/>
+  정의한 변수 cmp를 지정
+- my-local-component 태그를 추가하여 컴포넌트를 화면에 나타냄
+<br/><br/>
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/78003553-cd3d4780-7373-11ea-9340-bde2d6502537.JPG" width="400"/>
+<br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/>
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### 지역 컴포넌트와 전역 컴포넌트의 차이 <br/>
+
+- 인스턴스의 유효 범위를 이해해야 차이를 이해할수 있다.
+
+```
+
+<html>
+  <head>
+    <title>Vue Component Registration</title>
+  </head>
+  <body>
+    <div id="app">
+      <button>컴포넌트 등록</button>
+      <my-global-component></my-global-component>
+      <my-local-component></my-local-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+
+      // 전역 컴포넌트 등록
+
+      Vue.component('my-global-component', {
+        template: '<div>전역 컴포넌트입니다.</div>'
+      });
+
+
+      var cmp = {
+        // 컴포넌트 내용
+        template: '<div>지역 컴포넌트가 등록되었습니다!</div>'
+      };
+
+      new Vue({
+        el: '#app',
+        components: {
+          // 지역 컴포넌트 등록
+          'my-local-component': cmp
+        }
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+<br/>
+
+<img style="float: left;" src="https://user-images.githubusercontent.com/49095304/78003748-1e4d3b80-7374-11ea-8f3a-acf552bfaafc.JPG" width="400"/>
+<br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/>
+
+#### 인스턴스 유효 범위와 지역 컴포넌트, 전역 컴포넌트 간 관계 확인
+<br/>
+
+
+```
+
+<html>
+
+<head>
+  <title>Vue Component Registration</title>
+</head>
+
+<body>
+  <div id="app">
+    <h3>첫 번째 인스턴스 영역</h3>
+    <my-global-component></my-global-component>
+    <my-local-component></my-local-component>
+  </div>
+
+  <hr>
+
+  <div id="app2">
+    <h3>두 번째 인스턴스 영역</h3>
+    <my-global-component></my-global-component>
+    <my-local-component></my-local-component>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+  <script>
+    // 전역 컴포넌트 등록
+
+    Vue.component('my-global-component', {
+      template: '<div>전역 컴포넌트입니다.</div>'
+    });
+
+
+    var cmp = {
+      // 컴포넌트 내용
+      template: '<div>지역 컴포넌트가 등록되었습니다!</div>'
+    };
+
+    new Vue({
+      el: '#app',
+      components: {
+        // 지역 컴포넌트 등록
+        'my-local-component': cmp
+      }
+    });
+
+    // 두 번째 인스턴스
+    new Vue({
+      el:'#app2',
+    });
+  </script>
+</body>
+
+</html>
+
+```
