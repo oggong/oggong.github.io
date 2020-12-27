@@ -1,7 +1,7 @@
 ---
 layout: tag-blog
-title: Oracle
-slug: Oracle
+title: Algorithm
+slug: Algorithm
 category: devlog
 menu: false
 order: 1
