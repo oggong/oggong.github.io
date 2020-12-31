@@ -40,10 +40,6 @@ tags: algorithm
 <br/>
 </p>
 
-<br/>
-
-#### 알고리즘 어원
-
 <hr style="height: 1px; background: skyblue; "/>
 
 <br/>
