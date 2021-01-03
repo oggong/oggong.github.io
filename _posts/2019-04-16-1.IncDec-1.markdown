@@ -25,12 +25,12 @@ public static void main(String[] args) {
 System.out.println("A=" + a + 1 + ",B=" + b + 1);
 ```
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57599877-18e7d680-7593-11e9-80c7-4a3d770eb35d.jpg" width="50">
-<br>
+<br/>
 ```
 System.out.println("A=" + (a + 1) + ",B=" + (b + 1));
 ```
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57599979-66644380-7593-11e9-9484-481b953bb353.JPG" width="50">
-<br>
+<br/>
 ```
 a = a+1 ;
 b = b-1 ;
@@ -38,7 +38,7 @@ b = b-1 ;
 System.out.println("A=" + a + ",B=" + b);
 ```
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57600630-4fbeec00-7595-11e9-8eb6-2386c4d0c8cf.jpg" width="50">
-<br>
+<br/>
 
 - 축약형 증감 연산자 (위 연산과 같음)
 
@@ -48,7 +48,7 @@ a++;
 b--;
 System.out.println("A=" + a + ",B=" + b);
 ```
-<img style="float: left;" src ="https://user-images.githubusercontent.com/49095304/57601077-877a6380-7596-11e9-9320-c0199717ed88.jpg" width="50"><br>
+<img style="float: left;" src ="https://user-images.githubusercontent.com/49095304/57601077-877a6380-7596-11e9-9320-c0199717ed88.jpg" width="50"><br/>
 
 ```
 a = a + 1; b = b - 1;
@@ -56,7 +56,7 @@ a = a + 1; b = b - 1;
 --b;
 System.out.println("A=" + a + ",B=" + b);
 ```
-<img style="float: left;" src ="https://user-images.githubusercontent.com/49095304/57601077-877a6380-7596-11e9-9320-c0199717ed88.jpg" width="50"><br>
+<img style="float: left;" src ="https://user-images.githubusercontent.com/49095304/57601077-877a6380-7596-11e9-9320-c0199717ed88.jpg" width="50"><br/>
 
 ```
 int result = ++a;
@@ -66,7 +66,7 @@ int result2 = a++;
 System.out.println("Result2:" + result2 + " A=" + a);
 // result2 값 입력 후 a 를 증가 시킴
 ```
-<img style="float: left;" src ="https://user-images.githubusercontent.com/49095304/57601453-79791280-7597-11e9-9857-1618e04fbb35.jpg" width="90"><br>
+<img style="float: left;" src ="https://user-images.githubusercontent.com/49095304/57601453-79791280-7597-11e9-9857-1618e04fbb35.jpg" width="90"><br/>
 
 ```
 System.out.println("A=" + ++a + " B=" + --b);
@@ -77,4 +77,4 @@ System.out.println("A=" + a + " B=" + b);
 //누적 후 세번째 계산
 ```
 <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/57601630-f4dac400-7597-11e9-8f8a-cf16d35a5fd9.jpg" width="50">
-<br>
+<br/>
