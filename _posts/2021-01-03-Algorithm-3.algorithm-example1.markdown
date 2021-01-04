@@ -21,7 +21,7 @@ tags: algorithm
 <br/>
 
 #### 하노이의 탑
-
+<hr style="height: 1px; background: skyblue; "/>
 
 
 <!-- <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/78002312-fe1c7d00-7371-11ea-84a5-1bbc7a6df22c.JPG" width="400"/>
