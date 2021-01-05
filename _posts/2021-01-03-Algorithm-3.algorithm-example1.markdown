@@ -21,6 +21,9 @@ tags: algorithm
 <br/>
 
 #### 하노이의 탑
+
+<p>프랑스 수학자 에두아르 뤼카의 하노이의 탑</p>
+
 <hr style="height: 1px; background: skyblue; "/>
 
 
