@@ -24,6 +24,9 @@ tags: algorithm
 
 <p>프랑스 수학자 에두아르 뤼카의 하노이의 탑</p>
 
+세개의 탑이 있다.
+
+
 <hr style="height: 1px; background: skyblue; "/>
 
 
