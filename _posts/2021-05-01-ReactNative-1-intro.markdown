@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "2020-12-30-[Algorithm]-Algorithm example1"
-subtitle:   "2020-12-30 Algorithm study with javascript"
+title:  "2021-05-01-[ReactNative]-React Native study"
+subtitle:   "2021-05-01 React Native study"
 categories: devlog
-tags: algorithm
+tags: reactnative
 
 ---
 
@@ -11,7 +11,6 @@ tags: algorithm
 ## Algorithm study start <br/>
 
 
-#### 모두의 알고리즘 with 자바스크립트 를 보고 공부 한 내용 입니다.
 
 
 <br/>
@@ -23,6 +22,9 @@ tags: algorithm
 #### 하노이의 탑
 
 <p>프랑스 수학자 에두아르 뤼카의 하노이의 탑</p>
+
+<hr style="height: 1px; background: skyblue; "/>
+
 
 <hr style="height: 1px; background: skyblue; "/>
 
