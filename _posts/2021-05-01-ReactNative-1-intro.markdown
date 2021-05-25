@@ -8,7 +8,7 @@ tags: reactnative
 ---
 
 
-## Algorithm study start <br/>
+## 리액트 네이티브란 <br/>
 
 
 
@@ -19,9 +19,8 @@ tags: reactnative
 
 <br/>
 
-#### 하노이의 탑
+#### 페이스북에서 만든 오픈소스 모바일 애플리케이션 프레임 워크
 
-<p>프랑스 수학자 에두아르 뤼카의 하노이의 탑</p>
 
 <hr style="height: 1px; background: skyblue; "/>
 
