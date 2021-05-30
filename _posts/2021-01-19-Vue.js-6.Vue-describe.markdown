@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "2020-10-17-[Vue.js]-Vue.js 5.Vue-restart"
+subtitle:   "2020-10-17 Vue.js"
+categories: devlog
+tags: vue
+
+---
+
+
+## Vue.js Vue restart <br/>
+
+
+#### Vue.js 코딩 공작소를 보고 공부한 내용을 정리한 것입니다.
+
+
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### 책을 보며 다시 마음을 잡고자 공부에 들어갑니다!!
+<br/>
+
+<hr style="height: 1px; background: skyblue; "/>
+
+<br/>
+
+#### Vue.js intro <br/>
+
+<p>
+Vue.js 는 자바스크립트를 실행할 수 있는 한경이라면 어디에서든 양방향성과 기능성을 제공 할수 있는 라이브러리.
+개인 웹 페이지 부터 기업 전체 애플리케이션의 기본 틀이 될 수도 있다.
+</p>
+
+
+<!-- <img style="float: left;" src="https://user-images.githubusercontent.com/49095304/78002312-fe1c7d00-7371-11ea-84a5-1bbc7a6df22c.JPG" width="400"/>
+<br/><br/><br/><br/><br/><br/><br/> -->
